@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sydney Trip · 시드니 여행</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<style>
+:root{
+  --navy:#0E3A4F; --navy2:#0E4D64; --teal:#0E7C86; --tealb:#19A0A8;
+  --sand:#D9C7A0; --sandsoft:#EFE7D4; --paper:#F4F7F8; --card:#fff;
+  --ink:#16252B; --muted:#5E7681; --line:#DCE6E9; --coral:#E8734A;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{
+  font-family:-apple-system,"Apple SD Gothic Neo","Pretendard","Malgun Gothic","Noto Sans KR",system-ui,sans-serif;
+  background:var(--paper); color:var(--ink); line-height:1.5;
+  -webkit-text-size-adjust:100%;
+}
+a{color:var(--teal);text-decoration:none}
+.wrap{max-width:760px;margin:0 auto;padding:0 14px 60px}
+
+/* Hero */
+.hero{
+  background:linear-gradient(160deg,#0E3A4F 0%,#0E4D64 55%,#0E7C86 140%);
+  color:#fff;padding:26px 18px 20px;border-radius:0 0 20px 20px;
+  position:relative;overflow:hidden;
+}
+.hero:after{content:"";position:absolute;right:-40px;top:-40px;width:180px;height:180px;
+  border:2px solid rgba(255,255,255,.12);border-radius:50%}
+.hero .eyebrow{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#BFE3E7;margin:0 0 6px}
+.hero h1{margin:0;font-size:25px;font-weight:800;letter-spacing:-.01em}
+.hero .meta{margin:8px 0 0;font-size:12.5px;color:#D7EAEC}
+.hero .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.chip{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.18);
+  border-radius:999px;padding:5px 11px;font-size:11.5px;color:#fff}
+.chip b{color:#fff}
+
+/* progress */
+.prog{margin-top:14px}
+.prog .bar{height:8px;background:rgba(255,255,255,.18);border-radius:999px;overflow:hidden}
+.prog .fill{height:100%;width:0;background:linear-gradient(90deg,#7FE0D6,#19A0A8);transition:width .35s}
+.prog .lbl{font-size:11.5px;color:#CDE7E9;margin-top:6px;display:flex;justify-content:space-between}
+
+/* tabs */
+.tabs{position:sticky;top:0;z-index:40;background:var(--paper);
+  display:flex;gap:6px;padding:10px 0 8px;margin-top:6px;border-bottom:1px solid var(--line)}
+.tab{flex:1;text-align:center;padding:9px 6px;border-radius:11px;font-size:13px;font-weight:700;
+  color:var(--muted);background:transparent;border:1px solid transparent;cursor:pointer}
+.tab.active{color:#fff;background:var(--navy2)}
+.panel{display:none;padding-top:14px}
+.panel.active{display:block}
+
+/* day card */
+.day{background:var(--card);border:1px solid var(--line);border-radius:16px;margin-bottom:12px;overflow:hidden;
+  box-shadow:0 1px 2px rgba(14,58,79,.04)}
+.dhead{display:flex;align-items:center;gap:12px;padding:13px 14px;cursor:pointer;user-select:none}
+.daydot{flex:0 0 auto;width:34px;height:34px;border-radius:9px;display:grid;place-items:center;
+  color:#fff;font-weight:800;font-size:13px}
+.dhead .h{flex:1;min-width:0}
+.dhead .dno{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.dhead .dt{font-size:14.5px;font-weight:800;line-height:1.25}
+.dhead .de{font-size:11.5px;color:var(--muted)}
+.dhead .cnt{font-size:11px;color:var(--muted);background:var(--paper);border:1px solid var(--line);
+  border-radius:999px;padding:3px 8px;white-space:nowrap}
+.chev{transition:transform .25s;color:var(--muted);flex:0 0 auto}
+.day.open .chev{transform:rotate(90deg)}
+.cap{font-size:11px;color:var(--navy2);background:var(--sandsoft);padding:4px 14px;border-top:1px solid #ECE3CF;border-bottom:1px solid #ECE3CF}
+.body{display:none;padding:6px 6px 10px}
+.day.open .body{display:block}
+
+/* timeline */
+.thread{position:relative;padding-left:8px}
+.stop{position:relative;display:flex;gap:11px;padding:8px 8px 8px 10px;border-radius:11px}
+.stop:active{background:#F0F6F7}
+.rail{position:relative;flex:0 0 auto;width:36px;display:flex;flex-direction:column;align-items:center}
+.rail .time{font-size:10.5px;font-weight:700;color:var(--teal);white-space:nowrap;margin-bottom:4px}
+.node{width:14px;height:14px;border-radius:50%;border:3px solid var(--teal);background:#fff;flex:0 0 auto;z-index:2}
+.node.done{background:var(--teal)}
+.rail .line{position:absolute;top:24px;bottom:-8px;width:2px;background:var(--line);z-index:1}
+.scon{flex:1;min-width:0}
+.sk{font-size:13.5px;font-weight:600}
+.se{font-size:11.5px;color:var(--muted);margin-top:1px}
+.tagfree{display:inline-block;font-size:10px;font-weight:700;color:#2C7A4B;background:#E4F4EA;border-radius:6px;padding:1px 6px;margin-left:6px;vertical-align:1px}
+.act{display:flex;gap:8px;align-items:center;margin-top:7px;flex-wrap:wrap}
+.btn{font-size:11.5px;font-weight:700;border:1px solid var(--line);background:#fff;color:var(--navy2);
+  border-radius:999px;padding:5px 11px;cursor:pointer;display:inline-flex;align-items:center;gap:5px}
+.btn.map{color:var(--teal)}
+.cbox{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:700;color:var(--muted);cursor:pointer;user-select:none}
+.cbox input{width:16px;height:16px;accent-color:var(--teal)}
+.stop.done .sk{color:var(--muted);text-decoration:line-through;text-decoration-color:#B9CCD1}
+.move{display:flex;gap:9px;align-items:flex-start;padding:2px 8px 2px 10px;color:#2F7B86}
+.move .rail2{width:36px;display:flex;justify-content:center;flex:0 0 auto}
+.move .seg{width:2px;background:repeating-linear-gradient(var(--line) 0 4px,transparent 4px 8px)}
+.move .mt{font-size:11px;font-style:italic;color:#3E7C86;padding:3px 0}
+.sub{font-size:10.5px;color:#7C8C93;padding:2px 10px 2px 56px}
+
+/* map */
+#map{height:62vh;min-height:380px;border-radius:16px;border:1px solid var(--line);overflow:hidden;z-index:1}
+.mapnote{font-size:11.5px;color:var(--muted);margin:10px 2px 12px}
+.legend{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px}
+.lg{display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--ink);
+  border:1px solid var(--line);background:#fff;border-radius:999px;padding:4px 10px;cursor:pointer}
+.lg .sw{width:11px;height:11px;border-radius:50%}
+.lg.off{opacity:.4}
+
+/* checklist + cards */
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 16px;margin-bottom:12px}
+.card h3{margin:0 0 4px;font-size:15px;color:var(--navy2)}
+.card .sc{font-size:11.5px;color:var(--muted);margin:0 0 10px}
+.cl{list-style:none;margin:0;padding:0}
+.cl li{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #EEF3F4}
+.cl li:last-child{border-bottom:none}
+.cl input{width:18px;height:18px;margin-top:1px;accent-color:var(--teal);flex:0 0 auto}
+.cl .t{font-size:13px}
+.cl .t .en{display:block;font-size:11px;color:var(--muted)}
+.cl li.done .t{color:var(--muted);text-decoration:line-through;text-decoration-color:#C3D4D8}
+.costgrid{display:flex;flex-direction:column;gap:7px}
+.costrow{display:flex;justify-content:space-between;font-size:12.5px;border-bottom:1px dashed var(--line);padding-bottom:6px}
+.costrow b{color:var(--navy2)}
+.tip{font-size:12px;color:var(--ink);padding:7px 0;border-bottom:1px solid #EEF3F4}
+.tip:last-child{border:none}
+.tip b{color:var(--teal)}
+.tip .en{display:block;font-size:10.5px;color:var(--muted)}
+.foot{text-align:center;font-size:11px;color:var(--muted);margin-top:18px}
+.reset{font-size:11px;color:var(--muted);background:none;border:none;text-decoration:underline;cursor:pointer}
+@media(min-width:620px){ .stop:hover{background:#F0F6F7} .lg:hover{border-color:var(--teal)} }
+</style>
+</head>
+<body>
+<div class="hero">
+  <p class="eyebrow">7 nights · winter on the harbour</p>
+  <h1>Sydney Trip · 시드니 여행</h1>
+  <p class="meta">2026. 6. 21(일) – 6. 28(일) · 숙소 Criterion Hotel (260 Pitt St, CBD) · 요금 AUD</p>
+  <div class="chips">
+    <span class="chip">🚆 <b>교통 주간상한 $50</b></span>
+    <span class="chip">🎟 <b>유료입장 ≈$81</b></span>
+    <span class="chip">🐋 <b>겨울=고래 시즌</b></span>
+  </div>
+  <div class="prog">
+    <div class="bar"><div class="fill" id="fill"></div></div>
+    <div class="lbl"><span id="progtxt">방문 체크 0 / 0</span><span>탭하면 저장돼요</span></div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="tabs">
+    <button class="tab active" data-tab="plan">일정</button>
+    <button class="tab" data-tab="map">지도</button>
+    <button class="tab" data-tab="check">체크리스트</button>
+  </div>
+
+  <div class="panel active" id="plan"></div>
+
+  <div class="panel" id="map-panel">
+    <div class="legend" id="legend"></div>
+    <div id="map"></div>
+    <p class="mapnote">📍 핀을 누르면 장소 이름과 “Google 지도에서 열기” 링크가 나와요. 위 색칠 버튼으로 날짜별로 켜고 끌 수 있어요. (지도는 인터넷 연결 시 표시됩니다.)</p>
+  </div>
+
+  <div class="panel" id="check">
+    <div class="card">
+      <h3>출발 전 준비 · Before you go</h3>
+      <p class="sc">탭하면 체크 상태가 저장돼요(브라우저로 열었을 때).</p>
+      <ul class="cl" id="prep"></ul>
+    </div>
+    <div class="card">
+      <h3>짐 싸기 (겨울) · Packing (winter)</h3>
+      <ul class="cl" id="pack"></ul>
+    </div>
+    <div class="card">
+      <h3>💰 비용 요약 · Costs (1인, AUD)</h3>
+      <div class="costgrid">
+        <div class="costrow"><span>교통 전체 (주간상한+공항료) · Transport</span><b>≈ $87</b></div>
+        <div class="costrow"><span>시라이프 · SEA LIFE (온라인)</span><b>≈ $44</b></div>
+        <div class="costrow"><span>차이니즈 가든 · Chinese Garden</span><b>$12</b></div>
+        <div class="costrow"><span>시드니 타워 · Tower Eye (온라인)</span><b>≈ $25</b></div>
+        <div class="costrow" style="border:none"><span>나머지 명소 · Everything else</span><b>무료 Free</b></div>
+      </div>
+      <p class="sc" style="margin-top:10px">💡 시라이프+타워 콤보(Sydney Big Ticket)면 따로 사는 것보다 최대 60% 절약.</p>
+    </div>
+    <div class="card">
+      <h3>여행 팁 · Notes</h3>
+      <div id="tips"></div>
+      <div style="text-align:right;margin-top:10px"><button class="reset" id="reset">모든 체크 초기화 / Reset all</button></div>
+    </div>
+  </div>
+
+  <p class="foot">Have a wonderful trip 🇦🇺 · 인터넷 연결 시 지도가 보여요</p>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+/* ---------- safe storage (works on download; degrades in viewer) ---------- */
+var MEM={};
+function load(){ try{return JSON.parse(localStorage.getItem('sydtrip')||'{}')}catch(e){return MEM} }
+function save(o){ try{localStorage.setItem('sydtrip',JSON.stringify(o))}catch(e){MEM=o} }
+var STATE=load();
+function isOn(id){return !!STATE[id]}
+function setOn(id,v){STATE[id]=v; save(STATE);}
+
+/* ---------- data ---------- */
+var DAYCOLORS=["#0E7C86","#C8553D","#5B8C5A","#2F6DB0","#B7791F","#8E5BA6","#C44E78","#4A6572"];
+function g(name,pid){var q=encodeURIComponent(name+" Sydney");return pid?("https://www.google.com/maps/search/?api=1&query="+q+"&query_place_id="+pid):("https://www.google.com/maps/search/?api=1&query="+q);}
+
+var DAYS=[
+{d:"Day 1",date:"6/21 (일·Sun)",tk:"도착 & 사촌과 저녁",te:"Arrival & Dinner with Cousin",cap:"일요일 교통 상한 $2.80 + 공항철도료 ~$17",stops:[
+ {t:"10:00",kr:"공항 도착, 입국·수하물",en:"Arrive at airport",lat:-33.9399,lng:151.1753,pid:null,mv:"🚆 공항철도(T8) → 타운홀역 15분 · 공항료 ~$17 + 상한 $2.80"},
+ {t:"11:00",kr:"호텔 체크인 (Criterion Hotel)",en:"Check in / drop bags",lat:-33.8733,lng:151.2084,pid:"ChIJ-9uKcz6uEmsRao9rR9Ke7AI"},
+ {t:"12:30",kr:"CBD 점심",en:"Lunch in the CBD",mv:"🚶 도보 15분 / 🚆 기차 4분 (상한 내)"},
+ {t:"13:30",kr:"오페라하우스 — 조개 지붕의 세계적 랜드마크",en:"Opera House — iconic shell-roofed landmark",lat:-33.8568,lng:151.2153,pid:"ChIJ3S-JXmauEmsRUcIaWtf4MzE",mv:"🚶 도보 8분 (무료)"},
+ {t:"14:00",kr:"커스텀스 하우스 — 바닥유리 아래 도시 모형",en:"Customs House — city model under glass floor",free:1,lat:-33.8618,lng:151.2109,pid:"ChIJCZ5rATyuEmsRcAjUsjLzbGU",mv:"🚶 도보 10분 (무료)"},
+ {t:"14:30",kr:"왕립식물원 — 하버 끼고 걷는 도심 정원",en:"Royal Botanic Garden — free harbourside garden",free:1,lat:-33.8642,lng:151.2166,pid:"ChIJWaTdYGuuEmsRoOfx-Wh9AQ8",mv:"🚶 정원 도보 15분 (무료)"},
+ {t:"15:45",kr:"미세스 맥콰리스 체어 — 오페라하우스+브리지 일몰 명당",en:"Mrs Macquarie's Chair — sunset viewpoint",free:1,lat:-33.8597,lng:151.2226,pid:"ChIJQ9b_zXquEmsRY6cF2rm2v0M"},
+ {t:"17:00",kr:"일몰 감상",en:"Sunset",mv:"🚶 도보 25분 / 🚌 버스 15분 → 더 록스 (상한 내)"},
+ {t:"19:00",kr:"사촌과 저녁 (더 록스·달링하버)",en:"Dinner with cousin",lat:-33.859,lng:151.208,pid:"ChIJs49dtkKuEmsRYM0yFmh9AQU",mv:"🚶 도보"},
+ {t:"21:00",kr:"서클키·오페라하우스 야경 산책",en:"Circular Quay & Opera House lights",lat:-33.8615,lng:151.2108,mv:"🚆 기차 4분 / 🚶 도보 15분"},
+ {t:"22:00",kr:"호텔 복귀",en:"Return to hotel"}
+]},
+{d:"Day 2",date:"6/22 (월·Mon)",tk:"본다이 & 해안 산책",te:"Bondi & Coastal Walk",cap:"월요일 교통 상한 $19.30",stops:[
+ {t:"09:00",kr:"호텔 출발",en:"Leave hotel",mv:"🚌 버스 333 ~45분 / 🚆 기차+버스 (상한 내)"},
+ {t:"10:00",kr:"카페 본다이 — 해변 인기 브런치",en:"Cafe Bondi — popular brunch",lat:-33.8896,lng:151.2829,pid:"ChIJe6WD2B2tEmsRTMttkWiu4jc",mv:"🚶 도보 5분 (무료)"},
+ {t:"10:45",kr:"본다이 비치 — 대표 해변, 아이스버그 풀 인증샷",en:"Bondi Beach — iconic beach, Icebergs photo",lat:-33.8915,lng:151.2767,pid:"ChIJx4FyRJytEmsReOktxgkYwyA",mv:"🚶 해안 산책로 시작 (무료)"},
+ {t:"11:30",kr:"본다이→쿠지 산책로 — 6km 절벽 해안길 (겨울 고래)",en:"Bondi–Coogee walk — 6km clifftop trail",free:1,lat:-33.9184,lng:151.2585,pid:"ChIJYXuDOxyyEmsRtRZV6GZjGuM"},
+ {t:"",kr:"산책로상 무료: 브론테 비치 · 웨이벌리 묘지(절벽 묘지)",en:"En route free: Bronte Beach, Waverley Cemetery",sub:1},
+ {t:"14:00",kr:"쿠지 비치 — 점심·커피",en:"Coogee Beach — lunch & coffee",lat:-33.919,lng:151.2573,pid:"ChIJ4ZOCY5yxEmsR4LIyFmh9AQU",mv:"🚌 버스 372/373 ~40분 → 시내 (상한 내)"},
+ {t:"16:00",kr:"호텔 휴식",en:"Rest at hotel",mv:"🚶 도보 12분 → 달링하버 (무료)"},
+ {t:"19:30",kr:"달링하버·피어몬트 브리지 — 1902년 목재 스윙교, 야경",en:"Darling Harbour & Pyrmont Bridge — night views",free:1,lat:-33.8706,lng:151.2007,pid:"ChIJGfk0mDmuEmsR2ZCBp2qPsNA",mv:"🚶 도보 12분"},
+ {t:"21:30",kr:"호텔 복귀",en:"Return to hotel"}
+]},
+{d:"Day 3",date:"6/23 (화·Tue)",tk:"예약 투어: 블루마운틴 + Sydney Zoo",te:"Booked Tour",cap:"교통·입장 모두 투어 패키지 포함",stops:[
+ {t:"07:20",kr:"픽업장소 도착: Sheraton on the Park (161 Elizabeth St)",en:"Arrive at pickup point",lat:-33.8716,lng:151.2096,mv:"🚶 호텔에서 도보 약 6분 — 미리 도착 (무료)"},
+ {t:"07:35",kr:"투어 픽업",en:"Tour pickup",mv:"🚐 전세 투어버스 (요금 포함)"},
+ {t:"코스",kr:"Sydney Zoo — 서부 시드니 현대식 동물원",en:"Sydney Zoo — modern zoo, western Sydney",lat:-33.7897,lng:150.8676,pid:"ChIJC8grfe2ZEmsRd5lo-fsEY8A"},
+ {t:"코스",kr:"Echo Point (세 자매봉) — 블루마운틴 대표 전망대",en:"Echo Point — the Three Sisters",lat:-33.7326,lng:150.3120,pid:"ChIJK4Hkjq5uEmsRYH-28I8ZXjc"},
+ {t:"코스",kr:"Leura — 카페·정원 예쁜 마을",en:"Leura — café & garden village",lat:-33.7123,lng:150.3312,pid:"ChIJa__j6uNuEmsRMNUyFmh9AQU"},
+ {t:"코스",kr:"Scenic World — 최급경사 레일웨이·케이블웨이·스카이웨이",en:"Scenic World — railway, cableway, skyway",lat:-33.7286,lng:150.3010,pid:"ChIJTUlBSwJsEmsRVHuAQ15DjzM",mv:"🚐 투어버스 복귀 (요금 포함)"},
+ {t:"17:00",kr:"복귀 예상",en:"Estimated return"},
+ {t:"19:30",kr:"가벼운 저녁·휴식",en:"Light dinner & rest"}
+]},
+{d:"Day 4",date:"6/24 (수·Wed)",tk:"늦은 아침 + 맨리 (여유)",te:"Slow Morning + Manly",cap:"수요일 교통 상한 $19.30 (맨리 페리 ~$10.20, 상한 내)",stops:[
+ {t:"09:30",kr:"서리힐스/패딩턴 브런치 — 감성 카페 거리",en:"Surry Hills/Paddington brunch",lat:-33.8847,lng:151.2110,mv:"🚆 도보+기차 ~15분 → 서클키 (상한 내)"},
+ {t:"12:00",kr:"맨리행 페리 — 하버를 가르는 명물 페리",en:"Manly ferry — scenic crossing",lat:-33.8615,lng:151.2108,mv:"⛴ 페리 30분 · 편도 ~$10.20 (상한 내)"},
+ {t:"12:40",kr:"맨리 — 코르소 거리·점심",en:"Manly — The Corso, lunch",lat:-33.7972,lng:151.2876,pid:"ChIJK8ybIQmrEmsRUHjYur4mf6k",mv:"🚶 도보 10분 (무료)"},
+ {t:"14:00",kr:"맨리 비치 + 셸리 비치 — 잔잔한 만, 스노클링",en:"Manly & Shelly Beach — calm bay",lat:-33.8005,lng:151.2979,pid:"ChIJsT7ENRerEmsRc99b8q9rO2o",mv:"🚌 (선택) 버스 135 ~15분 → 노스헤드 (상한 내)"},
+ {t:"15:30",kr:"(선택) 노스헤드 전망대 — 헤드랜드·고래 전망",en:"(optional) North Head Lookout — whale views",free:1,lat:-33.8213,lng:151.2940,pid:"ChIJ0Z20XQCrEmsRVRirQ4_ILMk",mv:"⛴ 페리 30분 → 서클키 (상한 내)"},
+ {t:"16:45",kr:"페리 복귀 (노을)",en:"Ferry back (sunset)",mv:"🚶 도보 8분"},
+ {t:"18:30",kr:"더 록스/서클키 저녁",en:"Dinner at The Rocks"},
+ {t:"20:00",kr:"하버브리지 야경 산책 또는 더 록스 펍·바",en:"Bridge night walk or Rocks pubs",mv:"🚆 기차 4분 / 🚶 도보 15분"},
+ {t:"22:00",kr:"호텔 복귀",en:"Return to hotel"}
+]},
+{d:"Day 5",date:"6/25 (목·Thu)",tk:"달링하버 & 시티",te:"Darling Harbour & City",cap:"목요일 교통 상한 $19.30 (대부분 도보) · 입장 ≈$81",stops:[
+ {t:"10:00",kr:"시라이프 수족관 — 듀공·펭귄·상어 터널",en:"SEA LIFE — dugongs, penguins, shark tunnel",pay:"온라인 ~$44",lat:-33.8696,lng:151.2021,pid:"ChIJYV-J-ziuEmsRIMyoFaMedU4",mv:"🚶 도보 5분 (무료)"},
+ {t:"11:30",kr:"달링하버·피어몬트 브리지 산책",en:"Darling Harbour stroll",free:1,lat:-33.8749,lng:151.2009,pid:"ChIJt9trB0euEmsR8NbepO14j3M",mv:"🚶 도보 5분"},
+ {t:"12:15",kr:"차이니즈 가든 — 전통 중국 정원, 잉어 연못",en:"Chinese Garden — koi ponds",pay:"입장 $12",lat:-33.8765,lng:151.2028,pid:"ChIJFTfQPjuuEmsREP3x-Wh9AQ8",mv:"🚶 도보 8분"},
+ {t:"13:00",kr:"차이나타운 점심 — 가성비 아시아 음식",en:"Chinatown lunch",lat:-33.8794,lng:151.2042,pid:"ChIJUdIgnCSuEmsRLzoJwyTgSW0",mv:"🚶 도보 10분 / 🚋 라이트레일 (상한 내)"},
+ {t:"14:30",kr:"QVB — 1898년 빅토리아풍 쇼핑몰 (목 21시까지)",en:"QVB — 1898 Victorian arcade (Thu till 9pm)",lat:-33.8717,lng:151.2067,pid:"ChIJISz8NjyuEmsRFTQ9Iw7Ear8",mv:"🚶 같은 건물 3층"},
+ {t:"15:30",kr:"더 티룸 QVB — 우아한 클래식 하이티",en:"The Tea Room — high tea",lat:-33.8710,lng:151.2066,pid:"ChIJISz8NjyuEmsRHPypuSDGeGc",mv:"🚶 도보 3분"},
+ {t:"16:45",kr:"피트 스트리트 몰·웨스트필드 (호텔 옆)",en:"Pitt Street Mall & Westfield",lat:-33.8703,lng:151.2089,mv:"🚶 같은 건물 (웨스트필드 5층)"},
+ {t:"17:30",kr:"시드니 타워 아이 — 360도 도심 전망, 해질녘",en:"Sydney Tower Eye — 360° dusk views",pay:"온라인 ~$25",lat:-33.8703,lng:151.2089,pid:"ChIJy6BwuD-uEmsRyiRskH1UG-I"},
+ {t:"18:45",kr:"저녁",en:"Dinner"},
+ {t:"20:00",kr:"QVB·피트 스트리트(목 야간) 또는 달링하버 야경",en:"Late shopping or Darling Harbour lights",mv:"🚶 도보 (호텔 옆)"},
+ {t:"22:00",kr:"호텔 복귀 · 💡 시라이프+타워 콤보 최대 60% 절약",en:"Return · SEA LIFE+Tower combo saves up to 60%"}
+]},
+{d:"Day 6",date:"6/26 (금·Fri)",tk:"왓슨스베이 & 하버",te:"Watsons Bay & Harbour",cap:"금요일 교통 상한 $9.65",stops:[
+ {t:"10:00",kr:"서클키 → 왓슨스베이 페리",en:"Circular Quay → Watsons Bay ferry",lat:-33.8615,lng:151.2108,mv:"⛴ 페리 25분 (상한 내) — 배차 길어 시간표 확인, 백업 버스 324/325"},
+ {t:"11:15",kr:"더 갭 — 극적인 해안 절벽 전망",en:"The Gap — sea-cliff lookout",free:1,lat:-33.8466,lng:151.2843,pid:"ChIJRbw1k4msEmsR4M4yFmh9AQU",mv:"🚶 도보 20분 (무료)"},
+ {t:"11:45",kr:"캠프 코브·혼비 등대 — 잔잔한 비치+줄무늬 등대 (고래)",en:"Camp Cove & Hornby Lighthouse",free:1,lat:-33.8335,lng:151.2810,pid:"ChIJl5-gnIesEmsRur3obYvC2Gc",mv:"🚶 도보 20분 → 선착장"},
+ {t:"13:00",kr:"도일스 — 1885년 노포 해산물집, 항구뷰",en:"Doyles — historic seafood, harbour view",lat:-33.8429,lng:151.2818,pid:"ChIJvTyERoqsEmsRCeK0W01c8ic",mv:"⛴ 페리 25분 → 서클키 (상한 내)"},
+ {t:"14:30",kr:"바랑가루 리저브 — 하버브리지 보이는 수변 공원",en:"Barangaroo Reserve — waterfront park",free:1,lat:-33.8572,lng:151.2012,pid:"ChIJs-MWMVuuEmsRN7STbIW1hv8",mv:"🚶 도보 15분 / 🚋 라이트레일 → 호텔 (상한 내)"},
+ {t:"16:00",kr:"호텔 휴식",en:"Rest at hotel"},
+ {t:"18:00",kr:"저녁",en:"Dinner"},
+ {t:"20:00",kr:"하버사이드 야경·바",en:"Harbourside night views / bar"},
+ {t:"22:00",kr:"호텔 복귀",en:"Return to hotel"}
+]},
+{d:"Day 7",date:"6/27 (토·Sat)",tk:"하버브리지 & 더 록스 마무리",te:"Harbour Bridge & The Rocks Finale",cap:"토요일 교통 상한 $9.65",stops:[
+ {t:"10:00",kr:"하버브리지 — '옷걸이' 별명 아치교, 무료 도보 횡단",en:"Harbour Bridge — free walk across",free:1,lat:-33.8523,lng:151.2108,pid:"ChIJ49XqJV2uEmsRPsTAF7eOlGg",mv:"🚶 다리 도보 횡단 20~30분 (무료)"},
+ {t:"11:00",kr:"브래드필드 파크·웬디스 시크릿 가든 — 오페라하우스 정면뷰",en:"Bradfield Park & Wendy's Secret Garden",free:1,lat:-33.8442,lng:151.2090,pid:"ChIJqVVpmPSuEmsRd8WEFt6XOQc",mv:"🚆 기차 밀슨스포인트→서클키 3분 (상한 내)"},
+ {t:"12:00",kr:"더 록스 디스커버리 박물관 + 토요 마켓",en:"Rocks Discovery Museum + Sat Market",free:1,lat:-33.8586,lng:151.2087,pid:"ChIJ47iDxkKuEmsR_bma_SA7k1E",mv:"🚶 도보"},
+ {t:"13:00",kr:"점심",en:"Lunch",mv:"🚶 도보 8분"},
+ {t:"14:00",kr:"옵저버토리 힐 파크 — 무화과나무 사이 하버브리지 전망",en:"Observatory Hill Park — Bridge views",free:1,lat:-33.8594,lng:151.2049,pid:"ChIJZ6DWeEOuEmsRYO_x-Wh9AQ8",mv:"🚶 도보 15분 / 🚆 기차 (상한 내)"},
+ {t:"15:00",kr:"마지막 쇼핑 (QVB·피트 스트리트)",en:"Last shopping",mv:"🚶 도보 8분"},
+ {t:"15:45",kr:"하이드파크·세인트메리 대성당·ANZAC 기념관·오스트레일리아 박물관 (골라서)",en:"Hyde Park, St Mary's, Anzac Memorial, Australian Museum (pick any)",free:1,lat:-33.8715,lng:151.2116,pid:"ChIJDflB7BWuEmsRYPbx-Wh9AQ8",mv:"🚶 도보 → 호텔"},
+ {t:"17:00",kr:"짐 정리·휴식",en:"Pack & rest",mv:"🚆 기차 4분 / 🚶 도보 15분 → 더 록스"},
+ {t:"19:00",kr:"루나루 작별 만찬 — 오페라하우스 뷰 (예약)",en:"Farewell dinner at Luna Lu (booked)",lat:-33.8569,lng:151.2092,pid:"ChIJr9lSEmuvEmsRRD_l58GVOKk",mv:"🚶 도보"},
+ {t:"21:00",kr:"서클키·오페라하우스 야경 마지막 산책",en:"Final night walk",mv:"🚆 기차 4분 / 🚶 도보 15분"},
+ {t:"22:00",kr:"호텔 복귀",en:"Return to hotel"}
+]},
+{d:"Day 8",date:"6/28 (일·Sun)",tk:"출국",te:"Departure",cap:"일요일 교통 상한 $2.80 + 공항철도료 ~$17",stops:[
+ {t:"07:00",kr:"체크아웃",en:"Check out",mv:"🚶 호텔→타운홀역 도보 3분 (무료)"},
+ {t:"07:45",kr:"공항철도(T8) 타운홀→공항 약 15분",en:"Airport Link → Airport ~15 min",mv:"🚆 공항료 ~$17 + 상한 $2.80"},
+ {t:"08:20",kr:"공항 도착, 체크인·수속",en:"Arrive airport, check-in",lat:-33.9399,lng:151.1753},
+ {t:"11:00",kr:"출국",en:"Departure"}
+]}
+];
+
+var PREP=[
+ ["여권·비자(ETA) 확인","Passport & visa (ETA)"],
+ ["블루마운틴 투어 바우처·픽업시간(7:35) 저장","Save tour voucher & 7:35 pickup"],
+ ["루나루·도일스·QVB 하이티 예약","Book Luna Lu, Doyles, QVB high tea"],
+ ["시라이프·시드니 타워 온라인 티켓(콤보 검토)","SEA LIFE & Tower online tickets (combo)"],
+ ["컨택리스 카드/폰 페이 준비(교통용)","Set up contactless card / phone pay"],
+ ["사촌과 첫날(6/21) 저녁 시간·장소 정하기","Confirm cousin dinner (6/21)"],
+ ["호텔 주소 저장: Criterion Hotel, 260 Pitt St","Save hotel address"],
+ ["여행자 보험","Travel insurance"]
+];
+var PACK=[
+ ["방수 겉옷·가벼운 패딩(겨울 8~18°C)","Waterproof jacket / light puffer"],
+ ["편한 운동화(본다이-쿠지 6km 산책)","Comfy walking shoes"],
+ ["우산 또는 우비","Umbrella / rain shell"],
+ ["선크림·선글라스(겨울 자외선)","Sunscreen & sunglasses"],
+ ["보조배터리·여행용 어댑터(Type I)","Power bank & Type I adapter"],
+ ["고래 관찰용 가벼운 쌍안경(선택)","Binoculars for whales (optional)"],
+ ["수영복(맨리·셸리비치, 선택)","Swimwear (optional)"],
+ ["재사용 물병","Reusable water bottle"]
+];
+var TIPS=[
+ ["교통 / Transport","카드·폰을 페리/기차/버스에 그대로 탭하면 일일·주간 상한이 자동 적용돼요.","Tap a contactless card on ferries, trains & buses — caps apply automatically."],
+ ["안전 / Safety","CBD·하버 일대는 밤에도 안전·활기. 밤 10시까지 즐겨도 OK.","CBD & harbour are safe at night; staying out till 10pm is fine."],
+ ["겨울 / Winter","낮 17–18°C, 아침저녁 8°C. 방수 겉옷 추천 (일몰 약 17시).","~17–18°C day, ~8°C morning/evening; sunset ~5pm."],
+ ["예약 / Bookings","타워 마감은 시즌에 따라 19–20시이니 예약 시 확인.","Tower closes 7–8pm by season — check when booking."]
+];
+
+/* ---------- render itinerary ---------- */
+var plan=document.getElementById('plan');
+var totalStops=0;
+DAYS.forEach(function(day,di){
+  var col=DAYCOLORS[di%DAYCOLORS.length];
+  var checkable=day.stops.filter(function(s){return !s.sub});
+  totalStops+=checkable.length;
+  var sec=document.createElement('section'); sec.className='day'; if(di===0) sec.className+=' open';
+  var rows='';
+  day.stops.forEach(function(s,si){
+    if(s.sub){ rows+='<div class="sub">• '+s.kr+' <span style="color:#9fb0b6">'+s.en+'</span></div>'; return; }
+    var id='s'+di+'_'+si;
+    var done=isOn(id)?' done':'';
+    var freeTag=s.free?'<span class="tagfree">무료 FREE</span>':'';
+    var payTag=s.pay?'<span class="tagfree" style="color:#9A5B1A;background:#FBEFD9">'+s.pay+'</span>':'';
+    var mapBtn=(s.lat? '<a class="btn map" target="_blank" rel="noopener" href="'+g(s.en||s.kr,s.pid)+'">📍 지도</a>':'');
+    rows+=''
+     +'<div class="stop'+done+'" id="row_'+id+'">'
+     +' <div class="rail"><span class="time">'+(s.t||'')+'</span><span class="node'+(isOn(id)?' done':'')+'" id="node_'+id+'" style="border-color:'+col+';'+(isOn(id)?'background:'+col:'')+'"></span><span class="line"></span></div>'
+     +' <div class="scon">'
+     +'  <div class="sk">'+s.kr+freeTag+payTag+'</div>'
+     +'  <div class="se">'+(s.en||'')+'</div>'
+     +'  <div class="act">'
+     +'   <label class="cbox"><input type="checkbox" data-id="'+id+'" '+(isOn(id)?'checked':'')+'> 들름</label>'
+     + mapBtn
+     +'  </div>'
+     +' </div>'
+     +'</div>';
+    if(s.mv){ rows+='<div class="move"><div class="rail2"><div class="seg"></div></div><div class="mt">↳ '+s.mv+'</div></div>'; }
+  });
+  sec.innerHTML=''
+   +'<div class="dhead">'
+   +' <div class="daydot" style="background:'+col+'">'+(di+1)+'</div>'
+   +' <div class="h"><div class="dno">'+day.d+' · '+day.date+'</div><div class="dt">'+day.tk+'</div><div class="de">'+day.te+'</div></div>'
+   +' <span class="cnt" id="cnt'+di+'"></span>'
+   +' <svg class="chev" width="16" height="16" viewBox="0 0 16 16"><path d="M5 3l6 5-6 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+   +'</div>'
+   +'<div class="cap">📋 '+day.cap+'</div>'
+   +'<div class="body"><div class="thread">'+rows+'</div></div>';
+  plan.appendChild(sec);
+  sec.querySelector('.dhead').addEventListener('click',function(){ sec.classList.toggle('open'); });
+});
+
+/* checkbox behaviour */
+plan.addEventListener('change',function(e){
+  if(e.target.matches('input[type=checkbox]')){
+    var id=e.target.dataset.id; setOn(id,e.target.checked);
+    document.getElementById('row_'+id).classList.toggle('done',e.target.checked);
+    var node=document.getElementById('node_'+id);
+    node.classList.toggle('done',e.target.checked);
+    node.style.background=e.target.checked?node.style.borderColor.replace('border-color','') :'#fff';
+    // simpler: recolor
+    updateProgress();
+  }
+});
+
+function updateProgress(){
+  var done=0;
+  DAYS.forEach(function(day,di){
+    var dd=0, tot=0;
+    day.stops.forEach(function(s,si){ if(s.sub)return; tot++; if(isOn('s'+di+'_'+si)){dd++;done++;} });
+    var el=document.getElementById('cnt'+di); if(el) el.textContent=dd+'/'+tot;
+    // recolor nodes
+  });
+  var pct=totalStops? Math.round(done/totalStops*100):0;
+  document.getElementById('fill').style.width=pct+'%';
+  document.getElementById('progtxt').textContent='방문 체크 '+done+' / '+totalStops+'  ('+pct+'%)';
+}
+// fix node fill colors after load
+DAYS.forEach(function(day,di){var col=DAYCOLORS[di%8];day.stops.forEach(function(s,si){if(s.sub)return;var n=document.getElementById('node_s'+di+'_'+si);if(n&&isOn('s'+di+'_'+si)){n.style.background=col;}});});
+updateProgress();
+
+/* ---------- checklist ---------- */
+function buildList(ulId,items,prefix){
+  var ul=document.getElementById(ulId);
+  items.forEach(function(it,i){
+    var id=prefix+i; var li=document.createElement('li'); if(isOn(id)) li.className='done';
+    li.innerHTML='<input type="checkbox" data-cid="'+id+'" '+(isOn(id)?'checked':'')+'><span class="t">'+it[0]+'<span class="en">'+it[1]+'</span></span>';
+    ul.appendChild(li);
+  });
+}
+buildList('prep',PREP,'p'); buildList('pack',PACK,'k');
+document.getElementById('check').addEventListener('change',function(e){
+  if(e.target.matches('input[type=checkbox]')){
+    var id=e.target.dataset.cid; setOn(id,e.target.checked);
+    e.target.closest('li').classList.toggle('done',e.target.checked);
+  }
+});
+var tipsEl=document.getElementById('tips');
+TIPS.forEach(function(t){ tipsEl.innerHTML+='<div class="tip"><b>'+t[0]+'</b> '+t[1]+'<span class="en">'+t[2]+'</span></div>'; });
+document.getElementById('reset').addEventListener('click',function(){
+  if(confirm('모든 체크 상태를 초기화할까요? / Reset all checks?')){ STATE={}; save(STATE); location.reload(); }
+});
+
+/* ---------- tabs ---------- */
+var mapInited=false;
+document.querySelectorAll('.tab').forEach(function(tb){
+  tb.addEventListener('click',function(){
+    document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('active')});
+    tb.classList.add('active');
+    var name=tb.dataset.tab;
+    document.getElementById('plan').classList.toggle('active',name==='plan');
+    document.getElementById('map-panel').classList.toggle('active',name==='map');
+    document.getElementById('check').classList.toggle('active',name==='check');
+    if(name==='map'){ initMap(); }
+  });
+});
+
+/* ---------- map (Leaflet + OSM) ---------- */
+var map, layersByDay={};
+function initMap(){
+  if(mapInited){ if(map) setTimeout(function(){map.invalidateSize()},60); return; }
+  mapInited=true;
+  if(typeof L==='undefined'){ document.getElementById('map').innerHTML='<div style="padding:20px;color:#5E7681;font-size:13px">지도를 불러오려면 인터넷 연결이 필요해요. 다운로드해서 브라우저로 열면 표시됩니다.</div>'; return; }
+  map=L.map('map',{scrollWheelZoom:true}).setView([-33.86,151.21],11);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© OpenStreetMap'}).addTo(map);
+  var legend=document.getElementById('legend'); var bounds=[];
+  DAYS.forEach(function(day,di){
+    var col=DAYCOLORS[di%8]; var grp=L.layerGroup().addTo(map); layersByDay[di]=grp;
+    day.stops.forEach(function(s){
+      if(!s.lat) return; bounds.push([s.lat,s.lng]);
+      var mk=L.circleMarker([s.lat,s.lng],{radius:8,color:'#fff',weight:2,fillColor:col,fillOpacity:1});
+      mk.bindPopup('<b>'+s.kr.split(' — ')[0]+'</b><br><span style="color:#5E7681;font-size:12px">'+day.d+' · '+(s.t||'')+'</span><br><a target="_blank" rel="noopener" href="'+g(s.en||s.kr,s.pid)+'">Google 지도에서 열기 ↗</a>');
+      mk.addTo(grp);
+    });
+    var lg=document.createElement('button'); lg.className='lg'; lg.dataset.di=di;
+    lg.innerHTML='<span class="sw" style="background:'+col+'"></span>'+(di+1)+'. '+day.tk.split(' ')[0];
+    lg.addEventListener('click',function(){
+      lg.classList.toggle('off');
+      if(map.hasLayer(grp)){map.removeLayer(grp);}else{grp.addTo(map);}
+    });
+    legend.appendChild(lg);
+  });
+  if(bounds.length) map.fitBounds(bounds,{padding:[30,30]});
+  setTimeout(function(){map.invalidateSize()},80);
+}
+</script>
+</body>
+</html>
