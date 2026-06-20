@@ -2,7 +2,11 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=5">
+<meta name="theme-color" content="#0E3A4F">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="description" content="시드니 7박 8일 인터랙티브 여행 일정 · 일정·장소·지도·체크리스트">
 <title>Sydney Trip · 시드니 여행</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <style>
@@ -16,10 +20,12 @@ html,body{margin:0}
 body{
   font-family:-apple-system,"Apple SD Gothic Neo","Pretendard","Malgun Gothic","Noto Sans KR",system-ui,sans-serif;
   background:var(--paper); color:var(--ink); line-height:1.5;
-  -webkit-text-size-adjust:100%;
+  -webkit-text-size-adjust:100%; -webkit-tap-highlight-color:transparent;
+  overflow-x:hidden;
 }
 a{color:var(--teal);text-decoration:none}
-.wrap{max-width:760px;margin:0 auto;padding:0 14px 60px}
+.wrap{max-width:760px;margin:0 auto;
+  padding:0 calc(14px + env(safe-area-inset-right)) 60px calc(14px + env(safe-area-inset-left))}
 
 /* Hero */
 .hero{
@@ -45,10 +51,12 @@ a{color:var(--teal);text-decoration:none}
 
 /* tabs */
 .tabs{position:sticky;top:0;z-index:40;background:var(--paper);
-  display:flex;gap:6px;padding:10px 0 8px;margin-top:6px;border-bottom:1px solid var(--line)}
-.tab{flex:1;text-align:center;padding:9px 6px;border-radius:11px;font-size:13px;font-weight:700;
-  color:var(--muted);background:transparent;border:1px solid transparent;cursor:pointer}
+  display:flex;gap:5px;padding:10px 0 8px;margin-top:6px;border-bottom:1px solid var(--line)}
+.tab{flex:1;text-align:center;padding:10px 4px;border-radius:11px;font-size:12.5px;font-weight:700;
+  color:var(--muted);background:transparent;border:1px solid transparent;cursor:pointer;
+  white-space:nowrap;min-height:42px;-webkit-appearance:none}
 .tab.active{color:#fff;background:var(--navy2)}
+.tab:focus-visible{outline:3px solid var(--tealb);outline-offset:1px}
 .panel{display:none;padding-top:14px}
 .panel.active{display:block}
 
@@ -87,8 +95,8 @@ a{color:var(--teal);text-decoration:none}
 .btn{font-size:11.5px;font-weight:700;border:1px solid var(--line);background:#fff;color:var(--navy2);
   border-radius:999px;padding:5px 11px;cursor:pointer;display:inline-flex;align-items:center;gap:5px}
 .btn.map{color:var(--teal)}
-.cbox{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:700;color:var(--muted);cursor:pointer;user-select:none}
-.cbox input{width:16px;height:16px;accent-color:var(--teal)}
+.cbox{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:var(--muted);cursor:pointer;user-select:none;min-height:30px;padding:2px 2px}
+.cbox input{width:19px;height:19px;accent-color:var(--teal)}
 .stop.done .sk{color:var(--muted);text-decoration:line-through;text-decoration-color:#B9CCD1}
 .move{display:flex;gap:9px;align-items:flex-start;padding:2px 8px 2px 10px;color:#2F7B86}
 .move .rail2{width:36px;display:flex;justify-content:center;flex:0 0 auto}
@@ -125,7 +133,36 @@ a{color:var(--teal);text-decoration:none}
 .tip .en{display:block;font-size:10.5px;color:var(--muted)}
 .foot{text-align:center;font-size:11px;color:var(--muted);margin-top:18px}
 .reset{font-size:11px;color:var(--muted);background:none;border:none;text-decoration:underline;cursor:pointer}
-@media(min-width:620px){ .stop:hover{background:#F0F6F7} .lg:hover{border-color:var(--teal)} }
+/* places tab */
+.psum{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 2px 12px;flex-wrap:wrap}
+.psum .ct{font-size:12.5px;color:var(--muted)}
+.psum .ct b{color:var(--navy2);font-size:14px}
+.ptoggle{font-size:11.5px;font-weight:700;color:var(--navy2);background:#fff;border:1px solid var(--line);
+  border-radius:999px;padding:7px 12px;cursor:pointer;min-height:34px}
+.ptoggle.on{color:#fff;background:var(--teal);border-color:var(--teal)}
+.pday{margin-bottom:14px}
+.pday .ph{display:flex;align-items:center;gap:8px;margin:0 2px 7px}
+.pday .pdot{width:13px;height:13px;border-radius:50%;flex:0 0 auto}
+.pday .pt{font-size:12.5px;font-weight:800;color:var(--ink)}
+.pday .pte{font-size:11px;color:var(--muted)}
+.place{display:flex;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:14px;
+  padding:12px 13px;margin-bottom:8px;align-items:flex-start}
+.place .pchk{flex:0 0 auto;display:flex;align-items:center;min-height:24px}
+.place .pchk input{width:21px;height:21px;accent-color:var(--teal)}
+.place .pbody{flex:1;min-width:0}
+.place .pnm{font-size:13.5px;font-weight:700;line-height:1.3}
+.place .pen{font-size:11.5px;color:var(--muted);margin-top:1px}
+.place .pmeta{font-size:11px;color:#6A828B;margin-top:5px;display:flex;flex-wrap:wrap;gap:4px 10px}
+.place .pmeta .geo{font-variant-numeric:tabular-nums}
+.place .pacts{display:flex;gap:7px;margin-top:9px;flex-wrap:wrap}
+.place.done{opacity:.62}
+.place.done .pnm{text-decoration:line-through;text-decoration-color:#B9CCD1;color:var(--muted)}
+.bsm{font-size:11.5px;font-weight:700;border:1px solid var(--line);background:#fff;color:var(--navy2);
+  border-radius:999px;padding:7px 12px;cursor:pointer;display:inline-flex;align-items:center;gap:5px;min-height:34px}
+.bsm.gmap{color:var(--teal)}
+.bsm.onmap{color:var(--coral);border-color:#F2D2C6}
+.hidden{display:none!important}
+@media(min-width:620px){ .stop:hover{background:#F0F6F7} .lg:hover{border-color:var(--teal)} .place:hover{border-color:var(--tealb)} }
 </style>
 </head>
 <body>
@@ -147,11 +184,21 @@ a{color:var(--teal);text-decoration:none}
 <div class="wrap">
   <div class="tabs">
     <button class="tab active" data-tab="plan">일정</button>
+    <button class="tab" data-tab="places">장소</button>
     <button class="tab" data-tab="map">지도</button>
-    <button class="tab" data-tab="check">체크리스트</button>
+    <button class="tab" data-tab="check">체크<span style="font-size:10px">리스트</span></button>
   </div>
 
   <div class="panel active" id="plan"></div>
+
+  <div class="panel" id="places">
+    <div class="psum">
+      <span class="ct">추천 장소 <b id="pcount">0</b>곳 · 방문 <b id="pdone">0</b>곳</span>
+      <button class="ptoggle" id="ponly">남은 곳만 보기</button>
+    </div>
+    <div id="placelist"></div>
+    <p class="mapnote">📍 우리가 들를 장소를 모았어요. 체크는 일정 탭과 자동으로 같이 표시돼요. “지도” 버튼을 누르면 지도에서 해당 위치가 열려요.</p>
+  </div>
 
   <div class="panel" id="map-panel">
     <div class="legend" id="legend"></div>
@@ -365,17 +412,19 @@ DAYS.forEach(function(day,di){
   sec.querySelector('.dhead').addEventListener('click',function(){ sec.classList.toggle('open'); });
 });
 
-/* checkbox behaviour */
+/* ---- centralized check sync: itinerary <-> places <-> progress ---- */
+function setStop(id,checked){
+  setOn(id,checked);
+  // keep every checkbox bound to this id in agreement (both tabs)
+  document.querySelectorAll('input[data-id="'+id+'"]').forEach(function(cb){ if(cb.checked!==checked) cb.checked=checked; });
+  var row=document.getElementById('row_'+id); if(row) row.classList.toggle('done',checked);
+  var node=document.getElementById('node_'+id);
+  if(node){ node.classList.toggle('done',checked); node.style.background=checked?node.style.borderColor:'#fff'; }
+  var prow=document.getElementById('prow_'+id); if(prow) prow.classList.toggle('done',checked);
+  updateProgress();
+}
 plan.addEventListener('change',function(e){
-  if(e.target.matches('input[type=checkbox]')){
-    var id=e.target.dataset.id; setOn(id,e.target.checked);
-    document.getElementById('row_'+id).classList.toggle('done',e.target.checked);
-    var node=document.getElementById('node_'+id);
-    node.classList.toggle('done',e.target.checked);
-    // fill the node with its day colour when checked, hollow it out when unchecked
-    node.style.background=e.target.checked?node.style.borderColor:'#fff';
-    updateProgress();
-  }
+  if(e.target.matches('input[type=checkbox]')){ setStop(e.target.dataset.id, e.target.checked); }
 });
 
 function updateProgress(){
@@ -389,7 +438,72 @@ function updateProgress(){
   var pct=totalStops? Math.round(done/totalStops*100):0;
   document.getElementById('fill').style.width=pct+'%';
   document.getElementById('progtxt').textContent='방문 체크 '+done+' / '+totalStops+'  ('+pct+'%)';
+  refreshPlaces();
 }
+
+/* ---------- places (recommended-spot list) ---------- */
+var PLACE_INDEX={}; var onlyRemaining=false;
+function renderPlaces(){
+  var host=document.getElementById('placelist'); if(!host) return;
+  host.innerHTML=''; var total=0;
+  DAYS.forEach(function(day,di){
+    var col=DAYCOLORS[di%8]; var items='';
+    day.stops.forEach(function(s,si){
+      if(!s.lat) return;
+      var id='s'+di+'_'+si; total++;
+      PLACE_INDEX[id]={lat:s.lat,lng:s.lng};
+      var freeTag=s.free?'<span class="tagfree">무료 FREE</span>':'';
+      var payTag=s.pay?'<span class="tagfree" style="color:#9A5B1A;background:#FBEFD9">'+s.pay+'</span>':'';
+      var coords=s.lat.toFixed(4)+', '+s.lng.toFixed(4);
+      items+=''
+        +'<div class="place'+(isOn(id)?' done':'')+'" id="prow_'+id+'" data-pid="'+id+'">'
+        +' <label class="pchk"><input type="checkbox" data-id="'+id+'" '+(isOn(id)?'checked':'')+' aria-label="방문 체크"></label>'
+        +' <div class="pbody">'
+        +'  <div class="pnm">'+s.kr+freeTag+payTag+'</div>'
+        +'  <div class="pen">'+(s.en||'')+'</div>'
+        +'  <div class="pmeta"><span>📅 '+day.d+(s.t&&s.t!=='코스'?(' · '+s.t):'')+'</span><span class="geo">📌 '+coords+'</span></div>'
+        +'  <div class="pacts">'
+        +'   <a class="bsm gmap" target="_blank" rel="noopener" href="'+g(s.en||s.kr,s.pid)+'">📍 구글맵 열기</a>'
+        +'   <button class="bsm onmap" type="button" data-mapid="'+id+'">🗺 지도에서 보기</button>'
+        +'  </div>'
+        +' </div>'
+        +'</div>';
+    });
+    if(!items) return;
+    var sec=document.createElement('div'); sec.className='pday';
+    sec.innerHTML='<div class="ph"><span class="pdot" style="background:'+col+'"></span>'
+      +'<span class="pt">'+day.d+' · '+day.tk+'</span><span class="pte">'+day.date+'</span></div>'+items;
+    host.appendChild(sec);
+  });
+  var pc=document.getElementById('pcount'); if(pc) pc.textContent=total;
+}
+function refreshPlaces(){
+  var pd=document.getElementById('pdone'); if(!pd) return;
+  var done=0;
+  document.querySelectorAll('.place').forEach(function(el){
+    var checked=isOn(el.dataset.pid); if(checked) done++;
+    el.classList.toggle('done',checked);
+    el.classList.toggle('hidden', onlyRemaining && checked);
+  });
+  pd.textContent=done;
+  document.querySelectorAll('.pday').forEach(function(sec){
+    sec.classList.toggle('hidden', sec.querySelectorAll('.place:not(.hidden)').length===0);
+  });
+}
+renderPlaces();
+var placesPanel=document.getElementById('places');
+placesPanel.addEventListener('change',function(e){
+  if(e.target.matches('input[type=checkbox]')){ setStop(e.target.dataset.id, e.target.checked); }
+});
+placesPanel.addEventListener('click',function(e){
+  var b=e.target.closest('[data-mapid]'); if(b){ openOnMap(b.dataset.mapid); }
+});
+document.getElementById('ponly').addEventListener('click',function(){
+  onlyRemaining=!onlyRemaining; this.classList.toggle('on',onlyRemaining);
+  this.textContent=onlyRemaining?'전체 보기':'남은 곳만 보기';
+  refreshPlaces();
+});
+
 // fix node fill colors after load
 DAYS.forEach(function(day,di){var col=DAYCOLORS[di%8];day.stops.forEach(function(s,si){if(s.sub)return;var n=document.getElementById('node_s'+di+'_'+si);if(n&&isOn('s'+di+'_'+si)){n.style.background=col;}});});
 updateProgress();
@@ -424,6 +538,7 @@ document.querySelectorAll('.tab').forEach(function(tb){
     tb.classList.add('active');
     var name=tb.dataset.tab;
     document.getElementById('plan').classList.toggle('active',name==='plan');
+    document.getElementById('places').classList.toggle('active',name==='places');
     document.getElementById('map-panel').classList.toggle('active',name==='map');
     document.getElementById('check').classList.toggle('active',name==='check');
     if(name==='map'){ initMap(); }
@@ -431,7 +546,19 @@ document.querySelectorAll('.tab').forEach(function(tb){
 });
 
 /* ---------- map (Leaflet + OSM) ---------- */
-var map, layersByDay={};
+var map, layersByDay={}, markersById={};
+function openOnMap(id){
+  var t=document.querySelector('.tab[data-tab="map"]'); if(t) t.click();
+  setTimeout(function(){
+    if(typeof L==='undefined'||!map) return;
+    var mk=markersById[id], p=PLACE_INDEX[id];
+    if(mk){
+      var lg=document.querySelector('.lg[data-di="'+mk._di+'"]');
+      if(mk._grp && !map.hasLayer(mk._grp)){ mk._grp.addTo(map); if(lg) lg.classList.remove('off'); }
+      map.setView(mk.getLatLng(),15); mk.openPopup();
+    } else if(p){ map.setView([p.lat,p.lng],15); }
+  },200);
+}
 function initMap(){
   if(mapInited){ if(map) setTimeout(function(){map.invalidateSize()},60); return; }
   mapInited=true;
@@ -441,11 +568,11 @@ function initMap(){
   var legend=document.getElementById('legend'); var bounds=[];
   DAYS.forEach(function(day,di){
     var col=DAYCOLORS[di%8]; var grp=L.layerGroup().addTo(map); layersByDay[di]=grp;
-    day.stops.forEach(function(s){
+    day.stops.forEach(function(s,si){
       if(!s.lat) return; bounds.push([s.lat,s.lng]);
-      var mk=L.circleMarker([s.lat,s.lng],{radius:8,color:'#fff',weight:2,fillColor:col,fillOpacity:1});
+      var mk=L.circleMarker([s.lat,s.lng],{radius:9,color:'#fff',weight:2,fillColor:col,fillOpacity:1});
       mk.bindPopup('<b>'+s.kr.split(' — ')[0]+'</b><br><span style="color:#5E7681;font-size:12px">'+day.d+' · '+(s.t||'')+'</span><br><a target="_blank" rel="noopener" href="'+g(s.en||s.kr,s.pid)+'">Google 지도에서 열기 ↗</a>');
-      mk.addTo(grp);
+      mk.addTo(grp); mk._grp=grp; mk._di=di; markersById['s'+di+'_'+si]=mk;
     });
     var lg=document.createElement('button'); lg.className='lg'; lg.dataset.di=di;
     lg.innerHTML='<span class="sw" style="background:'+col+'"></span>'+(di+1)+'. '+day.tk.split(' ')[0];
