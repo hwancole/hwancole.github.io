@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#0E3A4F">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="description" content="시드니 7박 8일 인터랙티브 여행 일정 · 일정·장소·지도·체크리스트">
+<meta name="description" content="시드니 7박 8일 인터랙티브 여행 일정 · 일정·장소·지도·체크리스트 (편집 가능, 기기에 저장)">
 <title>Sydney Trip · 시드니 여행</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <style>
@@ -42,6 +42,7 @@ a{color:var(--teal);text-decoration:none}
 .chip{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.18);
   border-radius:999px;padding:5px 11px;font-size:11.5px;color:#fff}
 .chip b{color:#fff}
+.chip.cust{background:rgba(232,115,74,.30);border-color:rgba(232,115,74,.5)}
 
 /* progress */
 .prog{margin-top:14px}
@@ -133,6 +134,7 @@ a{color:var(--teal);text-decoration:none}
 .tip .en{display:block;font-size:10.5px;color:var(--muted)}
 .foot{text-align:center;font-size:11px;color:var(--muted);margin-top:18px}
 .reset{font-size:11px;color:var(--muted);background:none;border:none;text-decoration:underline;cursor:pointer}
+
 /* places tab */
 .psum{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 2px 12px;flex-wrap:wrap}
 .psum .ct{font-size:12.5px;color:var(--muted)}
@@ -162,7 +164,47 @@ a{color:var(--teal);text-decoration:none}
 .bsm.gmap{color:var(--teal)}
 .bsm.onmap{color:var(--coral);border-color:#F2D2C6}
 .hidden{display:none!important}
-@media(min-width:620px){ .stop:hover{background:#F0F6F7} .lg:hover{border-color:var(--teal)} .place:hover{border-color:var(--tealb)} }
+
+/* edit mode */
+.editbar{display:flex;align-items:center;gap:10px;margin:0 2px 12px;flex-wrap:wrap}
+.editbar .hint{font-size:11.5px;color:var(--muted);flex:1;min-width:120px}
+.ebtn{font-size:12.5px;font-weight:800;border:1px solid var(--teal);background:#fff;color:var(--teal);
+  border-radius:999px;padding:9px 14px;cursor:pointer;min-height:40px}
+.ebtn.on{background:var(--coral);border-color:var(--coral);color:#fff}
+.ebtn.danger{border-color:#C0392B;color:#C0392B}
+.dayedit{display:flex;gap:6px;flex-wrap:wrap;padding:8px 12px;background:#FBF7EE;border-bottom:1px solid #ECE3CF}
+.stopedit{display:flex;gap:6px;flex-wrap:wrap;padding:2px 8px 8px 56px}
+.addrow{padding:2px 8px 10px 56px}
+.minib{font-size:11.5px;font-weight:700;border:1px solid var(--line);background:#fff;color:var(--navy2);
+  border-radius:8px;padding:7px 11px;cursor:pointer;min-height:34px}
+.minib.del{color:#C0392B;border-color:#EBC8C2}
+.minib.add{color:var(--teal);border-color:#BFE3E7;border-style:dashed;width:100%}
+.minib.mv{min-width:40px;font-size:14px}
+
+/* modal / bottom sheet */
+.modal{position:fixed;inset:0;z-index:100;background:rgba(14,37,47,.55);display:none;
+  align-items:flex-end;justify-content:center}
+.modal.show{display:flex}
+.sheet{background:#fff;width:100%;max-width:560px;border-radius:18px 18px 0 0;
+  padding:18px 16px calc(20px + env(safe-area-inset-bottom));max-height:92vh;overflow:auto}
+.sheet h3{margin:0 0 14px;font-size:16px;color:var(--navy2)}
+.fld{margin-bottom:11px}
+.fld label{display:block;font-size:11.5px;font-weight:700;color:var(--muted);margin-bottom:4px}
+.fld input,.fld textarea,.fld select{width:100%;font:inherit;font-size:15px;padding:11px 11px;
+  border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink)}
+.fld textarea{min-height:52px;resize:vertical;line-height:1.4}
+.fld.row{display:flex;gap:10px}
+.fld.row>div{flex:1}
+.sheet .actions{display:flex;gap:8px;margin-top:16px}
+.sheet .actions button{flex:1;font-size:15px;font-weight:800;border-radius:11px;padding:13px;cursor:pointer;
+  border:1px solid var(--line);background:#fff;color:var(--navy2);min-height:48px}
+.sheet .actions .save{background:var(--teal);border-color:var(--teal);color:#fff}
+
+@media(min-width:620px){
+  .stop:hover{background:#F0F6F7} .lg:hover{border-color:var(--teal)} .place:hover{border-color:var(--tealb)}
+  .modal{align-items:center} .sheet{border-radius:18px}
+}
+@media (prefers-reduced-motion: reduce){ *{transition:none!important} }
 </style>
 </head>
 <body>
@@ -170,7 +212,7 @@ a{color:var(--teal);text-decoration:none}
   <p class="eyebrow">7 nights · winter on the harbour</p>
   <h1>Sydney Trip · 시드니 여행</h1>
   <p class="meta">2026. 6. 21(일) – 6. 28(일) · 숙소 Criterion Hotel (260 Pitt St, CBD) · 요금 AUD</p>
-  <div class="chips">
+  <div class="chips" id="chips">
     <span class="chip">🚆 <b>교통 주간상한 $50</b></span>
     <span class="chip">🎟 <b>유료입장 ≈$81</b></span>
     <span class="chip">🐋 <b>겨울=고래 시즌</b></span>
@@ -197,7 +239,7 @@ a{color:var(--teal);text-decoration:none}
       <button class="ptoggle" id="ponly">남은 곳만 보기</button>
     </div>
     <div id="placelist"></div>
-    <p class="mapnote">📍 우리가 들를 장소를 모았어요. 체크는 일정 탭과 자동으로 같이 표시돼요. “지도” 버튼을 누르면 지도에서 해당 위치가 열려요.</p>
+    <p class="mapnote">📍 우리가 들를 장소를 모았어요. 체크는 일정 탭과 자동으로 같이 표시돼요. “지도에서 보기”를 누르면 지도에서 해당 위치가 열려요.</p>
   </div>
 
   <div class="panel" id="map-panel">
@@ -209,7 +251,7 @@ a{color:var(--teal);text-decoration:none}
   <div class="panel" id="check">
     <div class="card">
       <h3>출발 전 준비 · Before you go</h3>
-      <p class="sc">탭하면 체크 상태가 저장돼요(브라우저로 열었을 때).</p>
+      <p class="sc">탭하면 체크 상태가 저장돼요.</p>
       <ul class="cl" id="prep"></ul>
     </div>
     <div class="card">
@@ -230,30 +272,42 @@ a{color:var(--teal);text-decoration:none}
     <div class="card">
       <h3>여행 팁 · Notes</h3>
       <div id="tips"></div>
-      <div style="text-align:right;margin-top:10px"><button class="reset" id="reset">모든 체크 초기화 / Reset all</button></div>
+      <div style="text-align:right;margin-top:10px"><button class="reset" id="reset">방문 체크만 초기화 / Reset checks</button></div>
     </div>
   </div>
 
-  <p class="foot">Have a wonderful trip 🇦🇺 · 인터넷 연결 시 지도가 보여요</p>
+  <p class="foot">Have a wonderful trip 🇦🇺 · 편집한 일정은 이 기기에 저장돼요</p>
 </div>
+
+<div class="modal" id="modal"><div class="sheet" id="sheet"></div></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script>
-/* ---------- safe storage (works on download; degrades in viewer) ---------- */
-var MEM={};
+/* ---------- safe storage (degrades to in-memory if blocked) ---------- */
+var MEM={}, MEM_ITI=null;
 function load(){ try{return JSON.parse(localStorage.getItem('sydtrip')||'{}')}catch(e){return MEM} }
 function save(o){ try{localStorage.setItem('sydtrip',JSON.stringify(o))}catch(e){MEM=o} }
 var STATE=load();
 function isOn(id){return !!STATE[id]}
 function setOn(id,v){STATE[id]=v; save(STATE);}
 
-/* ---------- data ---------- */
+var ITI_KEY='sydtrip_days';
+function loadItinerary(){ try{var s=localStorage.getItem(ITI_KEY); return s?JSON.parse(s):MEM_ITI;}catch(e){return MEM_ITI;} }
+function saveItinerary(){ try{localStorage.setItem(ITI_KEY,JSON.stringify(DAYS));}catch(e){MEM_ITI=DAYS;} }
+function clearItinerary(){ try{localStorage.removeItem(ITI_KEY);}catch(e){} MEM_ITI=null; }
+
+/* ---------- helpers ---------- */
 var DAYCOLORS=["#0E7C86","#C8553D","#5B8C5A","#2F6DB0","#B7791F","#8E5BA6","#C44E78","#4A6572"];
 function g(name,pid){var q=encodeURIComponent(name+" Sydney");return pid?("https://www.google.com/maps/search/?api=1&query="+q+"&query_place_id="+pid):("https://www.google.com/maps/search/?api=1&query="+q);}
+function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function deepClone(o){return JSON.parse(JSON.stringify(o));}
+function swap(a,i,j){var t=a[i];a[i]=a[j];a[j]=t;}
+function newId(){return 'sx'+Date.now().toString(36)+Math.floor(Math.random()*1e6).toString(36);}
 
-var DAYS=[
+/* ---------- default itinerary data ---------- */
+var DEFAULT_DAYS=[
 {d:"Day 1",date:"6/21 (일·Sun)",tk:"도착 & 사촌과 저녁",te:"Arrival & Dinner with Cousin",cap:"일요일 교통 상한 $2.80 + 공항철도료 ~$17",stops:[
- {t:"10:00",kr:"공항 도착, 입국·수하물",en:"Arrive at airport",lat:-33.9399,lng:151.1753,pid:null,mv:"🚆 공항철도(T8) → 타운홀역 15분 · 공항료 ~$17 + 상한 $2.80"},
+ {t:"10:00",kr:"공항 도착, 입국·수하물",en:"Arrive at airport",lat:-33.9399,lng:151.1753,mv:"🚆 공항철도(T8) → 타운홀역 15분 · 공항료 ~$17 + 상한 $2.80"},
  {t:"11:00",kr:"호텔 체크인 (Criterion Hotel)",en:"Check in / drop bags",lat:-33.8733,lng:151.2084,pid:"ChIJ-9uKcz6uEmsRao9rR9Ke7AI"},
  {t:"12:30",kr:"CBD 점심",en:"Lunch in the CBD",mv:"🚶 도보 15분 / 🚆 기차 4분 (상한 내)"},
  {t:"13:30",kr:"오페라하우스 — 조개 지붕의 세계적 랜드마크",en:"Opera House — iconic shell-roofed landmark",lat:-33.8568,lng:151.2153,pid:"ChIJ3S-JXmauEmsRUcIaWtf4MzE",mv:"🚶 도보 8분 (무료)"},
@@ -341,6 +395,8 @@ var DAYS=[
  {t:"11:00",kr:"출국",en:"Departure"}
 ]}
 ];
+/* give the built-in stops stable ids that match any pre-existing check state */
+DEFAULT_DAYS.forEach(function(day,di){ day.stops.forEach(function(s,si){ if(!s.id) s.id='s'+di+'_'+si; }); });
 
 var PREP=[
  ["여권·비자(ETA) 확인","Passport & visa (ETA)"],
@@ -369,53 +425,100 @@ var TIPS=[
  ["예약 / Bookings","타워 마감은 시즌에 따라 19–20시이니 예약 시 확인.","Tower closes 7–8pm by season — check when booking."]
 ];
 
-/* ---------- render itinerary ---------- */
-var plan=document.getElementById('plan');
-var totalStops=0;
-DAYS.forEach(function(day,di){
-  var col=DAYCOLORS[di%DAYCOLORS.length];
-  var checkable=day.stops.filter(function(s){return !s.sub});
-  totalStops+=checkable.length;
-  var sec=document.createElement('section'); sec.className='day'; if(di===0) sec.className+=' open';
-  var rows='';
-  day.stops.forEach(function(s,si){
-    if(s.sub){ rows+='<div class="sub">• '+s.kr+' <span style="color:#9fb0b6">'+s.en+'</span></div>'; return; }
-    var id='s'+di+'_'+si;
-    var done=isOn(id)?' done':'';
-    var freeTag=s.free?'<span class="tagfree">무료 FREE</span>':'';
-    var payTag=s.pay?'<span class="tagfree" style="color:#9A5B1A;background:#FBEFD9">'+s.pay+'</span>':'';
-    var mapBtn=(s.lat? '<a class="btn map" target="_blank" rel="noopener" href="'+g(s.en||s.kr,s.pid)+'">📍 지도</a>':'');
-    rows+=''
-     +'<div class="stop'+done+'" id="row_'+id+'">'
-     +' <div class="rail"><span class="time">'+(s.t||'')+'</span><span class="node'+(isOn(id)?' done':'')+'" id="node_'+id+'" style="border-color:'+col+';'+(isOn(id)?'background:'+col:'')+'"></span><span class="line"></span></div>'
-     +' <div class="scon">'
-     +'  <div class="sk">'+s.kr+freeTag+payTag+'</div>'
-     +'  <div class="se">'+(s.en||'')+'</div>'
-     +'  <div class="act">'
-     +'   <label class="cbox"><input type="checkbox" data-id="'+id+'" '+(isOn(id)?'checked':'')+'> 들름</label>'
-     + mapBtn
-     +'  </div>'
-     +' </div>'
-     +'</div>';
-    if(s.mv){ rows+='<div class="move"><div class="rail2"><div class="seg"></div></div><div class="mt">↳ '+s.mv+'</div></div>'; }
-  });
-  sec.innerHTML=''
-   +'<div class="dhead">'
-   +' <div class="daydot" style="background:'+col+'">'+(di+1)+'</div>'
-   +' <div class="h"><div class="dno">'+day.d+' · '+day.date+'</div><div class="dt">'+day.tk+'</div><div class="de">'+day.te+'</div></div>'
-   +' <span class="cnt" id="cnt'+di+'"></span>'
-   +' <svg class="chev" width="16" height="16" viewBox="0 0 16 16"><path d="M5 3l6 5-6 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
-   +'</div>'
-   +'<div class="cap">📋 '+day.cap+'</div>'
-   +'<div class="body"><div class="thread">'+rows+'</div></div>';
-  plan.appendChild(sec);
-  sec.querySelector('.dhead').addEventListener('click',function(){ sec.classList.toggle('open'); });
-});
+/* ---------- load itinerary (saved custom OR default) ---------- */
+var customized=false;
+var DAYS;
+(function(){
+  var saved=loadItinerary();
+  if(saved && saved.length){ DAYS=saved; customized=true; }
+  else { DAYS=deepClone(DEFAULT_DAYS); }
+  DAYS.forEach(function(day){ if(!day.stops) day.stops=[]; day.stops.forEach(function(s){ if(!s.id) s.id=newId(); }); });
+})();
 
-/* ---- centralized check sync: itinerary <-> places <-> progress ---- */
+/* ---------- itinerary render ---------- */
+var plan=document.getElementById('plan');
+var editMode=false;
+var openState={0:true};
+
+function stopEditControls(di,si){
+  return '<div class="stopedit">'
+    +'<button class="minib" data-act="editstop" data-di="'+di+'" data-si="'+si+'">✎ 편집</button>'
+    +'<button class="minib mv" data-act="stopup" data-di="'+di+'" data-si="'+si+'" aria-label="위로">⬆</button>'
+    +'<button class="minib mv" data-act="stopdown" data-di="'+di+'" data-si="'+si+'" aria-label="아래로">⬇</button>'
+    +'<button class="minib del" data-act="delstop" data-di="'+di+'" data-si="'+si+'">🗑 삭제</button>'
+    +'</div>';
+}
+
+function renderPlan(){
+  plan.innerHTML='';
+  var bar=document.createElement('div'); bar.className='editbar';
+  bar.innerHTML='<button class="ebtn'+(editMode?' on':'')+'" data-act="toggleedit">'+(editMode?'✅ 편집 완료':'✏️ 일정 편집하기')+'</button>'
+    +'<span class="hint">'+(editMode?'추가·수정·삭제·순서 변경 가능 · 변경은 이 기기에 저장돼요.':'내 여행에 맞게 일정을 바꿀 수 있어요. (이 기기에 저장)')+'</span>';
+  plan.appendChild(bar);
+
+  DAYS.forEach(function(day,di){
+    day.d='Day '+(di+1);
+    var col=DAYCOLORS[di%DAYCOLORS.length];
+    var sec=document.createElement('section');
+    sec.className='day'+(openState[di]?' open':'');
+    var rows='';
+    day.stops.forEach(function(s,si){
+      if(!s.id) s.id=newId();
+      if(s.sub){
+        rows+='<div class="sub">• '+esc(s.kr)+' <span style="color:#9fb0b6">'+esc(s.en)+'</span></div>';
+        if(editMode) rows+=stopEditControls(di,si);
+        return;
+      }
+      var id=s.id, on=isOn(id);
+      var freeTag=s.free?'<span class="tagfree">무료 FREE</span>':'';
+      var payTag=s.pay?'<span class="tagfree" style="color:#9A5B1A;background:#FBEFD9">'+esc(s.pay)+'</span>':'';
+      var mapBtn=(s.lat!=null? '<a class="btn map" target="_blank" rel="noopener" href="'+g(s.en||s.kr,s.pid)+'">📍 지도</a>':'');
+      rows+='<div class="stop'+(on?' done':'')+'" id="row_'+id+'">'
+        +'<div class="rail"><span class="time">'+esc(s.t)+'</span><span class="node'+(on?' done':'')+'" id="node_'+id+'" style="border-color:'+col+';'+(on?'background:'+col:'')+'"></span><span class="line"></span></div>'
+        +'<div class="scon">'
+        +'<div class="sk">'+esc(s.kr)+freeTag+payTag+'</div>'
+        +'<div class="se">'+esc(s.en)+'</div>'
+        +'<div class="act"><label class="cbox"><input type="checkbox" data-id="'+id+'" '+(on?'checked':'')+'> 들름</label>'+mapBtn+'</div>'
+        +'</div></div>';
+      if(editMode) rows+=stopEditControls(di,si);
+      if(s.mv){ rows+='<div class="move"><div class="rail2"><div class="seg"></div></div><div class="mt">↳ '+esc(s.mv)+'</div></div>'; }
+    });
+    var dayEdit = editMode
+      ? '<div class="dayedit">'
+        +'<button class="minib" data-act="editday" data-di="'+di+'">✎ 날짜 정보</button>'
+        +'<button class="minib mv" data-act="dayup" data-di="'+di+'" aria-label="날짜 위로">⬆</button>'
+        +'<button class="minib mv" data-act="daydown" data-di="'+di+'" aria-label="날짜 아래로">⬇</button>'
+        +'<button class="minib del" data-act="delday" data-di="'+di+'">🗑 날짜 삭제</button>'
+        +'</div>' : '';
+    var addStop = editMode ? '<div class="addrow"><button class="minib add" data-act="addstop" data-di="'+di+'">+ 이 날에 일정 추가</button></div>' : '';
+    sec.innerHTML='<div class="dhead">'
+      +'<div class="daydot" style="background:'+col+'">'+(di+1)+'</div>'
+      +'<div class="h"><div class="dno">'+esc(day.d)+' · '+esc(day.date)+'</div><div class="dt">'+esc(day.tk)+'</div><div class="de">'+esc(day.te)+'</div></div>'
+      +'<span class="cnt" id="cnt'+di+'"></span>'
+      +'<svg class="chev" width="16" height="16" viewBox="0 0 16 16"><path d="M5 3l6 5-6 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+      +'</div>'
+      +'<div class="cap">📋 '+esc(day.cap)+'</div>'
+      + dayEdit
+      +'<div class="body"><div class="thread">'+rows+'</div>'+addStop+'</div>';
+    plan.appendChild(sec);
+    sec.querySelector('.dhead').addEventListener('click',function(){
+      var willOpen=!sec.classList.contains('open');
+      sec.classList.toggle('open',willOpen); openState[di]=willOpen;
+    });
+  });
+
+  if(editMode){
+    var foot=document.createElement('div'); foot.className='editbar'; foot.style.marginTop='2px';
+    foot.innerHTML='<button class="ebtn" data-act="addday">+ 날짜 추가</button>'
+      +'<button class="ebtn danger" data-act="resetiti">↺ 기본 일정으로 되돌리기</button>';
+    plan.appendChild(foot);
+  }
+  updateProgress();
+}
+
+/* ---------- centralized check sync: itinerary <-> places <-> progress ---------- */
 function setStop(id,checked){
   setOn(id,checked);
-  // keep every checkbox bound to this id in agreement (both tabs)
   document.querySelectorAll('input[data-id="'+id+'"]').forEach(function(cb){ if(cb.checked!==checked) cb.checked=checked; });
   var row=document.getElementById('row_'+id); if(row) row.classList.toggle('done',checked);
   var node=document.getElementById('node_'+id);
@@ -426,56 +529,171 @@ function setStop(id,checked){
 plan.addEventListener('change',function(e){
   if(e.target.matches('input[type=checkbox]')){ setStop(e.target.dataset.id, e.target.checked); }
 });
+plan.addEventListener('click',function(e){
+  var b=e.target.closest('button[data-act]'); if(!b) return;
+  handleEditAction(b.dataset.act, b);
+});
 
 function updateProgress(){
-  var done=0;
+  var done=0, total=0;
   DAYS.forEach(function(day,di){
     var dd=0, tot=0;
-    day.stops.forEach(function(s,si){ if(s.sub)return; tot++; if(isOn('s'+di+'_'+si)){dd++;done++;} });
+    day.stops.forEach(function(s){ if(s.sub)return; tot++; total++; if(isOn(s.id)){dd++;done++;} });
     var el=document.getElementById('cnt'+di); if(el) el.textContent=dd+'/'+tot;
-    // recolor nodes
   });
-  var pct=totalStops? Math.round(done/totalStops*100):0;
+  var pct=total?Math.round(done/total*100):0;
   document.getElementById('fill').style.width=pct+'%';
-  document.getElementById('progtxt').textContent='방문 체크 '+done+' / '+totalStops+'  ('+pct+'%)';
+  document.getElementById('progtxt').textContent='방문 체크 '+done+' / '+total+'  ('+pct+'%)';
   refreshPlaces();
 }
+
+/* ---------- editing ---------- */
+function commit(){ saveItinerary(); markCustomized(); renderPlaces(); renderPlan(); destroyMap(); }
+function markCustomized(){
+  if(customized) return; customized=true;
+  var chips=document.getElementById('chips');
+  if(chips && !document.getElementById('custChip')){
+    var c=document.createElement('span'); c.className='chip cust'; c.id='custChip'; c.innerHTML='✎ <b>내 맞춤 일정</b>';
+    chips.appendChild(c);
+  }
+}
+function handleEditAction(act, el){
+  var di=el.dataset.di!=null?+el.dataset.di:-1;
+  var si=el.dataset.si!=null?+el.dataset.si:-1;
+  switch(act){
+    case 'toggleedit': editMode=!editMode; renderPlan(); break;
+    case 'addday':
+      DAYS.push({date:'새 날짜 New day',tk:'새 테마',te:'New theme',cap:'메모를 입력하세요',stops:[]});
+      openState[DAYS.length-1]=true; commit(); break;
+    case 'resetiti':
+      if(confirm('일정을 처음(기본) 상태로 되돌릴까요?\n편집한 내용은 사라집니다. (체크 표시는 유지)')){
+        clearItinerary(); DAYS=deepClone(DEFAULT_DAYS); customized=false;
+        var cc=document.getElementById('custChip'); if(cc) cc.remove();
+        renderPlaces(); renderPlan(); destroyMap();
+      } break;
+    case 'editday': openDayEditor(di); break;
+    case 'delday':
+      if(DAYS.length<=1){ alert('마지막 한 날은 삭제할 수 없어요.'); break; }
+      if(confirm('이 날짜를 통째로 삭제할까요?')){ DAYS.splice(di,1); commit(); } break;
+    case 'dayup': if(di>0){ swap(DAYS,di,di-1); commit(); } break;
+    case 'daydown': if(di<DAYS.length-1){ swap(DAYS,di,di+1); commit(); } break;
+    case 'addstop':
+      DAYS[di].stops.push({t:'',kr:'새 일정',en:'',id:newId()}); openState[di]=true; commit(); break;
+    case 'editstop': openStopEditor(di,si); break;
+    case 'delstop': if(confirm('이 일정을 삭제할까요?')){ DAYS[di].stops.splice(si,1); commit(); } break;
+    case 'stopup': if(si>0){ swap(DAYS[di].stops,si,si-1); commit(); } break;
+    case 'stopdown': if(si<DAYS[di].stops.length-1){ swap(DAYS[di].stops,si,si+1); commit(); } break;
+  }
+}
+
+/* ---------- modal editor ---------- */
+var modal=document.getElementById('modal'), sheet=document.getElementById('sheet');
+function showModal(){ modal.classList.add('show'); }
+function hideModal(){ modal.classList.remove('show'); }
+function val(id){ var el=document.getElementById(id); return el?el.value.trim():''; }
+function fld(label,id,v,ph){ return '<div class="fld"><label>'+label+'</label><input id="'+id+'" value="'+esc(v)+'" placeholder="'+esc(ph||'')+'"></div>'; }
+function fldArea(label,id,v,ph){ return '<div class="fld"><label>'+label+'</label><textarea id="'+id+'" placeholder="'+esc(ph||'')+'">'+esc(v)+'</textarea></div>'; }
+function selOpt(cur,v,label){ return '<option value="'+v+'"'+(cur===v?' selected':'')+'>'+label+'</option>'; }
+
+function openStopEditor(di,si){
+  var s=DAYS[di].stops[si];
+  var entry=s.free?'free':(s.pay?'pay':'none');
+  sheet.innerHTML='<h3>일정 편집 · Day '+(di+1)+'</h3>'
+    +fld('시간','st_t',s.t||'','예: 10:00 / 코스')
+    +fldArea('이름 (한글)','st_kr',s.kr||'','예: 오페라하우스 — 조개 지붕의 랜드마크')
+    +fldArea('이름 (영문)','st_en',s.en||'','예: Opera House')
+    +fldArea('이동 / 교통 메모','st_mv',s.mv||'','예: 🚶 도보 8분 (무료)')
+    +'<div class="fld"><label>입장</label><select id="st_entry">'
+      +selOpt(entry,'none','일반')+selOpt(entry,'free','무료 (FREE)')+selOpt(entry,'pay','유료')+'</select></div>'
+    +'<div class="fld" id="st_paywrap"'+(entry==='pay'?'':' style="display:none"')+'><label>요금 표시 텍스트</label><input id="st_pay" value="'+esc(s.pay||'')+'" placeholder="예: 입장 $12 / 온라인 ~$44"></div>'
+    +'<div class="fld row"><div><label>위도 (lat)</label><input id="st_lat" inputmode="decimal" value="'+(s.lat!=null?s.lat:'')+'" placeholder="-33.8568"></div>'
+      +'<div><label>경도 (lng)</label><input id="st_lng" inputmode="decimal" value="'+(s.lng!=null?s.lng:'')+'" placeholder="151.2153"></div></div>'
+    +'<div class="fld"><label>Google place_id (선택)</label><input id="st_pid" value="'+esc(s.pid||'')+'" placeholder="비워둬도 돼요"></div>'
+    +'<label class="cbox" style="margin:2px 0 4px"><input type="checkbox" id="st_sub" '+(s.sub?'checked':'')+'> 정보 줄로 표시 (체크 불가·지도 제외)</label>'
+    +'<p class="sc" style="margin:6px 0 0">📌 위도·경도를 넣으면 지도와 “장소” 목록에 자동으로 나타나요.</p>'
+    +'<div class="actions"><button data-mact="cancel">취소</button><button class="save" data-mact="savestop">저장</button></div>';
+  sheet.dataset.di=di; sheet.dataset.si=si;
+  showModal();
+  document.getElementById('st_entry').addEventListener('change',function(){
+    document.getElementById('st_paywrap').style.display=this.value==='pay'?'':'none';
+  });
+}
+function saveStop(){
+  var di=+sheet.dataset.di, si=+sheet.dataset.si, s=DAYS[di].stops[si];
+  s.t=val('st_t'); s.kr=val('st_kr')||'(이름 없음)'; s.en=val('st_en');
+  var mv=val('st_mv'); if(mv) s.mv=mv; else delete s.mv;
+  var entry=val('st_entry');
+  if(entry==='free'){ s.free=1; delete s.pay; }
+  else if(entry==='pay'){ s.pay=val('st_pay')||'유료'; delete s.free; }
+  else { delete s.free; delete s.pay; }
+  if(document.getElementById('st_sub').checked){ s.sub=1; delete s.lat; delete s.lng; }
+  else {
+    delete s.sub;
+    var lat=parseFloat(val('st_lat')), lng=parseFloat(val('st_lng'));
+    if(!isNaN(lat)&&!isNaN(lng)){ s.lat=lat; s.lng=lng; } else { delete s.lat; delete s.lng; }
+  }
+  var pid=val('st_pid'); if(pid) s.pid=pid; else delete s.pid;
+  if(!s.id) s.id=newId();
+  hideModal(); commit();
+}
+function openDayEditor(di){
+  var d=DAYS[di];
+  sheet.innerHTML='<h3>날짜 정보 편집 · Day '+(di+1)+'</h3>'
+    +fld('날짜','dy_date',d.date||'','예: 6/21 (일·Sun)')
+    +fldArea('테마 (한글)','dy_tk',d.tk||'','예: 도착 & 사촌과 저녁')
+    +fldArea('테마 (영문)','dy_te',d.te||'','예: Arrival & Dinner')
+    +fldArea('상단 띠 메모 (교통 등)','dy_cap',d.cap||'','예: 월요일 교통 상한 $19.30')
+    +'<div class="actions"><button data-mact="cancel">취소</button><button class="save" data-mact="saveday">저장</button></div>';
+  sheet.dataset.di=di;
+  showModal();
+}
+function saveDay(){
+  var di=+sheet.dataset.di, d=DAYS[di];
+  d.date=val('dy_date'); d.tk=val('dy_tk')||'테마'; d.te=val('dy_te'); d.cap=val('dy_cap');
+  hideModal(); commit();
+}
+modal.addEventListener('click',function(e){
+  if(e.target===modal){ hideModal(); return; }
+  var b=e.target.closest('button[data-mact]'); if(!b) return;
+  var a=b.dataset.mact;
+  if(a==='cancel') hideModal();
+  else if(a==='savestop') saveStop();
+  else if(a==='saveday') saveDay();
+});
 
 /* ---------- places (recommended-spot list) ---------- */
 var PLACE_INDEX={}; var onlyRemaining=false;
 function renderPlaces(){
   var host=document.getElementById('placelist'); if(!host) return;
-  host.innerHTML=''; var total=0;
+  PLACE_INDEX={}; host.innerHTML=''; var total=0;
   DAYS.forEach(function(day,di){
     var col=DAYCOLORS[di%8]; var items='';
-    day.stops.forEach(function(s,si){
-      if(!s.lat) return;
-      var id='s'+di+'_'+si; total++;
+    day.stops.forEach(function(s){
+      if(s.sub || s.lat==null) return;
+      var id=s.id; total++;
       PLACE_INDEX[id]={lat:s.lat,lng:s.lng};
       var freeTag=s.free?'<span class="tagfree">무료 FREE</span>':'';
-      var payTag=s.pay?'<span class="tagfree" style="color:#9A5B1A;background:#FBEFD9">'+s.pay+'</span>':'';
-      var coords=s.lat.toFixed(4)+', '+s.lng.toFixed(4);
-      items+=''
-        +'<div class="place'+(isOn(id)?' done':'')+'" id="prow_'+id+'" data-pid="'+id+'">'
-        +' <label class="pchk"><input type="checkbox" data-id="'+id+'" '+(isOn(id)?'checked':'')+' aria-label="방문 체크"></label>'
-        +' <div class="pbody">'
-        +'  <div class="pnm">'+s.kr+freeTag+payTag+'</div>'
-        +'  <div class="pen">'+(s.en||'')+'</div>'
-        +'  <div class="pmeta"><span>📅 '+day.d+(s.t&&s.t!=='코스'?(' · '+s.t):'')+'</span><span class="geo">📌 '+coords+'</span></div>'
-        +'  <div class="pacts">'
-        +'   <a class="bsm gmap" target="_blank" rel="noopener" href="'+g(s.en||s.kr,s.pid)+'">📍 구글맵 열기</a>'
-        +'   <button class="bsm onmap" type="button" data-mapid="'+id+'">🗺 지도에서 보기</button>'
-        +'  </div>'
-        +' </div>'
-        +'</div>';
+      var payTag=s.pay?'<span class="tagfree" style="color:#9A5B1A;background:#FBEFD9">'+esc(s.pay)+'</span>':'';
+      var coords=(+s.lat).toFixed(4)+', '+(+s.lng).toFixed(4);
+      items+='<div class="place'+(isOn(id)?' done':'')+'" id="prow_'+id+'" data-pid="'+id+'">'
+        +'<label class="pchk"><input type="checkbox" data-id="'+id+'" '+(isOn(id)?'checked':'')+' aria-label="방문 체크"></label>'
+        +'<div class="pbody">'
+        +'<div class="pnm">'+esc(s.kr)+freeTag+payTag+'</div>'
+        +'<div class="pen">'+esc(s.en)+'</div>'
+        +'<div class="pmeta"><span>📅 '+esc(day.d)+(s.t&&s.t!=='코스'?(' · '+esc(s.t)):'')+'</span><span class="geo">📌 '+coords+'</span></div>'
+        +'<div class="pacts">'
+        +'<a class="bsm gmap" target="_blank" rel="noopener" href="'+g(s.en||s.kr,s.pid)+'">📍 구글맵 열기</a>'
+        +'<button class="bsm onmap" type="button" data-mapid="'+id+'">🗺 지도에서 보기</button>'
+        +'</div></div></div>';
     });
     if(!items) return;
     var sec=document.createElement('div'); sec.className='pday';
     sec.innerHTML='<div class="ph"><span class="pdot" style="background:'+col+'"></span>'
-      +'<span class="pt">'+day.d+' · '+day.tk+'</span><span class="pte">'+day.date+'</span></div>'+items;
+      +'<span class="pt">'+esc(day.d)+' · '+esc(day.tk)+'</span><span class="pte">'+esc(day.date)+'</span></div>'+items;
     host.appendChild(sec);
   });
   var pc=document.getElementById('pcount'); if(pc) pc.textContent=total;
+  refreshPlaces();
 }
 function refreshPlaces(){
   var pd=document.getElementById('pdone'); if(!pd) return;
@@ -486,11 +704,10 @@ function refreshPlaces(){
     el.classList.toggle('hidden', onlyRemaining && checked);
   });
   pd.textContent=done;
-  document.querySelectorAll('.pday').forEach(function(sec){
-    sec.classList.toggle('hidden', sec.querySelectorAll('.place:not(.hidden)').length===0);
+  document.querySelectorAll('.pday').forEach(function(s){
+    s.classList.toggle('hidden', s.querySelectorAll('.place:not(.hidden)').length===0);
   });
 }
-renderPlaces();
 var placesPanel=document.getElementById('places');
 placesPanel.addEventListener('change',function(e){
   if(e.target.matches('input[type=checkbox]')){ setStop(e.target.dataset.id, e.target.checked); }
@@ -504,16 +721,12 @@ document.getElementById('ponly').addEventListener('click',function(){
   refreshPlaces();
 });
 
-// fix node fill colors after load
-DAYS.forEach(function(day,di){var col=DAYCOLORS[di%8];day.stops.forEach(function(s,si){if(s.sub)return;var n=document.getElementById('node_s'+di+'_'+si);if(n&&isOn('s'+di+'_'+si)){n.style.background=col;}});});
-updateProgress();
-
 /* ---------- checklist ---------- */
 function buildList(ulId,items,prefix){
-  var ul=document.getElementById(ulId);
+  var ul=document.getElementById(ulId); ul.innerHTML='';
   items.forEach(function(it,i){
     var id=prefix+i; var li=document.createElement('li'); if(isOn(id)) li.className='done';
-    li.innerHTML='<input type="checkbox" data-cid="'+id+'" '+(isOn(id)?'checked':'')+'><span class="t">'+it[0]+'<span class="en">'+it[1]+'</span></span>';
+    li.innerHTML='<input type="checkbox" data-cid="'+id+'" '+(isOn(id)?'checked':'')+'><span class="t">'+esc(it[0])+'<span class="en">'+esc(it[1])+'</span></span>';
     ul.appendChild(li);
   });
 }
@@ -525,13 +738,12 @@ document.getElementById('check').addEventListener('change',function(e){
   }
 });
 var tipsEl=document.getElementById('tips');
-TIPS.forEach(function(t){ tipsEl.innerHTML+='<div class="tip"><b>'+t[0]+'</b> '+t[1]+'<span class="en">'+t[2]+'</span></div>'; });
+TIPS.forEach(function(t){ tipsEl.innerHTML+='<div class="tip"><b>'+esc(t[0])+'</b> '+esc(t[1])+'<span class="en">'+esc(t[2])+'</span></div>'; });
 document.getElementById('reset').addEventListener('click',function(){
-  if(confirm('모든 체크 상태를 초기화할까요? / Reset all checks?')){ STATE={}; save(STATE); location.reload(); }
+  if(confirm('방문 체크 상태를 모두 지울까요? (편집한 일정은 그대로 유지됩니다)')){ STATE={}; save(STATE); location.reload(); }
 });
 
 /* ---------- tabs ---------- */
-var mapInited=false;
 document.querySelectorAll('.tab').forEach(function(tb){
   tb.addEventListener('click',function(){
     document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('active')});
@@ -546,36 +758,42 @@ document.querySelectorAll('.tab').forEach(function(tb){
 });
 
 /* ---------- map (Leaflet + OSM) ---------- */
-var map, layersByDay={}, markersById={};
+var map, mapInited=false, layersByDay={}, markersById={};
+function destroyMap(){
+  if(map){ try{map.remove();}catch(e){} }
+  map=null; mapInited=false; markersById={}; layersByDay={};
+  var el=document.getElementById('map'); if(el) el.innerHTML='';
+  var lg=document.getElementById('legend'); if(lg) lg.innerHTML='';
+}
 function openOnMap(id){
   var t=document.querySelector('.tab[data-tab="map"]'); if(t) t.click();
   setTimeout(function(){
     if(typeof L==='undefined'||!map) return;
     var mk=markersById[id], p=PLACE_INDEX[id];
     if(mk){
-      var lg=document.querySelector('.lg[data-di="'+mk._di+'"]');
-      if(mk._grp && !map.hasLayer(mk._grp)){ mk._grp.addTo(map); if(lg) lg.classList.remove('off'); }
+      if(mk._grp && !map.hasLayer(mk._grp)){ mk._grp.addTo(map); var lg=document.querySelector('.lg[data-di="'+mk._di+'"]'); if(lg) lg.classList.remove('off'); }
       map.setView(mk.getLatLng(),15); mk.openPopup();
     } else if(p){ map.setView([p.lat,p.lng],15); }
-  },200);
+  },220);
 }
 function initMap(){
   if(mapInited){ if(map) setTimeout(function(){map.invalidateSize()},60); return; }
   mapInited=true;
-  if(typeof L==='undefined'){ document.getElementById('map').innerHTML='<div style="padding:20px;color:#5E7681;font-size:13px">지도를 불러오려면 인터넷 연결이 필요해요. 다운로드해서 브라우저로 열면 표시됩니다.</div>'; return; }
+  if(typeof L==='undefined'){ document.getElementById('map').innerHTML='<div style="padding:20px;color:#5E7681;font-size:13px">지도를 불러오려면 인터넷 연결이 필요해요.</div>'; return; }
   map=L.map('map',{scrollWheelZoom:true}).setView([-33.86,151.21],11);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© OpenStreetMap'}).addTo(map);
   var legend=document.getElementById('legend'); var bounds=[];
   DAYS.forEach(function(day,di){
-    var col=DAYCOLORS[di%8]; var grp=L.layerGroup().addTo(map); layersByDay[di]=grp;
-    day.stops.forEach(function(s,si){
-      if(!s.lat) return; bounds.push([s.lat,s.lng]);
+    var col=DAYCOLORS[di%8]; var grp=L.layerGroup().addTo(map); layersByDay[di]=grp; var cnt=0;
+    day.stops.forEach(function(s){
+      if(s.sub || s.lat==null) return; bounds.push([s.lat,s.lng]); cnt++;
       var mk=L.circleMarker([s.lat,s.lng],{radius:9,color:'#fff',weight:2,fillColor:col,fillOpacity:1});
-      mk.bindPopup('<b>'+s.kr.split(' — ')[0]+'</b><br><span style="color:#5E7681;font-size:12px">'+day.d+' · '+(s.t||'')+'</span><br><a target="_blank" rel="noopener" href="'+g(s.en||s.kr,s.pid)+'">Google 지도에서 열기 ↗</a>');
-      mk.addTo(grp); mk._grp=grp; mk._di=di; markersById['s'+di+'_'+si]=mk;
+      mk.bindPopup('<b>'+esc(String(s.kr).split(' — ')[0])+'</b><br><span style="color:#5E7681;font-size:12px">'+esc(day.d)+' · '+esc(s.t)+'</span><br><a target="_blank" rel="noopener" href="'+g(s.en||s.kr,s.pid)+'">Google 지도에서 열기 ↗</a>');
+      mk.addTo(grp); mk._grp=grp; mk._di=di; markersById[s.id]=mk;
     });
+    if(!cnt) return;
     var lg=document.createElement('button'); lg.className='lg'; lg.dataset.di=di;
-    lg.innerHTML='<span class="sw" style="background:'+col+'"></span>'+(di+1)+'. '+day.tk.split(' ')[0];
+    lg.innerHTML='<span class="sw" style="background:'+col+'"></span>'+(di+1)+'. '+esc(String(day.tk).split(' ')[0]);
     lg.addEventListener('click',function(){
       lg.classList.toggle('off');
       if(map.hasLayer(grp)){map.removeLayer(grp);}else{grp.addTo(map);}
@@ -585,6 +803,11 @@ function initMap(){
   if(bounds.length) map.fitBounds(bounds,{padding:[30,30]});
   setTimeout(function(){map.invalidateSize()},80);
 }
+
+/* ---------- boot ---------- */
+renderPlaces();
+renderPlan();
+if(customized) markCustomized();
 </script>
 </body>
 </html>
