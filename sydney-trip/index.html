@@ -594,12 +594,20 @@ function val(id){ var el=document.getElementById(id); return el?el.value.trim():
 function fld(label,id,v,ph){ return '<div class="fld"><label>'+label+'</label><input id="'+id+'" value="'+esc(v)+'" placeholder="'+esc(ph||'')+'"></div>'; }
 function fldArea(label,id,v,ph){ return '<div class="fld"><label>'+label+'</label><textarea id="'+id+'" placeholder="'+esc(ph||'')+'">'+esc(v)+'</textarea></div>'; }
 function selOpt(cur,v,label){ return '<option value="'+v+'"'+(cur===v?' selected':'')+'>'+label+'</option>'; }
+var TRIP_YEAR=2026;
+function fmtKDate(iso){ var d=new Date(iso+'T00:00:00'); if(isNaN(d.getTime())) return ''; var wK=['일','월','화','수','목','금','토'][d.getDay()], wE=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][d.getDay()]; return (d.getMonth()+1)+'/'+d.getDate()+' ('+wK+'·'+wE+')'; }
+function dateToISO(s){ var m=/(\d{1,2})\s*\/\s*(\d{1,2})/.exec(s||''); if(!m) return ''; return TRIP_YEAR+'-'+('0'+m[1]).slice(-2)+'-'+('0'+m[2]).slice(-2); }
+function timeToVal(s){ return /^\d{1,2}:\d{2}$/.test(s||'') ? (s.length===4?'0'+s:s) : ''; }
 
 function openStopEditor(di,si){
   var s=DAYS[di].stops[si];
   var entry=s.free?'free':(s.pay?'pay':'none');
   sheet.innerHTML='<h3>일정 편집 · Day '+(di+1)+'</h3>'
-    +fld('시간','st_t',s.t||'','예: 10:00 / 코스')
+    +'<div class="fld"><label>시간 (직접 입력 또는 시계로 선택)</label>'
+      +'<div style="display:flex;gap:8px;align-items:center">'
+      +'<input id="st_t" value="'+esc(s.t||'')+'" placeholder="예: 10:00 / 코스" style="flex:1">'
+      +'<input type="time" id="st_tp" value="'+timeToVal(s.t)+'" aria-label="시간 선택" style="flex:0 0 auto;width:42%">'
+      +'</div></div>'
     +fldArea('이름 (한글)','st_kr',s.kr||'','예: 오페라하우스 — 조개 지붕의 랜드마크')
     +fldArea('이름 (영문)','st_en',s.en||'','예: Opera House')
     +fldArea('이동 / 교통 메모','st_mv',s.mv||'','예: 🚶 도보 8분 (무료)')
@@ -617,6 +625,8 @@ function openStopEditor(di,si){
   document.getElementById('st_entry').addEventListener('change',function(){
     document.getElementById('st_paywrap').style.display=this.value==='pay'?'':'none';
   });
+  var tp=document.getElementById('st_tp');
+  if(tp) tp.addEventListener('change',function(){ if(this.value) document.getElementById('st_t').value=this.value; });
 }
 function saveStop(){
   var di=+sheet.dataset.di, si=+sheet.dataset.si, s=DAYS[di].stops[si];
@@ -639,13 +649,19 @@ function saveStop(){
 function openDayEditor(di){
   var d=DAYS[di];
   sheet.innerHTML='<h3>날짜 정보 편집 · Day '+(di+1)+'</h3>'
-    +fld('날짜','dy_date',d.date||'','예: 6/21 (일·Sun)')
+    +'<div class="fld"><label>날짜 (직접 입력 또는 달력으로 선택)</label>'
+      +'<div style="display:flex;gap:8px;align-items:center">'
+      +'<input id="dy_date" value="'+esc(d.date||'')+'" placeholder="예: 6/21 (일·Sun)" style="flex:1">'
+      +'<input type="date" id="dy_dp" value="'+dateToISO(d.date)+'" aria-label="날짜 선택" style="flex:0 0 auto;width:46%">'
+      +'</div></div>'
     +fldArea('테마 (한글)','dy_tk',d.tk||'','예: 도착 & 사촌과 저녁')
     +fldArea('테마 (영문)','dy_te',d.te||'','예: Arrival & Dinner')
     +fldArea('상단 띠 메모 (교통 등)','dy_cap',d.cap||'','예: 월요일 교통 상한 $19.30')
     +'<div class="actions"><button data-mact="cancel">취소</button><button class="save" data-mact="saveday">저장</button></div>';
   sheet.dataset.di=di;
   showModal();
+  var dp=document.getElementById('dy_dp');
+  if(dp) dp.addEventListener('change',function(){ if(this.value) document.getElementById('dy_date').value=fmtKDate(this.value); });
 }
 function saveDay(){
   var di=+sheet.dataset.di, d=DAYS[di];
