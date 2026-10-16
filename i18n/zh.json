@@ -2,8 +2,8 @@
   "ui": {
     "docTitle": "Teemy · hwancole 的 Android 应用",
     "langLabel": "语言",
-    "eyebrow": "Teemy · Android 应用",
-    "title": "贴近日常的实用应用",
+    "eyebrow": "Teemy",
+    "title": "为您打造的应用",
     "subtitle": "所有应用均可在 Google Play 免费下载，无需注册账号即可使用。您的数据仅存储在您的设备中。",
     "statApps": "应用",
     "statDl": "下载量",
@@ -99,8 +99,17 @@
     }
   },
   "web": {
-    "sydney": { "nm": "悉尼之旅", "ds": "互动式 8 日行程 · 地图与清单" },
-    "tagalog": { "nm": "100 天学他加禄语", "ds": "100 天学会菲律宾语（他加禄语）" },
-    "arcade": { "nm": "迷你游戏厅", "ds": "在浏览器中畅玩小游戏" }
+    "sydney": {
+      "nm": "悉尼之旅",
+      "ds": "互动式 8 日行程 · 地图与清单"
+    },
+    "tagalog": {
+      "nm": "100 天学他加禄语",
+      "ds": "100 天学会菲律宾语（他加禄语）"
+    },
+    "arcade": {
+      "nm": "迷你游戏厅",
+      "ds": "在浏览器中畅玩小游戏"
+    }
   }
 }

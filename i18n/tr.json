@@ -2,8 +2,8 @@
   "ui": {
     "docTitle": "Teemy · hwancole'un Android Uygulamaları",
     "langLabel": "Dil",
-    "eyebrow": "Teemy · Android Uygulamaları",
-    "title": "Günlük kullanım için pratik uygulamalar",
+    "eyebrow": "Teemy",
+    "title": "Sizin için uygulamalar",
     "subtitle": "Tüm uygulamalar Google Play'den ücretsiz olarak indirilebilir ve hesap oluşturmadan kullanılabilir. Verileriniz yalnızca cihazınızda saklanır.",
     "statApps": "Uygulama",
     "statDl": "İndirme",
@@ -99,8 +99,17 @@
     }
   },
   "web": {
-    "sydney": { "nm": "Sidney Gezisi", "ds": "Etkileşimli 8 günlük gezi planı · haritalar ve kontrol listesi" },
-    "tagalog": { "nm": "100 Günde Tagalogca", "ds": "100 günde Filipince (Tagalogca) öğrenin" },
-    "arcade": { "nm": "Mini Oyun Salonu", "ds": "Tarayıcınızda hızlı mini oyunlar" }
+    "sydney": {
+      "nm": "Sidney Gezisi",
+      "ds": "Etkileşimli 8 günlük gezi planı · haritalar ve kontrol listesi"
+    },
+    "tagalog": {
+      "nm": "100 Günde Tagalogca",
+      "ds": "100 günde Filipince (Tagalogca) öğrenin"
+    },
+    "arcade": {
+      "nm": "Mini Oyun Salonu",
+      "ds": "Tarayıcınızda hızlı mini oyunlar"
+    }
   }
 }

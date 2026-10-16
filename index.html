@@ -81,10 +81,11 @@ img{display:block}
 .hero .eyebrow{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:#BFE3E7;margin:0 0 8px}
 .hero h1{margin:0;font-size:clamp(26px,6vw,34px);font-weight:800;letter-spacing:-.01em;line-height:1.2}
 .hero .sub{margin:10px auto 0;font-size:14px;color:#D7EAEC;max-width:440px}
-.stats{display:flex;justify-content:center;gap:10px;margin:20px 0 0;padding:0;list-style:none;flex-wrap:wrap}
-.stats li{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:8px 14px;min-width:92px}
-.stats b{display:block;font-size:18px;line-height:1.2}
+.stats{display:grid;width:fit-content;max-width:100%;grid-template-columns:repeat(3,auto);margin:20px auto 0;padding:10px 4px;list-style:none;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);border-radius:16px}
+.stats li{display:flex;flex-direction:column;align-items:center;gap:3px;padding:2px 18px;min-width:64px}
+.stats li+li{border-inline-start:1px solid rgba(255,255,255,.22)}
 .stats span{font-size:11px;color:#CFE6E9}
+.stats b{font-size:17px;line-height:1.25;text-align:center}
 .hero .cta{
   position:relative;z-index:1;display:inline-flex;align-items:center;gap:7px;margin-top:20px;
   background:#fff;color:#0E4D64;font-weight:800;font-size:13.5px;border-radius:999px;padding:10px 18px;
@@ -388,9 +389,9 @@ function renderStatic(){
   document.querySelectorAll("[data-i]").forEach(function(el){ el.textContent = t(el.getAttribute("data-i")); });
   $("devLink").href = DEV_URL + "&hl=" + hl();
   $("stats").innerHTML =
-    '<li><b>' + APPS.length + '</b><span>' + esc(t("statApps")) + '</span></li>' +
-    '<li><b dir="ltr">20K+</b><span>' + esc(t("statDl")) + '</span></li>' +
-    '<li><b>' + esc(t("statLoginV")) + '</b><span>' + esc(t("statLogin")) + '</span></li>';
+    '<li><span>' + esc(t("statApps")) + '</span><b>' + APPS.length + '</b></li>' +
+    '<li><span>' + esc(t("statDl")) + '</span><b dir="ltr">20K+</b></li>' +
+    '<li><span>' + esc(t("statLogin")) + '</span><b>' + esc(t("statLoginV")) + '</b></li>';
   $("yr").textContent = new Date().getFullYear();
   $("lb").setAttribute("aria-label", t("screenshots"));
   $("lbClose").innerHTML = ICON_X; $("lbClose").setAttribute("aria-label", t("close"));

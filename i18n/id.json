@@ -2,8 +2,8 @@
   "ui": {
     "docTitle": "Teemy · Aplikasi Android oleh hwancole",
     "langLabel": "Bahasa",
-    "eyebrow": "Teemy · Aplikasi Android",
-    "title": "Aplikasi praktis untuk kebutuhan sehari-hari",
+    "eyebrow": "Teemy",
+    "title": "Aplikasi untuk Anda",
     "subtitle": "Semua aplikasi dapat diunduh secara gratis di Google Play dan digunakan tanpa perlu membuat akun. Data Anda hanya disimpan di perangkat Anda.",
     "statApps": "Aplikasi",
     "statDl": "Unduhan",
@@ -99,8 +99,17 @@
     }
   },
   "web": {
-    "sydney": { "nm": "Liburan ke Sydney", "ds": "Itinerary interaktif 8 hari · peta & daftar periksa" },
-    "tagalog": { "nm": "Tagalog dalam 100 Hari", "ds": "Belajar bahasa Filipino (Tagalog) dalam 100 hari" },
-    "arcade": { "nm": "Arkade Mini Game", "ds": "Mini game seru langsung di browser" }
+    "sydney": {
+      "nm": "Liburan ke Sydney",
+      "ds": "Itinerary interaktif 8 hari · peta & daftar periksa"
+    },
+    "tagalog": {
+      "nm": "Tagalog dalam 100 Hari",
+      "ds": "Belajar bahasa Filipino (Tagalog) dalam 100 hari"
+    },
+    "arcade": {
+      "nm": "Arkade Mini Game",
+      "ds": "Mini game seru langsung di browser"
+    }
   }
 }

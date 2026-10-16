@@ -2,8 +2,8 @@
   "ui": {
     "docTitle": "Teemy · Ứng dụng Android của hwancole",
     "langLabel": "Ngôn ngữ",
-    "eyebrow": "Teemy · Ứng dụng Android",
-    "title": "Ứng dụng thiết thực cho cuộc sống hằng ngày",
+    "eyebrow": "Teemy",
+    "title": "Ứng dụng dành cho bạn",
     "subtitle": "Tất cả ứng dụng đều có thể tải miễn phí trên Google Play và sử dụng mà không cần tạo tài khoản. Dữ liệu chỉ được lưu trữ trên thiết bị của bạn.",
     "statApps": "Ứng dụng",
     "statDl": "Lượt tải",
@@ -99,8 +99,17 @@
     }
   },
   "web": {
-    "sydney": { "nm": "Du lịch Sydney", "ds": "Lịch trình 8 ngày tương tác · bản đồ & danh sách kiểm tra" },
-    "tagalog": { "nm": "Tagalog trong 100 ngày", "ds": "Học tiếng Philippines (Tagalog) trong 100 ngày" },
-    "arcade": { "nm": "Khu trò chơi mini", "ds": "Trò chơi nhỏ chơi ngay trên trình duyệt" }
+    "sydney": {
+      "nm": "Du lịch Sydney",
+      "ds": "Lịch trình 8 ngày tương tác · bản đồ & danh sách kiểm tra"
+    },
+    "tagalog": {
+      "nm": "Tagalog trong 100 ngày",
+      "ds": "Học tiếng Philippines (Tagalog) trong 100 ngày"
+    },
+    "arcade": {
+      "nm": "Khu trò chơi mini",
+      "ds": "Trò chơi nhỏ chơi ngay trên trình duyệt"
+    }
   }
 }

@@ -2,8 +2,8 @@
   "ui": {
     "docTitle": "Teemy · Android-toeps deur hwancole",
     "langLabel": "Taal",
-    "eyebrow": "Teemy · Android-toepassings",
-    "title": "Praktiese toepassings vir alledaagse gebruik",
+    "eyebrow": "Teemy",
+    "title": "Toepassings vir jou",
     "subtitle": "Alle toepassings kan gratis van Google Play afgelaai en sonder 'n rekening gebruik word. Jou data word slegs op jou toestel gestoor.",
     "statApps": "Toepassings",
     "statDl": "Aflaaie",
@@ -99,8 +99,17 @@
     }
   },
   "web": {
-    "sydney": { "nm": "Sydney-reis", "ds": "Interaktiewe 8-dae-reisplan · kaarte & kontrolelys" },
-    "tagalog": { "nm": "Tagalog in 100 Dae", "ds": "Leer Filipyns (Tagalog) in 100 dae" },
-    "arcade": { "nm": "Minispeletjie-arkade", "ds": "Vinnige minispeletjies reg in jou blaaier" }
+    "sydney": {
+      "nm": "Sydney-reis",
+      "ds": "Interaktiewe 8-dae-reisplan · kaarte & kontrolelys"
+    },
+    "tagalog": {
+      "nm": "Tagalog in 100 Dae",
+      "ds": "Leer Filipyns (Tagalog) in 100 dae"
+    },
+    "arcade": {
+      "nm": "Minispeletjie-arkade",
+      "ds": "Vinnige minispeletjies reg in jou blaaier"
+    }
   }
 }

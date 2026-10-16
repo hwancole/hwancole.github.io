@@ -2,8 +2,8 @@
   "ui": {
     "docTitle": "Teemy · Applis Android par hwancole",
     "langLabel": "Langue",
-    "eyebrow": "Teemy · Applications Android",
-    "title": "Des applications pratiques pour le quotidien",
+    "eyebrow": "Teemy",
+    "title": "Des applications pour vous",
     "subtitle": "Toutes les applications sont téléchargeables gratuitement sur Google Play et s'utilisent sans création de compte. Vos données sont conservées uniquement sur votre appareil.",
     "statApps": "Applications",
     "statDl": "Téléchargements",
@@ -99,8 +99,17 @@
     }
   },
   "web": {
-    "sydney": { "nm": "Voyage à Sydney", "ds": "Itinéraire interactif de 8 jours · cartes & checklist" },
-    "tagalog": { "nm": "Le tagalog en 100 jours", "ds": "Apprenez le filipino (tagalog) en 100 jours" },
-    "arcade": { "nm": "Mini arcade", "ds": "Mini-jeux rapides dans votre navigateur" }
+    "sydney": {
+      "nm": "Voyage à Sydney",
+      "ds": "Itinéraire interactif de 8 jours · cartes & checklist"
+    },
+    "tagalog": {
+      "nm": "Le tagalog en 100 jours",
+      "ds": "Apprenez le filipino (tagalog) en 100 jours"
+    },
+    "arcade": {
+      "nm": "Mini arcade",
+      "ds": "Mini-jeux rapides dans votre navigateur"
+    }
   }
 }

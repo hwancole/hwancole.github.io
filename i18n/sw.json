@@ -2,8 +2,8 @@
   "ui": {
     "docTitle": "Teemy · Programu za Android na hwancole",
     "langLabel": "Lugha",
-    "eyebrow": "Teemy · Programu za Android",
-    "title": "Programu muhimu kwa matumizi ya kila siku",
+    "eyebrow": "Teemy",
+    "title": "Programu kwa ajili yako",
     "subtitle": "Programu zote zinapatikana bila malipo kwenye Google Play na zinaweza kutumika bila kufungua akaunti. Data yako huhifadhiwa kwenye kifaa chako pekee.",
     "statApps": "Programu",
     "statDl": "Upakuaji",
@@ -99,8 +99,17 @@
     }
   },
   "web": {
-    "sydney": { "nm": "Safari ya Sydney", "ds": "Ratiba shirikishi ya siku 8 · ramani na orodha ya ukaguzi" },
-    "tagalog": { "nm": "Kitagalog kwa Siku 100", "ds": "Jifunze Kifilipino (Kitagalog) kwa siku 100" },
-    "arcade": { "nm": "Michezo Midogo", "ds": "Michezo midogo ya haraka moja kwa moja kwenye kivinjari chako" }
+    "sydney": {
+      "nm": "Safari ya Sydney",
+      "ds": "Ratiba shirikishi ya siku 8 · ramani na orodha ya ukaguzi"
+    },
+    "tagalog": {
+      "nm": "Kitagalog kwa Siku 100",
+      "ds": "Jifunze Kifilipino (Kitagalog) kwa siku 100"
+    },
+    "arcade": {
+      "nm": "Michezo Midogo",
+      "ds": "Michezo midogo ya haraka moja kwa moja kwenye kivinjari chako"
+    }
   }
 }

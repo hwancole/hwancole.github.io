@@ -2,8 +2,8 @@
   "ui": {
     "docTitle": "Teemy · Mga Android App ni hwancole",
     "langLabel": "Wika",
-    "eyebrow": "Teemy · Mga Android App",
-    "title": "Mga praktikal na app para sa pang-araw-araw na gamit",
+    "eyebrow": "Teemy",
+    "title": "Mga app para sa iyo",
     "subtitle": "Libreng i-download sa Google Play ang lahat ng app, at magagamit ang mga ito nang hindi gumagawa ng account. Sa inyong device lamang naka-imbak ang inyong data.",
     "statApps": "Mga App",
     "statDl": "Downloads",
@@ -99,8 +99,17 @@
     }
   },
   "web": {
-    "sydney": { "nm": "Biyahe sa Sydney", "ds": "Interactive na 8-araw na itinerary · mapa at checklist" },
-    "tagalog": { "nm": "Tagalog sa 100 Araw", "ds": "Matuto ng Tagalog sa loob ng 100 araw" },
-    "arcade": { "nm": "Mini Game Arcade", "ds": "Mabilisang mini games sa browser mo" }
+    "sydney": {
+      "nm": "Biyahe sa Sydney",
+      "ds": "Interactive na 8-araw na itinerary · mapa at checklist"
+    },
+    "tagalog": {
+      "nm": "Tagalog sa 100 Araw",
+      "ds": "Matuto ng Tagalog sa loob ng 100 araw"
+    },
+    "arcade": {
+      "nm": "Mini Game Arcade",
+      "ds": "Mabilisang mini games sa browser mo"
+    }
   }
 }
