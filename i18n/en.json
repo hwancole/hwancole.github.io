@@ -2,14 +2,14 @@
   "ui": {
     "docTitle": "Teemy · Android Apps by hwancole",
     "langLabel": "Language",
-    "eyebrow": "Android apps by Teemy",
-    "title": "Small apps, done well",
-    "subtitle": "Simple, private apps for everyday moments — no sign-up, your data stays on your phone.",
+    "eyebrow": "Teemy · Android Apps",
+    "title": "Practical apps for everyday use",
+    "subtitle": "All apps are free to download on Google Play and can be used without creating an account. Your data is stored only on your device.",
     "statApps": "Apps",
     "statDl": "Downloads",
-    "statLogin": "Sign-up needed",
-    "statLoginV": "None",
-    "allOnPlay": "See all on Google Play",
+    "statLogin": "Account",
+    "statLoginV": "Not required",
+    "allOnPlay": "View all on Google Play",
     "appsTitle": "Apps",
     "appsHint": "Tap Details for screenshots",
     "details": "Details",
@@ -99,8 +99,17 @@
     }
   },
   "web": {
-    "sydney": { "nm": "Sydney Trip", "ds": "Interactive 8-day itinerary · maps & checklist" },
-    "tagalog": { "nm": "Tagalog in 100 Days", "ds": "Learn Filipino (Tagalog) in 100 days" },
-    "arcade": { "nm": "Mini Game Arcade", "ds": "Quick mini games right in your browser" }
+    "sydney": {
+      "nm": "Sydney Trip",
+      "ds": "Interactive 8-day itinerary · maps & checklist"
+    },
+    "tagalog": {
+      "nm": "Tagalog in 100 Days",
+      "ds": "Learn Filipino (Tagalog) in 100 days"
+    },
+    "arcade": {
+      "nm": "Mini Game Arcade",
+      "ds": "Quick mini games right in your browser"
+    }
   }
 }
