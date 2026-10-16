@@ -1,0 +1,106 @@
+{
+  "ui": {
+    "docTitle": "Teemy · Android Apps by hwancole",
+    "langLabel": "Language",
+    "eyebrow": "Android apps by Teemy",
+    "title": "Small apps, done well",
+    "subtitle": "Simple, private apps for everyday moments — no sign-up, your data stays on your phone.",
+    "statApps": "Apps",
+    "statDl": "Downloads",
+    "statLogin": "Sign-up needed",
+    "statLoginV": "None",
+    "allOnPlay": "See all on Google Play",
+    "appsTitle": "Apps",
+    "appsHint": "Tap Details for screenshots",
+    "details": "Details",
+    "open": "Get on Google Play",
+    "openShort": "Open",
+    "highlights": "Highlights",
+    "screenshots": "Screenshots",
+    "close": "Close",
+    "prev": "Previous",
+    "next": "Next",
+    "downloads": "downloads",
+    "webTitle": "Web projects",
+    "webHint": "Runs in your browser",
+    "cat": {
+      "TOOLS": "Tools",
+      "PRODUCTIVITY": "Productivity",
+      "LIFESTYLE": "Lifestyle",
+      "ENTERTAINMENT": "Entertainment"
+    }
+  },
+  "apps": {
+    "familtory": {
+      "name": "Familtory - Family Tree",
+      "tag": "Build your family tree in minutes. Save it, back it up, and share it with family.",
+      "lead": "A family tree app that's flexible, easy to use, and actually finished. No sign-in — your family's data never leaves the app.",
+      "feats": [
+        "Start in a minute with a quick tutorial; one button tidies a tangled tree",
+        "Photos with cropping, birthdays, memorial dates, notes and themes",
+        "Stored only on your device — backup file to move to a new phone",
+        "Share as a high-res PNG; app lock with PIN, fingerprint or face"
+      ]
+    },
+    "blinker": {
+      "name": "Blinker - Torch & Strobe",
+      "tag": "Strobe from 0.1 to 60 Hz, record your own flash patterns, widget and Quick Settings tile.",
+      "lead": "Your phone's torch turns on. That's it. Blinker lets you decide how it flashes.",
+      "feats": [
+        "0.1–60 flashes per second, plus steady, pulse, strobe and real Morse SOS",
+        "Hold REC to tap out a rhythm, trim it like a video, save it as a preset",
+        "Home-screen widget (down to 1×1) and a Quick Settings tile",
+        "Auto-off timer from 1 minute to 1 hour; keeps going with the screen locked"
+      ]
+    },
+    "candle": {
+      "name": "Romantic Candle",
+      "tag": "Light a real-looking HD candle with one tap — anytime, anywhere.",
+      "lead": "A real candle in high definition, with no fire to worry about — for vigils, romantic evenings, prayer, birthdays or winding down.",
+      "feats": [
+        "20+ HD candle videos with color customization",
+        "Stays lit until you close the app — no wax, no smoke",
+        "Background music and 32 languages",
+        "No ads once the candle is lit. No account, no in-app purchases"
+      ]
+    },
+    "fireplace": {
+      "name": "Night Fireplace - Cozy Fire HD",
+      "tag": "A night fireplace in high definition. Light it up and watch it burn, unlimited.",
+      "lead": "Cold winter nights, Christmas, setting the mood, or just staring into the fire — warmth with no smoke, no sparks, nothing to put out.",
+      "feats": [
+        "HD fire with real crackling sound, burning until you close the app",
+        "A range of different fires to choose from",
+        "Plays offline — uses no data",
+        "No ads covering the fire. No sign-up, no permissions"
+      ]
+    },
+    "morserun": {
+      "name": "MorseRun - All-in-One Morse",
+      "tag": "Talk in Morse code with your flashlight, read it with your camera. SOS built in.",
+      "lead": "Point your camera at any blinking light and MorseRun reads it for you. Learn it, send it, decode it — one app covers the whole journey.",
+      "feats": [
+        "Play: text → flashlight, screen flash, beep or vibration at 5–40 WPM",
+        "Decode: camera turns blinking light into text in real time, on-device",
+        "Learn: tap-to-hear Morse table and practice quizzes with streaks",
+        "SOS from the lock screen via Quick Settings tile — keeps going screen-off"
+      ]
+    },
+    "homemo": {
+      "name": "Homemo: Notes Widget",
+      "tag": "Pin your notes and photos to the home screen. Offline, no account needed.",
+      "lead": "Write a note, add a photo, and place it as a widget — your shopping list, a reminder or a favorite photo, always one glance away.",
+      "feats": [
+        "One widget per note — place as many as you like, resize freely",
+        "Style each widget: color, opacity, corners, text size and alignment",
+        "Notes with photos, color tags, pins, grid/list view and fast search",
+        "Fully offline, no login; 30-day trash and ZIP backup/restore"
+      ]
+    }
+  },
+  "web": {
+    "sydney": { "nm": "Sydney Trip", "ds": "Interactive 8-day itinerary · maps & checklist" },
+    "tagalog": { "nm": "Tagalog in 100 Days", "ds": "Learn Filipino (Tagalog) in 100 days" },
+    "arcade": { "nm": "Mini Game Arcade", "ds": "Quick mini games right in your browser" }
+  }
+}

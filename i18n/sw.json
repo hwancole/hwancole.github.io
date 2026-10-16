@@ -1,0 +1,106 @@
+{
+  "ui": {
+    "docTitle": "Teemy · Programu za Android na hwancole",
+    "langLabel": "Lugha",
+    "eyebrow": "Programu za Android na Teemy",
+    "title": "Programu ndogo, zilizotengenezwa vizuri",
+    "subtitle": "Programu rahisi na za faragha kwa nyakati za kila siku — hakuna usajili, data yako inabaki kwenye simu yako.",
+    "statApps": "Programu",
+    "statDl": "Vipakuliwa",
+    "statLogin": "Usajili unahitajika",
+    "statLoginV": "Hapana",
+    "allOnPlay": "Tazama zote kwenye Google Play",
+    "appsTitle": "Programu",
+    "appsHint": "Gusa Maelezo kuona picha za skrini",
+    "details": "Maelezo",
+    "open": "Pata kwenye Google Play",
+    "openShort": "Fungua",
+    "highlights": "Vivutio",
+    "screenshots": "Picha za skrini",
+    "close": "Funga",
+    "prev": "Iliyotangulia",
+    "next": "Inayofuata",
+    "downloads": "vipakuliwa",
+    "webTitle": "Miradi ya wavuti",
+    "webHint": "Inaendeshwa kwenye kivinjari chako",
+    "cat": {
+      "TOOLS": "Zana",
+      "PRODUCTIVITY": "Tija",
+      "LIFESTYLE": "Mtindo wa maisha",
+      "ENTERTAINMENT": "Burudani"
+    }
+  },
+  "apps": {
+    "familtory": {
+      "name": "Familtory - Mti wa Familia",
+      "tag": "Unda mti wa familia yako kwa dakika chache. Hifadhi, weka nakala na ushiriki na familia.",
+      "lead": "Programu ya mti wa familia iliyo rahisi kubadilika, rahisi kutumia na iliyokamilika kweli. Bila kuingia — data ya familia yako haitoki kwenye programu.",
+      "feats": [
+        "Anza kwa dakika moja kwa mafunzo mafupi; kitufe kimoja hupanga mti uliochanganyika",
+        "Picha zenye kukata, siku za kuzaliwa, kumbukumbu, maelezo na mandhari",
+        "Huhifadhiwa kwenye kifaa chako tu — faili ya nakala ya kuhamia simu mpya",
+        "Shiriki kama PNG yenye ubora wa juu; funga programu kwa PIN, alama ya kidole au uso"
+      ]
+    },
+    "blinker": {
+      "name": "Blinker - Tochi",
+      "tag": "Mmweko wa 0.1 hadi 60 Hz, rekodi mitindo yako ya mwanga, wijeti na kigae cha Mipangilio ya Haraka.",
+      "lead": "Tochi ya simu yako huwaka. Basi. Ukiwa na Blinker, wewe ndiye unaamua jinsi inavyomweka.",
+      "feats": [
+        "Miale 0.1–60 kwa sekunde, pamoja na mwanga thabiti, mapigo, strobe na SOS halisi ya Morse",
+        "Shikilia REC kugonga mdundo, uukate kama video na uuhifadhi kama mpangilio",
+        "Wijeti ya skrini ya nyumbani (hadi 1×1) na kigae cha Mipangilio ya Haraka",
+        "Kipima muda cha kuzima kutoka dakika 1 hadi saa 1; huendelea skrini ikiwa imefungwa"
+      ]
+    },
+    "candle": {
+      "name": "Mshumaa wa Kimapenzi",
+      "tag": "Washa mshumaa wa HD unaoonekana halisi kwa mguso mmoja — wakati wowote, mahali popote.",
+      "lead": "Mshumaa halisi wenye ubora wa juu, bila hofu ya moto — kwa maombolezo, jioni za kimapenzi, sala, siku za kuzaliwa au kupumzika.",
+      "feats": [
+        "Video 20+ za mishumaa ya HD zenye kubadilisha rangi",
+        "Huwaka hadi ufunge programu — hakuna nta, hakuna moshi",
+        "Muziki wa usuli na lugha 32",
+        "Hakuna matangazo mshumaa ukiwaka. Hakuna akaunti, hakuna ununuzi ndani ya programu"
+      ]
+    },
+    "fireplace": {
+      "name": "Mahali pa Moto Usiku HD",
+      "tag": "Mahali pa moto pa usiku kwa ubora wa juu. Uwashe na uutazame ukiwaka bila kikomo.",
+      "lead": "Usiku wa baridi, Krismasi, kuweka hali nzuri au kutazama moto tu — joto bila moshi, bila cheche, bila kuhitaji kuuzima.",
+      "feats": [
+        "Moto wa HD wenye sauti halisi ya kuchachatika, unaowaka hadi ufunge programu",
+        "Aina mbalimbali za moto za kuchagua",
+        "Hucheza nje ya mtandao — haitumii data",
+        "Hakuna matangazo yanayofunika moto. Hakuna usajili, hakuna ruhusa"
+      ]
+    },
+    "morserun": {
+      "name": "MorseRun Msimbo wa Morse",
+      "tag": "Ongea kwa msimbo wa Morse kwa tochi, usome kwa kamera. SOS imejumuishwa.",
+      "lead": "Elekeza kamera kwenye mwanga wowote unaomweka na MorseRun itausoma kwa ajili yako. Jifunze, tuma, simbua — programu moja kwa safari nzima.",
+      "feats": [
+        "PLAY: maandishi → tochi, mweko wa skrini, mlio au mtetemo kwa 5–40 WPM",
+        "DECODE: kamera hugeuza mwanga unaomweka kuwa maandishi papo hapo, kwenye kifaa",
+        "LEARN: jedwali la Morse la kugusa-usikie na maswali ya mazoezi yenye mfululizo",
+        "SOS kutoka skrini iliyofungwa kupitia kigae cha Mipangilio ya Haraka — huendelea skrini ikizimwa"
+      ]
+    },
+    "homemo": {
+      "name": "Homemo: Wijeti ya Madokezo",
+      "tag": "Bandika madokezo na picha zako kwenye skrini ya nyumbani. Nje ya mtandao, bila akaunti.",
+      "lead": "Andika dokezo, ongeza picha na uiweke kama wijeti — orodha ya ununuzi, kikumbusho au picha unayoipenda, daima kwa mtazamo mmoja.",
+      "feats": [
+        "Wijeti moja kwa kila dokezo — weka nyingi upendavyo, badilisha ukubwa kwa uhuru",
+        "Pamba kila wijeti: rangi, uwazi, pembe, ukubwa wa maandishi na mpangilio",
+        "Madokezo yenye picha, lebo za rangi, kubandika, mwonekano wa gridi/orodha na utafutaji wa haraka",
+        "Nje ya mtandao kabisa, bila kuingia; tupio la siku 30 na nakala/urejeshaji wa ZIP"
+      ]
+    }
+  },
+  "web": {
+    "sydney": { "nm": "Safari ya Sydney", "ds": "Ratiba shirikishi ya siku 8 · ramani na orodha ya ukaguzi" },
+    "tagalog": { "nm": "Kitagalog kwa Siku 100", "ds": "Jifunze Kifilipino (Kitagalog) kwa siku 100" },
+    "arcade": { "nm": "Michezo Midogo", "ds": "Michezo midogo ya haraka moja kwa moja kwenye kivinjari chako" }
+  }
+}

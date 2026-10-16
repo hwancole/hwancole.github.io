@@ -1,0 +1,106 @@
+{
+  "ui": {
+    "docTitle": "Teemy · Aplikasi Android oleh hwancole",
+    "langLabel": "Bahasa",
+    "eyebrow": "Aplikasi Android dari Teemy",
+    "title": "Aplikasi kecil, dibuat dengan baik",
+    "subtitle": "Aplikasi sederhana dan privat untuk sehari-hari — tanpa daftar, data tetap di ponsel Anda.",
+    "statApps": "Aplikasi",
+    "statDl": "Unduhan",
+    "statLogin": "Perlu daftar",
+    "statLoginV": "Tidak",
+    "allOnPlay": "Lihat semua di Google Play",
+    "appsTitle": "Aplikasi",
+    "appsHint": "Ketuk Detail untuk tangkapan layar",
+    "details": "Detail",
+    "open": "Dapatkan di Google Play",
+    "openShort": "Buka",
+    "highlights": "Sorotan",
+    "screenshots": "Tangkapan layar",
+    "close": "Tutup",
+    "prev": "Sebelumnya",
+    "next": "Berikutnya",
+    "downloads": "unduhan",
+    "webTitle": "Proyek web",
+    "webHint": "Berjalan di browser",
+    "cat": {
+      "TOOLS": "Alat",
+      "PRODUCTIVITY": "Produktivitas",
+      "LIFESTYLE": "Gaya Hidup",
+      "ENTERTAINMENT": "Hiburan"
+    }
+  },
+  "apps": {
+    "familtory": {
+      "name": "Familtory - Pohon Keluarga",
+      "tag": "Buat pohon keluarga dalam hitungan menit. Simpan, cadangkan, dan bagikan ke keluarga.",
+      "lead": "Aplikasi pohon keluarga yang fleksibel, mudah, dan benar-benar matang. Tanpa login — data keluarga Anda tak pernah keluar dari aplikasi.",
+      "feats": [
+        "Mulai dalam semenit dengan tutorial singkat; satu tombol merapikan pohon yang kusut",
+        "Foto dengan pemotongan, ulang tahun, hari peringatan, catatan, dan tema",
+        "Hanya tersimpan di perangkat — file cadangan untuk pindah ke ponsel baru",
+        "Bagikan sebagai PNG resolusi tinggi; kunci aplikasi dengan PIN, sidik jari, atau wajah"
+      ]
+    },
+    "blinker": {
+      "name": "Blinker - Senter & Strobo",
+      "tag": "Strobo 0,1 hingga 60 Hz, rekam pola kedip sendiri, widget dan ubin Setelan Cepat.",
+      "lead": "Senter ponsel Anda menyala. Hanya itu. Dengan Blinker, Anda yang menentukan cara berkedipnya.",
+      "feats": [
+        "0,1–60 kedipan per detik, plus nyala tetap, denyut, strobo, dan SOS Morse asli",
+        "Tahan REC untuk mengetuk ritme, potong seperti video, simpan sebagai preset",
+        "Widget layar utama (hingga 1×1) dan ubin Setelan Cepat",
+        "Timer mati otomatis 1 menit hingga 1 jam; tetap menyala saat layar terkunci"
+      ]
+    },
+    "candle": {
+      "name": "Lilin Romantis",
+      "tag": "Nyalakan lilin HD yang tampak nyata dengan sekali ketuk — kapan saja, di mana saja.",
+      "lead": "Lilin sungguhan dalam resolusi tinggi, tanpa khawatir api — untuk doa bersama, malam romantis, ibadah, ulang tahun, atau bersantai.",
+      "feats": [
+        "20+ video lilin HD dengan warna yang bisa diatur",
+        "Tetap menyala sampai aplikasi ditutup — tanpa lilin meleleh, tanpa asap",
+        "Musik latar dan 32 bahasa",
+        "Tanpa iklan saat lilin menyala. Tanpa akun, tanpa pembelian dalam aplikasi"
+      ]
+    },
+    "fireplace": {
+      "name": "Perapian Malam - Api HD",
+      "tag": "Perapian malam dalam resolusi tinggi. Nyalakan dan nikmati tanpa batas.",
+      "lead": "Malam musim dingin, Natal, membangun suasana, atau sekadar menatap api — hangat tanpa asap, tanpa percikan, tak perlu dipadamkan.",
+      "feats": [
+        "Api HD dengan suara gemeretak asli, menyala sampai aplikasi ditutup",
+        "Beragam jenis api untuk dipilih",
+        "Berjalan offline — tanpa kuota data",
+        "Tanpa iklan yang menutupi api. Tanpa daftar, tanpa izin"
+      ]
+    },
+    "morserun": {
+      "name": "MorseRun Kode Morse",
+      "tag": "Bicara dengan kode Morse lewat senter, baca dengan kamera. Ada SOS bawaan.",
+      "lead": "Arahkan kamera ke cahaya yang berkedip dan MorseRun membacanya untuk Anda. Belajar, kirim, terjemahkan — satu aplikasi untuk semuanya.",
+      "feats": [
+        "PLAY: teks → senter, kilat layar, bunyi bip, atau getar pada 5–40 WPM",
+        "DECODE: kamera mengubah cahaya berkedip jadi teks secara real-time, di perangkat",
+        "LEARN: tabel Morse ketuk-untuk-dengar dan kuis latihan dengan streak",
+        "SOS dari layar kunci lewat ubin Setelan Cepat — tetap berjalan saat layar mati"
+      ]
+    },
+    "homemo": {
+      "name": "Homemo: Widget Catatan",
+      "tag": "Sematkan catatan dan foto di layar utama. Offline, tanpa akun.",
+      "lead": "Tulis catatan, tambahkan foto, lalu pasang sebagai widget — daftar belanja, pengingat, atau foto favorit, selalu terlihat sekilas.",
+      "feats": [
+        "Satu widget per catatan — pasang sebanyak yang Anda mau, ubah ukuran bebas",
+        "Atur gaya tiap widget: warna, transparansi, sudut, ukuran dan perataan teks",
+        "Catatan dengan foto, tag warna, sematan, tampilan grid/daftar, dan pencarian cepat",
+        "Sepenuhnya offline, tanpa login; sampah 30 hari dan cadangan/pulihkan ZIP"
+      ]
+    }
+  },
+  "web": {
+    "sydney": { "nm": "Liburan ke Sydney", "ds": "Itinerary interaktif 8 hari · peta & daftar periksa" },
+    "tagalog": { "nm": "Tagalog dalam 100 Hari", "ds": "Belajar bahasa Filipino (Tagalog) dalam 100 hari" },
+    "arcade": { "nm": "Arkade Mini Game", "ds": "Mini game seru langsung di browser" }
+  }
+}

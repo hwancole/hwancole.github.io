@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="i18n-wait">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -33,10 +33,18 @@ html{scroll-behavior:smooth}
 html,body{margin:0}
 body{
   overflow-x:hidden;
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Apple SD Gothic Neo","Pretendard","Malgun Gothic","Noto Sans KR",system-ui,sans-serif;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Apple SD Gothic Neo","Pretendard","Malgun Gothic","Noto Sans KR",system-ui,"Noto Sans",sans-serif;
   background:var(--paper); color:var(--ink); line-height:1.5; -webkit-text-size-adjust:100%;
   min-height:100vh;
 }
+/* hidden until the chosen language is loaded (max ~1.5s, see script) */
+html.i18n-wait body{opacity:0}
+body{transition:opacity .15s ease}
+/* scripts that break with letter-spacing (cursive / complex shaping) */
+:lang(ar) *, :lang(fa) *, :lang(my) *, :lang(th) *, :lang(lo) *, :lang(hi) *, :lang(bn) *, :lang(ta) *, :lang(te) *{letter-spacing:0!important}
+:lang(ar) .hero .eyebrow, :lang(fa) .hero .eyebrow{text-transform:none}
+/* tall scripts need a little more line height */
+:lang(my) body, :lang(th) body, :lang(lo) body, :lang(ta) body, :lang(te) body, :lang(bn) body, :lang(hi) body{line-height:1.65}
 a{color:inherit;text-decoration:none}
 button{font:inherit;color:inherit}
 img{display:block}
@@ -51,13 +59,14 @@ img{display:block}
 .brand{display:flex;align-items:center;gap:8px;font-weight:800;font-size:15px;letter-spacing:.01em}
 .brand .logo{width:28px;height:28px;border-radius:8px;background:rgba(255,255,255,.16);display:grid;place-items:center;font-size:15px}
 .lang{position:relative;display:flex;align-items:center}
-.lang svg{position:absolute;left:10px;pointer-events:none;opacity:.9}
+.lang svg{position:absolute;inset-inline-start:10px;pointer-events:none;opacity:.9}
 .lang select{
   appearance:none;-webkit-appearance:none;cursor:pointer;
   background:rgba(255,255,255,.14) url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6'><path d='M1 1l4 4 4-4' stroke='white' stroke-width='1.6' fill='none' stroke-linecap='round'/></svg>") no-repeat right 11px center;
   border:1px solid rgba(255,255,255,.28);color:#fff;border-radius:999px;
-  padding:7px 30px 7px 32px;font-size:13px;font-weight:700;min-height:36px;
+  padding:7px 30px 7px 32px;font-size:13px;font-weight:700;min-height:36px;max-width:min(52vw,220px);
 }
+[dir=rtl] .lang select{padding:7px 32px 7px 30px;background-position:left 11px center}
 .lang select:hover{background-color:rgba(255,255,255,.22)}
 .lang select option{color:#16252B;background:#fff}
 
@@ -107,7 +116,8 @@ img{display:block}
 .chip{font-size:11px;font-weight:700;color:var(--chip-ink);background:var(--chip);border-radius:999px;padding:3px 9px;white-space:nowrap}
 .peek{display:flex;gap:8px;overflow:hidden;height:118px;border-radius:12px;cursor:pointer;position:relative}
 .peek img{height:100%;width:auto;border-radius:10px;background:var(--chip);flex:0 0 auto}
-.peek:after{content:"";position:absolute;inset:0 0 0 auto;width:60px;background:linear-gradient(90deg,transparent,var(--card))}
+.peek:after{content:"";position:absolute;top:0;bottom:0;inset-inline-end:0;width:60px;background:linear-gradient(90deg,transparent,var(--card))}
+[dir=rtl] .peek:after{background:linear-gradient(270deg,transparent,var(--card))}
 .actions{display:flex;gap:10px}
 .btn{
   flex:1;display:inline-flex;align-items:center;justify-content:center;gap:7px;cursor:pointer;
@@ -163,7 +173,7 @@ dialog::backdrop{background:var(--scrim);backdrop-filter:blur(2px)}
 .sh-head h3{margin:0;font-size:18px;font-weight:800;line-height:1.25}
 .sh-head .dev{font-size:12px;color:var(--teal);font-weight:700;margin-top:2px}
 .x{
-  margin-left:auto;flex:0 0 auto;width:38px;height:38px;border-radius:50%;border:0;cursor:pointer;
+  margin-inline-start:auto;flex:0 0 auto;width:38px;height:38px;border-radius:50%;border:0;cursor:pointer;
   background:var(--btn2);color:var(--btn2-ink);display:grid;place-items:center;
 }
 .sh-body{min-width:0;padding:4px 18px calc(18px + env(safe-area-inset-bottom))}
@@ -236,173 +246,128 @@ dialog::backdrop{background:var(--scrim);backdrop-filter:blur(2px)}
 </main>
 
 <dialog class="sheet" id="sheet" aria-labelledby="sh-title"></dialog>
-<dialog class="lb" id="lb" aria-label="Screenshots">
+<dialog class="lb" id="lb">
   <button class="x" id="lbClose"></button>
   <button class="lb-nav lb-prev" id="lbPrev"></button>
   <button class="lb-nav lb-next" id="lbNext"></button>
-  <div class="lb-track" id="lbTrack"></div>
+  <div class="lb-track" id="lbTrack" dir="ltr"></div>
   <div class="lb-count" id="lbCount"></div>
 </dialog>
 
 <script>
 /* =====================================================================
    i18n
-   - To add a language: add an entry to LANGS + UI, and add that key to
-     each app's / project's text objects. Missing keys fall back to English.
+   - Texts live in i18n/<code>.json (same shape as i18n/en.json).
+   - To add a language: drop a new i18n/<code>.json and add a line to LANGS.
+   - Any missing key falls back to English.
    ===================================================================== */
-var LANGS = { en: "English", ko: "한국어" };
+var LANGS = [
+  {code:"en",  name:"English"},
+  {code:"ko",  name:"한국어"},
+  {code:"ja",  name:"日本語"},
+  {code:"zh",  name:"简体中文", html:"zh-Hans", hl:"zh-CN"},
+  {code:"vi",  name:"Tiếng Việt"},
+  {code:"th",  name:"ไทย"},
+  {code:"lo",  name:"ລາວ"},
+  {code:"my",  name:"မြန်မာ"},
+  {code:"id",  name:"Bahasa Indonesia"},
+  {code:"fil", name:"Filipino"},
+  {code:"de",  name:"Deutsch"},
+  {code:"fr",  name:"Français"},
+  {code:"es",  name:"Español"},
+  {code:"pt",  name:"Português", hl:"pt-BR"},
+  {code:"it",  name:"Italiano"},
+  {code:"ru",  name:"Русский"},
+  {code:"uk",  name:"Українська"},
+  {code:"tr",  name:"Türkçe"},
+  {code:"ar",  name:"العربية", rtl:true},
+  {code:"fa",  name:"فارسی", rtl:true},
+  {code:"hi",  name:"हिन्दी"},
+  {code:"bn",  name:"বাংলা"},
+  {code:"ta",  name:"தமிழ்"},
+  {code:"te",  name:"తెలుగు"},
+  {code:"sw",  name:"Kiswahili"},
+  {code:"am",  name:"አማርኛ"},
+  {code:"af",  name:"Afrikaans"}
+];
+/* browser codes that should map onto one of ours */
+var ALIASES = { tl:"fil", "in":"id", iw:"he", nb:"no", zh:"zh" };
 var DEFAULT_LANG = "en";
-
-var UI = {
-  en: {
-    langLabel:"Language", eyebrow:"Android apps by Teemy", title:"Small apps, done well",
-    subtitle:"Simple, private apps for everyday moments — no sign-up, your data stays on your phone.",
-    statApps:"Apps", statDl:"Downloads", statLogin:"Sign-up needed", statLoginV:"None",
-    allOnPlay:"See all on Google Play",
-    appsTitle:"Apps", appsHint:"Tap Details for screenshots",
-    details:"Details", open:"Get on Google Play", openShort:"Open",
-    highlights:"Highlights", close:"Close", prev:"Previous", next:"Next",
-    downloads:"downloads",
-    webTitle:"Web projects", webHint:"Runs in your browser",
-    cat:{TOOLS:"Tools",PRODUCTIVITY:"Productivity",LIFESTYLE:"Lifestyle",ENTERTAINMENT:"Entertainment"}
-  },
-  ko: {
-    langLabel:"언어", eyebrow:"Teemy의 안드로이드 앱", title:"작지만 제대로 만든 앱",
-    subtitle:"일상에서 바로 쓰는 간단하고 안전한 앱 — 가입 없이, 데이터는 내 폰에만.",
-    statApps:"앱", statDl:"다운로드", statLogin:"회원가입", statLoginV:"불필요",
-    allOnPlay:"Google Play에서 전체 보기",
-    appsTitle:"앱", appsHint:"자세히를 누르면 스크린샷을 볼 수 있어요",
-    details:"자세히", open:"Google Play에서 받기", openShort:"열기",
-    highlights:"주요 기능", close:"닫기", prev:"이전", next:"다음",
-    downloads:"다운로드",
-    webTitle:"웹 프로젝트", webHint:"브라우저에서 바로 실행",
-    cat:{TOOLS:"도구",PRODUCTIVITY:"생산성",LIFESTYLE:"라이프스타일",ENTERTAINMENT:"엔터테인먼트"}
-  }
-};
-
+var LS_KEY = "teemy.lang";
 var DEV_URL = "https://play.google.com/store/apps/dev?id=8688340407961088017";
 var IMG = "https://play-lh.googleusercontent.com/";
 
 /* =====================================================================
-   Apps (order = display order). Screenshots/icons are Google Play image ids.
+   Apps (order = display order). Texts are in i18n/*.json under apps.<key>.
+   Screenshots/icons are Google Play image ids.
    ===================================================================== */
 var APPS = [
-  {
-    key:"familtory", id:"com.teemy.familtory", cat:"TOOLS",
+  { key:"familtory", id:"com.teemy.familtory", cat:"TOOLS", em:["⏱️","🖼️","💾","🔒"],
     icon:"5Rs2bJIwki8YLWyhdNtxU09fISRcdhfSBnuZRNywl94axyRSYo1ooWcJdqwsxeQX-KK5YClW2stJGc4W6cxR-A",
-    shots:["G-V5cIg5ePSQM__uN6rdraCeJ63ISnQUFaVELg08VrTbtQunzse8DiMvWu7Pt2-rNOa0YSX3wY0sHVPhfpEo4cg","vwMBaHMcvvAh2Q_Wil0c39FUrFjlbNzk4adT_AJGxWlsW4MyWShSJ5cHZaW91y7z1VaP3FjQnLflvFfimp2gcA","nVzF0eKYOsQxCcfzZ0kpIrTOEDGIfnF1WOlFs0ojRsqjCEbg0ij-le7Rp58EOWE1kgfJ6d-if1mBghH0AWmEkq0","a2wf9zySHZ1NCGFT4NoAYewfTtOJQfAy1Cp0W-ktd7JiiR78RVR91d9mFF0JO_k8qealvkkcANDPF1r_HUgoBg","QL3rK6VcWRZJntdxWs3ae6UqV29dmeyPXrYMH2iMOK4XMD29RLRcAluHycKY_1pQCQq7hKIXe2KKcaMP61oyEA","lwV14PAGoUVvrm0kMLBq5r9pLH3Tsiv-Os7GF6tjGvliVIaFhxZXOIwykev3SyHrmTQBRYzLuF4XKqlIjmBLHQ","-8lg9SiGfk8lKbOykzORBf0xMdacasiLu54j8ymelFEjMfO8WA85rFrEstdH5gJzN6XQxJYMFq_wV6GLC5iwUA"],
-    name:{en:"Familtory - Family Tree", ko:"Familtory - 가족 관계도"},
-    tag:{en:"Build your family tree in minutes. Save it, back it up, and share it with family.", ko:"누구나 간단히 가족 관계도 제작, 저장, 백업, 가족과 공유"},
-    lead:{en:"A family tree app that's flexible, easy to use, and actually finished. No sign-in — your family's data never leaves the app.", ko:"자유도, 편의성, 완성도를 한번에 잡은 가족 관계도 앱. 로그인 필요 없고, 가족 데이터는 모두 앱에서만 관리해요."},
-    feats:[
-      ["⏱️",{en:"Start in a minute with a quick tutorial; one button tidies a tangled tree",ko:"1분 튜토리얼로 바로 시작, 버튼 하나로 복잡한 관계도 자동 정리"}],
-      ["🖼️",{en:"Photos with cropping, birthdays, memorial dates, notes and themes",ko:"사진(자르기 지원), 생년월일·기일·메모 입력과 다양한 배경 테마"}],
-      ["💾",{en:"Stored only on your device — backup file to move to a new phone",ko:"모든 데이터는 내 기기에만 저장, 백업 파일로 새 폰에 옮기기"}],
-      ["🔒",{en:"Share as a high-res PNG; app lock with PIN, fingerprint or face",ko:"고화질 PNG로 저장·공유, PIN·지문·얼굴 앱 잠금"}]
-    ]
-  },
-  {
-    key:"blinker", id:"com.teemy.autoflashlight", cat:"TOOLS", dl:"1K+",
+    shots:["G-V5cIg5ePSQM__uN6rdraCeJ63ISnQUFaVELg08VrTbtQunzse8DiMvWu7Pt2-rNOa0YSX3wY0sHVPhfpEo4cg","vwMBaHMcvvAh2Q_Wil0c39FUrFjlbNzk4adT_AJGxWlsW4MyWShSJ5cHZaW91y7z1VaP3FjQnLflvFfimp2gcA","nVzF0eKYOsQxCcfzZ0kpIrTOEDGIfnF1WOlFs0ojRsqjCEbg0ij-le7Rp58EOWE1kgfJ6d-if1mBghH0AWmEkq0","a2wf9zySHZ1NCGFT4NoAYewfTtOJQfAy1Cp0W-ktd7JiiR78RVR91d9mFF0JO_k8qealvkkcANDPF1r_HUgoBg","QL3rK6VcWRZJntdxWs3ae6UqV29dmeyPXrYMH2iMOK4XMD29RLRcAluHycKY_1pQCQq7hKIXe2KKcaMP61oyEA","lwV14PAGoUVvrm0kMLBq5r9pLH3Tsiv-Os7GF6tjGvliVIaFhxZXOIwykev3SyHrmTQBRYzLuF4XKqlIjmBLHQ","-8lg9SiGfk8lKbOykzORBf0xMdacasiLu54j8ymelFEjMfO8WA85rFrEstdH5gJzN6XQxJYMFq_wV6GLC5iwUA"] },
+  { key:"blinker", id:"com.teemy.autoflashlight", cat:"TOOLS", dl:"1K+", em:["⚡","⏺️","📲","⏲️"],
     icon:"X1F4Dq4C1gEL_BUL73zHqLaiTvdnUX5hH5sMwI8oKMzwoea5fOpkBlegzzkBw7KEiYdxPm_aMKwDfZXBGgpmqA",
-    shots:["S6wIPkjEwJDzqMAW8PdHQTrsl2wZgTDahF1Fh5EVpbrOC6C91HFuda20rbRLpB389bZafQiFUvNYB-qxTFRl7-o","kIzLuIgSQSGqn1sXKDsnqZvAmI913MZhP761w7ps9BJZ3Kd_Z8ZcQgf3eaB09CMbIAS65ojZEaNPJqbxMQqnEA","qPasccV8ONkAsaXTt75IgImJ4SCfA5Z62fZqNofxFGR2uazDzsH8PnjGHY0hQ6dYwplzQL9-PEIiITcBvl3dIg","kLioL3y85RlzRLGmBXmpCpte-h3A3-H-ZW7Isix2hCgXQaG9V37QYcLkysKurt_QOo_osZFRgMDdayFMmPPZTA","vVTVezr-zvCQAwNV6UVPfY29xiP--e-zpTHQeeD1YvCTYdUEf6vlendzujYxUJVqM6xw6VdKvDIAGKpP0KwxMA","3mLwlEQyYRDE5UAyj4ioS-2EtMh4QdtsXe3Cu0Mz4bFfyBPcXnjARW3peDS4vRYdM7MKNBYyPk9H6xy8FyN6nkM"],
-    name:{en:"Blinker - Torch & Strobe", ko:"Blinker - 자동 깜빡이 플래시"},
-    tag:{en:"Strobe from 0.1 to 60 Hz, record your own flash patterns, widget and Quick Settings tile.", ko:"초당 0.1~60회 깜빡임, 나만의 패턴 녹음, 위젯과 빠른 설정 타일까지"},
-    lead:{en:"Your phone's torch turns on. That's it. Blinker lets you decide how it flashes.", ko:"그냥 켜지는 손전등이 아니에요. 원하는 속도로 깜빡이고, 직접 두드려 만든 패턴을 언제든 다시 재생해요."},
-    feats:[
-      ["⚡",{en:"0.1–60 flashes per second, plus steady, pulse, strobe and real Morse SOS",ko:"초당 0.1~60회 속도 조절, 상시·펄스·스트로브·모스 SOS 기본 패턴"}],
-      ["⏺️",{en:"Hold REC to tap out a rhythm, trim it like a video, save it as a preset",ko:"REC를 눌러 리듬을 녹음하고, 영상처럼 앞뒤를 잘라 프리셋으로 저장"}],
-      ["📲",{en:"Home-screen widget (down to 1×1) and a Quick Settings tile",ko:"1×1까지 줄어드는 홈 화면 위젯과 빠른 설정 타일"}],
-      ["⏲️",{en:"Auto-off timer from 1 minute to 1 hour; keeps going with the screen locked",ko:"1분~1시간 자동 꺼짐 타이머, 화면을 잠가도 계속 점멸"}]
-    ]
-  },
-  {
-    key:"candle", id:"com.video.firecandle", cat:"LIFESTYLE", dl:"10K+",
+    shots:["S6wIPkjEwJDzqMAW8PdHQTrsl2wZgTDahF1Fh5EVpbrOC6C91HFuda20rbRLpB389bZafQiFUvNYB-qxTFRl7-o","kIzLuIgSQSGqn1sXKDsnqZvAmI913MZhP761w7ps9BJZ3Kd_Z8ZcQgf3eaB09CMbIAS65ojZEaNPJqbxMQqnEA","qPasccV8ONkAsaXTt75IgImJ4SCfA5Z62fZqNofxFGR2uazDzsH8PnjGHY0hQ6dYwplzQL9-PEIiITcBvl3dIg","kLioL3y85RlzRLGmBXmpCpte-h3A3-H-ZW7Isix2hCgXQaG9V37QYcLkysKurt_QOo_osZFRgMDdayFMmPPZTA","vVTVezr-zvCQAwNV6UVPfY29xiP--e-zpTHQeeD1YvCTYdUEf6vlendzujYxUJVqM6xw6VdKvDIAGKpP0KwxMA","3mLwlEQyYRDE5UAyj4ioS-2EtMh4QdtsXe3Cu0Mz4bFfyBPcXnjARW3peDS4vRYdM7MKNBYyPk9H6xy8FyN6nkM"] },
+  { key:"candle", id:"com.video.firecandle", cat:"LIFESTYLE", dl:"10K+", em:["🕯️","🔥","🎵","🚫"],
     icon:"wWui3BWmpaIoRKD0zkt_MRcXwh1VmSNV0egMpJxRvkI4_nF4R7FFcN_35pl8LS9FgsawMMaEeknYFFyHcs3vMA",
-    shots:["tv4ueUdPpGptFx_UmXXQ_BhFHn6_y3FnEg7hkB-0SrBTfJzM81wc499vX1QdhkAVypzGGUml9ok0_SbeKsMN","VBXyUsOoB889m_jULPTWoYrVx3mjPsttmbdkkIv7Red4KvnaXi_-9K7J4EY4W0C4sJk88uGTkwV3nV4Y7h0PHw","0vjoCW3qDi06UvlCWNCJvLbffXpbpNkohziUu5bRm-JM1mmrYIXijF6MbjF84Wdc-TobHgnrcaCXKHSnJTsD","C5tR_NI317oHiPp44H0CvZdYIJBPnzKWJ2kvGhJpsro6Dc76fPjSQipZBLE-Uj9FEwRzaTNXnC8x27bmNgNstao","wbeHeZTjE9yWw2b0EBi6CeAM6hPvVFLklv5tR7K_hURpvvS4bE9oo08iTw5r_Xi57P0g7XU-sHElnTTbvNtTTQ","CKbHcWpZZuj4Ha5KYTjOTBAv1-3FYHB-khrt7pllbwpnQX4mk-e274FPocvBwnzlsI3m8xL5XpomMgTZJa4F"],
-    name:{en:"Romantic Candle", ko:"희망의 촛불"},
-    tag:{en:"Light a real-looking HD candle with one tap — anytime, anywhere.", ko:"화재 걱정 없이 언제 어디서나 고화질 진짜 같은 촛불을 켜세요."},
-    lead:{en:"A real candle in high definition, with no fire to worry about — for vigils, romantic evenings, prayer, birthdays or winding down.", ko:"화재 걱정 없는 진짜 같은 촛불 — 촛불 집회, 로맨틱한 분위기, 기도, 생일, 잠들기 전에 좋아요."},
-    feats:[
-      ["🕯️",{en:"20+ HD candle videos with color customization",ko:"20종 넘는 고화질 촛불 영상과 색상 커스터마이징"}],
-      ["🔥",{en:"Stays lit until you close the app — no wax, no smoke",ko:"앱을 끄기 전까지 계속 켜짐 — 촛농도 연기도 없음"}],
-      ["🎵",{en:"Background music and 32 languages",ko:"배경음악과 32개 언어 지원"}],
-      ["🚫",{en:"No ads once the candle is lit. No account, no in-app purchases",ko:"촛불이 켜진 뒤엔 광고 없음. 계정·인앱 결제 없음"}]
-    ]
-  },
-  {
-    key:"fireplace", id:"com.video.firevideo2", cat:"ENTERTAINMENT", dl:"10K+",
+    shots:["tv4ueUdPpGptFx_UmXXQ_BhFHn6_y3FnEg7hkB-0SrBTfJzM81wc499vX1QdhkAVypzGGUml9ok0_SbeKsMN","VBXyUsOoB889m_jULPTWoYrVx3mjPsttmbdkkIv7Red4KvnaXi_-9K7J4EY4W0C4sJk88uGTkwV3nV4Y7h0PHw","0vjoCW3qDi06UvlCWNCJvLbffXpbpNkohziUu5bRm-JM1mmrYIXijF6MbjF84Wdc-TobHgnrcaCXKHSnJTsD","C5tR_NI317oHiPp44H0CvZdYIJBPnzKWJ2kvGhJpsro6Dc76fPjSQipZBLE-Uj9FEwRzaTNXnC8x27bmNgNstao","wbeHeZTjE9yWw2b0EBi6CeAM6hPvVFLklv5tR7K_hURpvvS4bE9oo08iTw5r_Xi57P0g7XU-sHElnTTbvNtTTQ","CKbHcWpZZuj4Ha5KYTjOTBAv1-3FYHB-khrt7pllbwpnQX4mk-e274FPocvBwnzlsI3m8xL5XpomMgTZJa4F"] },
+  { key:"fireplace", id:"com.video.firevideo2", cat:"ENTERTAINMENT", dl:"10K+", em:["🔥","🪵","📴","🚫"],
     icon:"BMdo02pFJI-tORLAY1v0BDu4OOo2LMAnymiNUvaFku53nAji3k624KQr1jHdS1TXBcFAfoQ4pEIyAg1l-Ngf",
-    shots:["O7oGbKfQxwlnM4F1aXeB8NiCpfeghE3NS1FYWFVaBoTKyC_19Sodj617hUTjylDDdpNFBHD06UajteCqTz8o2A","aL-PM7KnxCJ6a0a7tnu9r0fkR57Z0F-yaUJL9dgY2-epppABl5vm_Kf0jdMiJKiMoXKqqdsRPHDIyEVZ3QUIDw","xPz2GnM-NBvEs0wENuFxiHDqg6yyy2ddl6OwRyr_7LZSoTQinOFc9KlvO5HmVXaMLK5N8Q5HnuKJ2X6fmff2bg","2sL-cipuuqind1gzSzLYQ7-xm_bQ14EIo3QWWi_kh_upZdqXQJ1f4zUirwaX4_vboA4sNhzoMRlw8EoHwwTdVOI","X2g5rESrVDIde6J2vRKUCM1GkYJSjpUBHRy3ky7_QK2LhUD0Z9hMeB33BMXKygRgaYatJiMLhk-vINZ4q4eWMsM","J2l3Td0DIzho6taQ8P5ZBaUSoHhYQSV5lum2dAW1JLbFhE2j4V64gvTKq33b0CcX4hJwyQYGnGjbfw2SpssqVg"],
-    name:{en:"Night Fireplace - Cozy Fire HD", ko:"밤의 벽난로 - 모닥불 HD"},
-    tag:{en:"A night fireplace in high definition. Light it up and watch it burn, unlimited.", ko:"벽난로의 생생한 고화질 영상을 무제한으로 즐기세요."},
-    lead:{en:"Cold winter nights, Christmas, setting the mood, or just staring into the fire — warmth with no smoke, no sparks, nothing to put out.", ko:"추운 겨울, 크리스마스, 분위기 잡고 싶을 때, 불멍 — 화재 걱정 없는 진짜 같은 벽난로로 따뜻한 시간을 보내세요."},
-    feats:[
-      ["🔥",{en:"HD fire with real crackling sound, burning until you close the app",ko:"앱을 끌 때까지 꺼지지 않는 고화질 벽난로와 생생한 장작 소리"}],
-      ["🪵",{en:"A range of different fires to choose from",ko:"다양한 벽난로 영상 지원"}],
-      ["📴",{en:"Plays offline — uses no data",ko:"인터넷 없이 재생, 데이터 소모 없음"}],
-      ["🚫",{en:"No ads covering the fire. No sign-up, no permissions",ko:"재생 중 화면 가리는 광고 없음. 가입·권한 요청 없음"}]
-    ]
-  },
-  {
-    key:"morserun", id:"com.teemy.morse_code", cat:"TOOLS",
+    shots:["O7oGbKfQxwlnM4F1aXeB8NiCpfeghE3NS1FYWFVaBoTKyC_19Sodj617hUTjylDDdpNFBHD06UajteCqTz8o2A","aL-PM7KnxCJ6a0a7tnu9r0fkR57Z0F-yaUJL9dgY2-epppABl5vm_Kf0jdMiJKiMoXKqqdsRPHDIyEVZ3QUIDw","xPz2GnM-NBvEs0wENuFxiHDqg6yyy2ddl6OwRyr_7LZSoTQinOFc9KlvO5HmVXaMLK5N8Q5HnuKJ2X6fmff2bg","2sL-cipuuqind1gzSzLYQ7-xm_bQ14EIo3QWWi_kh_upZdqXQJ1f4zUirwaX4_vboA4sNhzoMRlw8EoHwwTdVOI","X2g5rESrVDIde6J2vRKUCM1GkYJSjpUBHRy3ky7_QK2LhUD0Z9hMeB33BMXKygRgaYatJiMLhk-vINZ4q4eWMsM","J2l3Td0DIzho6taQ8P5ZBaUSoHhYQSV5lum2dAW1JLbFhE2j4V64gvTKq33b0CcX4hJwyQYGnGjbfw2SpssqVg"] },
+  { key:"morserun", id:"com.teemy.morse_code", cat:"TOOLS", em:["🔦","📷","🎓","🆘"],
     icon:"IW-MiMaQjSRbTfBa51Ix8L-mrFDDu62hHeDGvXK0zpLmW05cOr_JpiHW0WFBDR7CCvDiXIZ63pu3Jj4PsR5h8Q",
-    shots:["S2LK7uKl_DUhKZ-8kP8MpGcQNPRKcZsAacTyIRFoRtjbqsnoR2Ad9vingNBBDDIZpBseabip9fEmzj85D8dE0w","KvQt1irfa1Zf1AjT_Eioh6YP1SBiumKSBPk1vNRJIVkupZxymOAj-sh7NYFV-SB3LOOAGcCLlhOnx7Rvfuw0BEM","taX2NtLfFfqtI4vEfA64TzD_Sid8HSJJvW5fqKjjBjNwynD7cIWjTqul21aaXk6vgUml0sQEkwaNBLzhkwEHueI","N5zbHk1_e-C1o9lPoFncpROQXAozdZMUMikCph_gAmVQqNQkjPnkFOk3Wb03d9AWTM2TyurFHwL-A6VEulbsFQ","AlrSVJ7L9SuCF8GqmSe8r9c2trLRWD0NnH3D-AQSTVKf6yOYGJYBg2lAhmhrHRei9j34cQ6uVqnMCta91ETY"],
-    name:{en:"MorseRun - All-in-One Morse", ko:"MorseRun 모스부호"},
-    tag:{en:"Talk in Morse code with your flashlight, read it with your camera. SOS built in.", ko:"손전등으로 모스부호를 보내고, 카메라로 읽어내세요. SOS 기본 탑재."},
-    lead:{en:"Point your camera at any blinking light and MorseRun reads it for you. Learn it, send it, decode it — one app covers the whole journey.", ko:"깜빡이는 불빛에 카메라를 비추면 MorseRun이 대신 읽어줘요. 배우고, 보내고, 해독하는 모든 과정을 앱 하나로."},
-    feats:[
-      ["🔦",{en:"Play: text → flashlight, screen flash, beep or vibration at 5–40 WPM",ko:"PLAY: 입력한 글자를 손전등·화면·비프음·진동으로 (5~40 WPM)"}],
-      ["📷",{en:"Decode: camera turns blinking light into text in real time, on-device",ko:"DECODE: 카메라로 불빛을 실시간 해독, 100% 기기 내 처리"}],
-      ["🎓",{en:"Learn: tap-to-hear Morse table and practice quizzes with streaks",ko:"LEARN: 소리 나는 모스부호 표와 기록이 남는 연습 퀴즈"}],
-      ["🆘",{en:"SOS from the lock screen via Quick Settings tile — keeps going screen-off",ko:"잠금화면 빠른 설정 타일로 SOS, 화면을 꺼도 계속 점멸"}]
-    ]
-  },
-  {
-    key:"homemo", id:"com.teemy.homemo", cat:"PRODUCTIVITY",
+    shots:["S2LK7uKl_DUhKZ-8kP8MpGcQNPRKcZsAacTyIRFoRtjbqsnoR2Ad9vingNBBDDIZpBseabip9fEmzj85D8dE0w","KvQt1irfa1Zf1AjT_Eioh6YP1SBiumKSBPk1vNRJIVkupZxymOAj-sh7NYFV-SB3LOOAGcCLlhOnx7Rvfuw0BEM","taX2NtLfFfqtI4vEfA64TzD_Sid8HSJJvW5fqKjjBjNwynD7cIWjTqul21aaXk6vgUml0sQEkwaNBLzhkwEHueI","N5zbHk1_e-C1o9lPoFncpROQXAozdZMUMikCph_gAmVQqNQkjPnkFOk3Wb03d9AWTM2TyurFHwL-A6VEulbsFQ","AlrSVJ7L9SuCF8GqmSe8r9c2trLRWD0NnH3D-AQSTVKf6yOYGJYBg2lAhmhrHRei9j34cQ6uVqnMCta91ETY"] },
+  { key:"homemo", id:"com.teemy.homemo", cat:"PRODUCTIVITY", em:["🧩","🎨","📝","🔐"],
     icon:"lotYsocb1TRsZ3CYkvgvdafiUwJ7_OOaW4g4d3q38PnsM5y2RTNMWvLBSAAbEvzlJgPOU-FVD6AqKKZgQh49LA",
-    shots:["duvQKFPvFR_angnIfYfZM7AsG58aEbNnht27wGpD72I1ZJhRnyF8dq3vDMFNBx19f1bj0GStYnuNt1a0brtf6A","58d2uRxAloQlxDwnFBhy5--x_NJXrUPJs2zfddcJgWQKYbolkWbx_kQIFR6ZTaMwmUfY1rel289YMZL01lCTQw","KzkGFF7Pgw6ECdXHTtuOE0qPba_AHzHbDQpAbczf1IJCrCa2Bc33VzwjiMyCsyF8J-uoEsfZwh94V4Wf9Ars","ZA49d2RbXPrfdywHdfFfTwCVi84Ox9E8L43wJNKhh515425Egc5UT4Udqzdzf0qq9xKCNQbG3lo70MJwFNC49CQ"],
-    name:{en:"Homemo: Notes Widget", ko:"Homemo: 메모 위젯"},
-    tag:{en:"Pin your notes and photos to the home screen. Offline, no account needed.", ko:"메모와 사진을 홈 화면에 고정하세요. 오프라인, 계정 필요 없음."},
-    lead:{en:"Write a note, add a photo, and place it as a widget — your shopping list, a reminder or a favorite photo, always one glance away.", ko:"메모를 쓰고 사진을 더해 위젯으로 배치하세요. 장보기 목록, 알림, 좋아하는 사진을 언제든 한눈에."},
-    feats:[
-      ["🧩",{en:"One widget per note — place as many as you like, resize freely",ko:"메모마다 위젯 1개, 원하는 만큼 배치하고 자유롭게 크기 조절"}],
-      ["🎨",{en:"Style each widget: color, opacity, corners, text size and alignment",ko:"위젯별 배경색·투명도·모서리·글자 크기·정렬 설정"}],
-      ["📝",{en:"Notes with photos, color tags, pins, grid/list view and fast search",ko:"사진 메모, 색상 구분, 고정, 그리드/목록 보기, 빠른 검색"}],
-      ["🔐",{en:"Fully offline, no login; 30-day trash and ZIP backup/restore",ko:"완전 오프라인, 로그인 없음, 휴지통 30일 보관과 ZIP 백업·복원"}]
-    ]
-  }
+    shots:["duvQKFPvFR_angnIfYfZM7AsG58aEbNnht27wGpD72I1ZJhRnyF8dq3vDMFNBx19f1bj0GStYnuNt1a0brtf6A","58d2uRxAloQlxDwnFBhy5--x_NJXrUPJs2zfddcJgWQKYbolkWbx_kQIFR6ZTaMwmUfY1rel289YMZL01lCTQw","KzkGFF7Pgw6ECdXHTtuOE0qPba_AHzHbDQpAbczf1IJCrCa2Bc33VzwjiMyCsyF8J-uoEsfZwh94V4Wf9Ars","ZA49d2RbXPrfdywHdfFfTwCVi84Ox9E8L43wJNKhh515425Egc5UT4Udqzdzf0qq9xKCNQbG3lo70MJwFNC49CQ"] }
 ];
 
-/* ---- web projects (shown at the bottom) ---- */
+/* ---- web projects (shown at the bottom). Texts: i18n/*.json → web.<key> ---- */
 var PROJECTS = [
-  { href:"https://hwancole.github.io/sydney-trip/", icon:"🇦🇺", color:"#D7F0F1",
-    nm:{en:"Sydney Trip", ko:"시드니 여행"}, ds:{en:"Interactive 8-day itinerary · maps & checklist", ko:"7박 8일 인터랙티브 여행 일정 · 지도·체크리스트"} },
-  { href:"https://hwancole.github.io/tagalog-100/", icon:"🗣️", color:"#DCE8F7",
-    nm:{en:"Tagalog in 100 Days", ko:"타갈로그어 100일 마스터"}, ds:{en:"Learn Filipino (Tagalog) in 100 days", ko:"필리핀어(타갈로그) 100일 학습 웹앱"} },
-  { href:"https://hwancole.github.io/mini-game-arcade/", icon:"🎮", color:"#EDE2F3",
-    nm:{en:"Mini Game Arcade", ko:"미니 게임 아케이드"}, ds:{en:"Quick mini games right in your browser", ko:"브라우저에서 바로 즐기는 미니 게임 모음"} }
+  { key:"sydney",  href:"https://hwancole.github.io/sydney-trip/",      icon:"🇦🇺", color:"#D7F0F1" },
+  { key:"tagalog", href:"https://hwancole.github.io/tagalog-100/",      icon:"🗣️", color:"#DCE8F7" },
+  { key:"arcade",  href:"https://hwancole.github.io/mini-game-arcade/", icon:"🎮", color:"#EDE2F3" }
 ];
 
 /* =====================================================================
    language resolution: saved choice → browser languages → English
    ===================================================================== */
-var LS_KEY = "teemy.lang";
+function langInfo(code){ for (var i=0;i<LANGS.length;i++) if (LANGS[i].code === code) return LANGS[i]; return null; }
+function matchLang(tag){
+  var full = String(tag || "").toLowerCase().replace("_","-"), base = full.split("-")[0];
+  if (langInfo(full)) return full;
+  if (ALIASES[base] && langInfo(ALIASES[base])) return ALIASES[base];
+  if (langInfo(base)) return base;
+  return null;
+}
 function pickLang(){
-  try { var s = localStorage.getItem(LS_KEY); if (s && LANGS[s]) return s; } catch(e){}
-  var list = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || ""];
-  for (var i=0;i<list.length;i++){
-    var full = String(list[i]).toLowerCase(), base = full.split("-")[0];
-    if (LANGS[full]) return full;
-    if (LANGS[base]) return base;
-  }
+  try { var s = localStorage.getItem(LS_KEY); if (s && langInfo(s)) return s; } catch(e){}
+  var list = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language];
+  for (var i=0;i<list.length;i++){ var m = matchLang(list[i]); if (m) return m; }
   return DEFAULT_LANG;
 }
-var lang = pickLang();
-function t(k){ var u = UI[lang] || UI[DEFAULT_LANG]; return u[k] != null ? u[k] : UI[DEFAULT_LANG][k]; }
-function L(obj){ return obj ? (obj[lang] != null ? obj[lang] : obj[DEFAULT_LANG]) : ""; }
+
+/* dictionaries: fetched once, cached */
+var DICT = {}, lang = pickLang();
+function loadDict(code){
+  if (DICT[code]) return Promise.resolve(DICT[code]);
+  return fetch("i18n/" + code + ".json", {cache:"no-cache"})
+    .then(function(r){ if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(function(d){ DICT[code] = d; return d; });
+}
+/* get("ui.details"), get("apps.familtory.feats.0") — falls back to English */
+function dig(o, path){ for (var i=0;i<path.length && o != null;i++) o = o[path[i]]; return o; }
+function get(path){
+  var p = path.split("."), v = dig(DICT[lang], p);
+  if (v == null || v === "") v = dig(DICT[DEFAULT_LANG], p);
+  return v == null ? "" : v;
+}
+function t(k){ return get("ui." + k); }
 function esc(s){ return String(s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];}); }
-function playUrl(app){ return "https://play.google.com/store/apps/details?id=" + app.id + "&hl=" + lang; }
+function hl(){ var i = langInfo(lang); return (i && i.hl) || lang; }
+function playUrl(app){ return "https://play.google.com/store/apps/details?id=" + app.id + "&hl=" + hl(); }
 function img(id, size){ return IMG + id + "=" + size; }
+function appName(a){ return get("apps." + a.key + ".name"); }
 
 var ICON_PLAY = '<svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M5 3.5v17c0 .8.9 1.3 1.6.9l14-8.5c.6-.4.6-1.4 0-1.8l-14-8.5C5.9 2.2 5 2.7 5 3.5z"/></svg>';
 var ICON_INFO = '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M8 9h8M8 13h5"/></svg>';
@@ -416,22 +381,26 @@ var ICON_R = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke
 var $ = function(id){ return document.getElementById(id); };
 
 function renderStatic(){
-  document.documentElement.lang = lang;
+  var info = langInfo(lang) || {};
+  document.documentElement.lang = info.html || lang;
+  document.documentElement.dir = info.rtl ? "rtl" : "ltr";
+  document.title = t("docTitle");
   document.querySelectorAll("[data-i]").forEach(function(el){ el.textContent = t(el.getAttribute("data-i")); });
-  $("devLink").href = DEV_URL + "&hl=" + lang;
+  $("devLink").href = DEV_URL + "&hl=" + hl();
   $("stats").innerHTML =
     '<li><b>' + APPS.length + '</b><span>' + esc(t("statApps")) + '</span></li>' +
-    '<li><b>20K+</b><span>' + esc(t("statDl")) + '</span></li>' +
+    '<li><b dir="ltr">20K+</b><span>' + esc(t("statDl")) + '</span></li>' +
     '<li><b>' + esc(t("statLoginV")) + '</b><span>' + esc(t("statLogin")) + '</span></li>';
   $("yr").textContent = new Date().getFullYear();
+  $("lb").setAttribute("aria-label", t("screenshots"));
   $("lbClose").innerHTML = ICON_X; $("lbClose").setAttribute("aria-label", t("close"));
   $("lbPrev").innerHTML = ICON_L; $("lbPrev").setAttribute("aria-label", t("prev"));
   $("lbNext").innerHTML = ICON_R; $("lbNext").setAttribute("aria-label", t("next"));
 }
 
 function chipsHtml(a){
-  var c = '<span class="chip">' + esc(t("cat")[a.cat] || a.cat) + '</span>';
-  if (a.dl) c += '<span class="chip">' + esc(a.dl + " " + t("downloads")) + '</span>';
+  var c = '<span class="chip">' + esc(get("ui.cat." + a.cat) || a.cat) + '</span>';
+  if (a.dl) c += '<span class="chip"><bdi dir="ltr">' + a.dl + '</bdi> ' + esc(t("downloads")) + '</span>';
   return c;
 }
 
@@ -440,15 +409,15 @@ function renderApps(){
     return '<article class="app">' +
       '<div class="app-top" data-detail="' + i + '">' +
         '<img class="app-icon" src="' + img(a.icon,"s128") + '" alt="" width="64" height="64" loading="lazy">' +
-        '<div class="app-meta"><h3 class="app-name">' + esc(L(a.name)) + '</h3>' +
-        '<p class="app-tag">' + esc(L(a.tag)) + '</p><div class="chips">' + chipsHtml(a) + '</div></div>' +
+        '<div class="app-meta"><h3 class="app-name">' + esc(appName(a)) + '</h3>' +
+        '<p class="app-tag">' + esc(get("apps." + a.key + ".tag")) + '</p><div class="chips">' + chipsHtml(a) + '</div></div>' +
       '</div>' +
       '<div class="peek" data-detail="' + i + '" aria-hidden="true">' +
         a.shots.slice(0,4).map(function(s){ return '<img src="' + img(s,"h240") + '" alt="" loading="lazy">'; }).join("") +
       '</div>' +
       '<div class="actions">' +
         '<button class="btn btn-2" type="button" data-detail="' + i + '">' + ICON_INFO + esc(t("details")) + '</button>' +
-        '<a class="btn btn-1" href="' + playUrl(a) + '" target="_blank" rel="noopener" aria-label="' + esc(L(a.name) + " — " + t("open")) + '">' + ICON_PLAY + esc(t("openShort")) + '</a>' +
+        '<a class="btn btn-1" href="' + playUrl(a) + '" target="_blank" rel="noopener" aria-label="' + esc(appName(a) + " — " + t("open")) + '">' + ICON_PLAY + esc(t("openShort")) + '</a>' +
       '</div>' +
     '</article>';
   }).join("");
@@ -458,19 +427,23 @@ function renderWeb(){
   $("webs").innerHTML = PROJECTS.map(function(p){
     return '<a class="proj" href="' + p.href + '" target="_blank" rel="noopener">' +
       '<span class="ic" style="background:' + p.color + '">' + p.icon + '</span>' +
-      '<span class="pc"><span class="nm">' + esc(L(p.nm)) + '</span><span class="ds">' + esc(L(p.ds)) + '</span></span>' +
+      '<span class="pc"><span class="nm">' + esc(get("web." + p.key + ".nm")) + '</span><span class="ds">' + esc(get("web." + p.key + ".ds")) + '</span></span>' +
       '<span class="arr" aria-hidden="true">↗</span></a>';
   }).join("");
 }
 
 function renderLangSelect(){
-  $("lang").innerHTML = Object.keys(LANGS).map(function(k){
-    return '<option value="' + k + '"' + (k === lang ? " selected" : "") + '>' + LANGS[k] + '</option>';
+  $("lang").innerHTML = LANGS.map(function(l){
+    return '<option value="' + l.code + '" lang="' + (l.html || l.code) + '"' + (l.code === lang ? " selected" : "") + '>' + l.name + '</option>';
   }).join("");
   $("lang").setAttribute("aria-label", t("langLabel"));
 }
 
-function renderAll(){ renderStatic(); renderLangSelect(); renderApps(); renderWeb(); if (current >= 0) fillSheet(current); }
+function renderAll(){
+  renderStatic(); renderLangSelect(); renderApps(); renderWeb();
+  if (current >= 0) fillSheet(current);
+  document.documentElement.classList.remove("i18n-wait");
+}
 
 /* =====================================================================
    detail sheet
@@ -478,26 +451,26 @@ function renderAll(){ renderStatic(); renderLangSelect(); renderApps(); renderWe
 var sheet = $("sheet"), current = -1;
 
 function fillSheet(i){
-  var a = APPS[i];
+  var a = APPS[i], feats = get("apps." + a.key + ".feats") || [];
   sheet.innerHTML =
     '<div class="sh-grip" aria-hidden="true"></div>' +
     '<div class="sh-head" id="shHead">' +
       '<img class="app-icon" src="' + img(a.icon,"s128") + '" alt="" width="56" height="56">' +
-      '<div><h3 id="sh-title">' + esc(L(a.name)) + '</h3><div class="dev">Teemy</div><div class="chips">' + chipsHtml(a) + '</div></div>' +
+      '<div><h3 id="sh-title">' + esc(appName(a)) + '</h3><div class="dev">Teemy</div><div class="chips">' + chipsHtml(a) + '</div></div>' +
       '<button class="x" type="button" id="shClose" aria-label="' + esc(t("close")) + '">' + ICON_X + '</button>' +
     '</div>' +
     '<div class="sh-body">' +
-      '<p class="lead">' + esc(L(a.lead)) + '</p>' +
+      '<p class="lead">' + esc(get("apps." + a.key + ".lead")) + '</p>' +
       '<div class="shots">' + a.shots.map(function(s, k){
-        return '<button type="button" data-shot="' + k + '"><img src="' + img(s,"h760") + '" alt="' + esc(L(a.name) + " " + (k+1)) + '" loading="lazy"></button>';
+        return '<button type="button" data-shot="' + k + '"><img src="' + img(s,"h760") + '" alt="' + esc(appName(a) + " " + (k+1)) + '" loading="lazy"></button>';
       }).join("") + '</div>' +
       '<h4>' + esc(t("highlights")) + '</h4>' +
-      '<ul class="feats">' + a.feats.map(function(f){
-        return '<li><span class="em" aria-hidden="true">' + f[0] + '</span><span>' + esc(L(f[1])) + '</span></li>';
+      '<ul class="feats">' + feats.map(function(f, k){
+        return '<li><span class="em" aria-hidden="true">' + (a.em[k] || "•") + '</span><span>' + esc(f) + '</span></li>';
       }).join("") + '</ul>' +
     '</div>' +
     '<div class="sh-foot"><a class="btn btn-1" href="' + playUrl(a) + '" target="_blank" rel="noopener">' + ICON_PLAY + esc(t("open")) + '</a></div>';
-  $("shClose").onclick = function(){ closeSheet(); };
+  $("shClose").onclick = function(){ sheet.close(); };
   sheet.onscroll = function(){ $("shHead").classList.toggle("stuck", sheet.scrollTop > 4); };
 }
 
@@ -509,10 +482,6 @@ function openSheet(i, fromHash){
   document.body.style.overflow = "hidden";
   if (!fromHash && location.hash !== "#" + APPS[i].key) history.pushState({sheet:1}, "", "#" + APPS[i].key);
 }
-function closeSheet(){
-  if (!sheet.open) return;
-  sheet.close();
-}
 sheet.addEventListener("close", function(){
   current = -1;
   document.body.style.overflow = "";
@@ -522,7 +491,7 @@ sheet.addEventListener("close", function(){
   }
 });
 sheet.addEventListener("click", function(e){
-  if (e.target === sheet) { closeSheet(); return; }   // backdrop tap
+  if (e.target === sheet) { sheet.close(); return; }   // backdrop tap
   var b = e.target.closest("[data-shot]");
   if (b) openLightbox(+b.getAttribute("data-shot"));
 });
@@ -550,7 +519,7 @@ var lb = $("lb"), track = $("lbTrack");
 function openLightbox(k){
   var a = APPS[current];
   track.innerHTML = a.shots.map(function(s, n){
-    return '<figure><img src="' + img(s,"h1600") + '" alt="' + esc(L(a.name) + " " + (n+1)) + '"></figure>';
+    return '<figure><img src="' + img(s,"h1600") + '" alt="' + esc(appName(a) + " " + (n+1)) + '"></figure>';
   }).join("");
   lb.showModal();
   track.scrollLeft = k * track.clientWidth;
@@ -575,14 +544,21 @@ lb.addEventListener("keydown", function(e){
 /* =====================================================================
    boot
    ===================================================================== */
+function setLang(code){
+  return Promise.all([loadDict(DEFAULT_LANG), code === DEFAULT_LANG ? null : loadDict(code).catch(function(){ return null; })])
+    .then(function(r){ lang = (code === DEFAULT_LANG || r[1]) ? code : DEFAULT_LANG; renderAll(); });
+}
 $("lang").addEventListener("change", function(){
-  lang = this.value;
-  try { localStorage.setItem(LS_KEY, lang); } catch(e){}
-  renderAll();
+  var code = this.value;
+  try { localStorage.setItem(LS_KEY, code); } catch(e){}
+  setLang(code);
 });
-renderAll();
-var startIdx = indexFromHash();
-if (startIdx >= 0) openSheet(startIdx, true);
+/* never keep the page hidden for long, even on a slow network */
+setTimeout(function(){ document.documentElement.classList.remove("i18n-wait"); }, 1500);
+setLang(lang).then(function(){
+  var startIdx = indexFromHash();
+  if (startIdx >= 0) openSheet(startIdx, true);
+});
 </script>
 </body>
 </html>

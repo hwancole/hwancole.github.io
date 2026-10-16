@@ -1,0 +1,106 @@
+{
+  "ui": {
+    "docTitle": "Teemy · Android-toeps deur hwancole",
+    "langLabel": "Taal",
+    "eyebrow": "Android-toeps deur Teemy",
+    "title": "Klein toeps, goed gedoen",
+    "subtitle": "Eenvoudige, private toeps vir alledaagse oomblikke — geen registrasie nie, jou data bly op jou foon.",
+    "statApps": "Toeps",
+    "statDl": "Aflaaie",
+    "statLogin": "Registrasie nodig",
+    "statLoginV": "Geen",
+    "allOnPlay": "Sien almal op Google Play",
+    "appsTitle": "Toeps",
+    "appsHint": "Tik Besonderhede vir skermkiekies",
+    "details": "Besonderhede",
+    "open": "Kry op Google Play",
+    "openShort": "Maak oop",
+    "highlights": "Hoogtepunte",
+    "screenshots": "Skermkiekies",
+    "close": "Maak toe",
+    "prev": "Vorige",
+    "next": "Volgende",
+    "downloads": "aflaaie",
+    "webTitle": "Webprojekte",
+    "webHint": "Loop in jou blaaier",
+    "cat": {
+      "TOOLS": "Gereedskap",
+      "PRODUCTIVITY": "Produktiwiteit",
+      "LIFESTYLE": "Leefstyl",
+      "ENTERTAINMENT": "Vermaak"
+    }
+  },
+  "apps": {
+    "familtory": {
+      "name": "Familtory - Stamboom",
+      "tag": "Bou jou stamboom binne minute. Stoor dit, maak 'n rugsteun en deel dit met familie.",
+      "lead": "'n Stamboomtoep wat buigsaam, maklik en werklik klaar is. Geen aanmelding nie — jou familie se data verlaat nooit die toep nie.",
+      "feats": [
+        "Begin binne 'n minuut met 'n kort tutoriaal; een knoppie ruim 'n deurmekaar boom op",
+        "Foto's met uitsny, verjaarsdae, gedenkdae, notas en temas",
+        "Slegs op jou toestel gestoor — rugsteunlêer om na 'n nuwe foon te skuif",
+        "Deel as hoëresolusie-PNG; toepslot met PIN, vingerafdruk of gesig"
+      ]
+    },
+    "blinker": {
+      "name": "Blinker - Flitslig",
+      "tag": "Stroboskoop van 0.1 tot 60 Hz, neem jou eie flitspatrone op, legstuk en Kitsinstellings-teël.",
+      "lead": "Jou foon se flitslig skakel aan. Dis al. Met Blinker besluit jy hoe dit flits.",
+      "feats": [
+        "0.1–60 flitse per sekonde, plus bestendig, pols, strobe en egte Morse-SOS",
+        "Hou REC in om 'n ritme te tik, knip dit soos 'n video, stoor dit as voorinstelling",
+        "Tuisskermlegstuk (tot 1×1) en 'n Kitsinstellings-teël",
+        "Outo-af-tydhouer van 1 minuut tot 1 uur; werk voort met die skerm gesluit"
+      ]
+    },
+    "candle": {
+      "name": "Romantiese Kers",
+      "tag": "Steek 'n egte-lykende HD-kers met een tik aan — enige tyd, enige plek.",
+      "lead": "'n Egte kers in hoë definisie, sonder vuur om oor te bekommer — vir waaksaamhede, romantiese aande, gebed, verjaarsdae of ontspanning.",
+      "feats": [
+        "20+ HD-kersvideo's met kleuraanpassing",
+        "Brand totdat jy die toep toemaak — geen was, geen rook nie",
+        "Agtergrondmusiek en 32 tale",
+        "Geen advertensies sodra die kers brand nie. Geen rekening, geen aankope in die toep nie"
+      ]
+    },
+    "fireplace": {
+      "name": "Nagvuurherd - Vuur HD",
+      "tag": "'n Nagvuurherd in hoë definisie. Steek dit aan en kyk hoe dit onbeperk brand.",
+      "lead": "Koue winternagte, Kersfees, die regte stemming, of net in die vuur staar — warmte sonder rook, vonke of iets om dood te maak.",
+      "feats": [
+        "HD-vuur met egte knetterklank wat brand totdat jy die toep toemaak",
+        "'n Reeks verskillende vure om van te kies",
+        "Speel vanlyn — gebruik geen data nie",
+        "Geen advertensies oor die vuur nie. Geen registrasie, geen toestemmings nie"
+      ]
+    },
+    "morserun": {
+      "name": "MorseRun Alles-in-1 Morsekode",
+      "tag": "Praat in morsekode met jou flitslig, lees dit met jou kamera. SOS ingebou.",
+      "lead": "Rig jou kamera op enige flikkerende lig en MorseRun lees dit vir jou. Leer, stuur, dekodeer — een toep vir die hele reis.",
+      "feats": [
+        "PLAY: teks → flitslig, skermflits, piep of vibrasie teen 5–40 WPM",
+        "DECODE: kamera verander flikkerende lig intyds in teks, op die toestel",
+        "LEARN: tik-en-luister-morsetabel en oefenvasvrae met reekse",
+        "SOS van die sluitskerm via Kitsinstellings-teël — werk voort met die skerm af"
+      ]
+    },
+    "homemo": {
+      "name": "Homemo: Notaslegstuk",
+      "tag": "Speld jou notas en foto's op die tuisskerm vas. Vanlyn, geen rekening nodig nie.",
+      "lead": "Skryf 'n nota, voeg 'n foto by en plaas dit as legstuk — jou inkopielys, 'n herinnering of 'n gunstelingfoto, altyd net 'n kykie weg.",
+      "feats": [
+        "Een legstuk per nota — plaas soveel as wat jy wil, verander grootte vrylik",
+        "Stileer elke legstuk: kleur, deursigtigheid, hoeke, teksgrootte en belyning",
+        "Notas met foto's, kleuretikette, vasspelde, rooster-/lysaansig en vinnige soektog",
+        "Heeltemal vanlyn, geen aanmelding nie; 30-dae-asblik en ZIP-rugsteun/-herstel"
+      ]
+    }
+  },
+  "web": {
+    "sydney": { "nm": "Sydney-reis", "ds": "Interaktiewe 8-dae-reisplan · kaarte & kontrolelys" },
+    "tagalog": { "nm": "Tagalog in 100 Dae", "ds": "Leer Filipyns (Tagalog) in 100 dae" },
+    "arcade": { "nm": "Minispeletjie-arkade", "ds": "Vinnige minispeletjies reg in jou blaaier" }
+  }
+}

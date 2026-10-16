@@ -1,0 +1,106 @@
+{
+  "ui": {
+    "docTitle": "Teemy · hwancole'un Android Uygulamaları",
+    "langLabel": "Dil",
+    "eyebrow": "Teemy'den Android uygulamaları",
+    "title": "Küçük uygulamalar, özenle yapılmış",
+    "subtitle": "Günlük anlar için sade ve gizliliğe saygılı uygulamalar — kayıt yok, verileriniz telefonunuzda kalır.",
+    "statApps": "Uygulama",
+    "statDl": "İndirme",
+    "statLogin": "Kayıt gerekli",
+    "statLoginV": "Hayır",
+    "allOnPlay": "Tümünü Google Play'de gör",
+    "appsTitle": "Uygulamalar",
+    "appsHint": "Ekran görüntüleri için Ayrıntılar'a dokunun",
+    "details": "Ayrıntılar",
+    "open": "Google Play'den edinin",
+    "openShort": "Aç",
+    "highlights": "Öne çıkanlar",
+    "screenshots": "Ekran görüntüleri",
+    "close": "Kapat",
+    "prev": "Önceki",
+    "next": "Sonraki",
+    "downloads": "indirme",
+    "webTitle": "Web projeleri",
+    "webHint": "Tarayıcınızda çalışır",
+    "cat": {
+      "TOOLS": "Araçlar",
+      "PRODUCTIVITY": "Verimlilik",
+      "LIFESTYLE": "Yaşam Tarzı",
+      "ENTERTAINMENT": "Eğlence"
+    }
+  },
+  "apps": {
+    "familtory": {
+      "name": "Familtory - Soy Ağacı",
+      "tag": "Soy ağacınızı dakikalar içinde oluşturun. Kaydedin, yedekleyin ve ailenizle paylaşın.",
+      "lead": "Esnek, kullanımı kolay ve gerçekten eksiksiz bir soy ağacı uygulaması. Giriş yok — ailenizin verileri uygulamadan asla çıkmaz.",
+      "feats": [
+        "Kısa bir eğitimle bir dakikada başlayın; tek tuşla karışık ağacı düzenleyin",
+        "Kırpılabilir fotoğraflar, doğum günleri, anma tarihleri, notlar ve temalar",
+        "Yalnızca cihazınızda saklanır — yeni telefona taşımak için yedek dosyası",
+        "Yüksek çözünürlüklü PNG olarak paylaşın; PIN, parmak izi veya yüz ile kilit"
+      ]
+    },
+    "blinker": {
+      "name": "Blinker - Fener & Strobe",
+      "tag": "0.1–60 Hz strobe, kendi flaş desenlerinizi kaydedin, widget ve Hızlı Ayarlar kutucuğu.",
+      "lead": "Telefonunuzun feneri yanar. Hepsi bu. Blinker ile nasıl yanıp söneceğine siz karar verirsiniz.",
+      "feats": [
+        "Saniyede 0.1–60 flaş; ayrıca sabit, nabız, strobe ve gerçek Mors SOS",
+        "REC'e basılı tutup ritim çalın, video gibi kırpın, ön ayar olarak kaydedin",
+        "Ana ekran widget'ı (1×1'e kadar) ve Hızlı Ayarlar kutucuğu",
+        "1 dakikadan 1 saate otomatik kapanma; ekran kilitliyken de çalışır"
+      ]
+    },
+    "candle": {
+      "name": "Romantik Mum",
+      "tag": "Tek dokunuşla gerçekçi bir HD mum yakın — her zaman, her yerde.",
+      "lead": "Yangın endişesi olmadan yüksek çözünürlüklü gerçek bir mum — anma, romantik akşamlar, dua, doğum günleri veya rahatlamak için.",
+      "feats": [
+        "Renk özelleştirmeli 20'den fazla HD mum videosu",
+        "Uygulamayı kapatana kadar yanar — balmumu yok, duman yok",
+        "Arka plan müziği ve 32 dil",
+        "Mum yanarken reklam yok. Hesap yok, uygulama içi satın alma yok"
+      ]
+    },
+    "fireplace": {
+      "name": "Gece Şöminesi - Ateş HD",
+      "tag": "Yüksek çözünürlüklü bir gece şöminesi. Yakın ve sınırsızca izleyin.",
+      "lead": "Soğuk kış geceleri, Noel, atmosfer yaratmak ya da sadece ateşe dalıp gitmek için — duman yok, kıvılcım yok, söndürmeye gerek yok.",
+      "feats": [
+        "Gerçek çıtırtı sesli HD ateş, uygulamayı kapatana kadar yanar",
+        "Seçebileceğiniz farklı ateş türleri",
+        "Çevrimdışı çalışır — veri kullanmaz",
+        "Ateşi kapatan reklam yok. Kayıt yok, izin yok"
+      ]
+    },
+    "morserun": {
+      "name": "MorseRun Mors Alfabesi",
+      "tag": "Fenerinizle Mors koduyla konuşun, kameranızla okuyun. SOS dahil.",
+      "lead": "Kameranızı yanıp sönen herhangi bir ışığa tutun, MorseRun sizin için okusun. Öğrenin, gönderin, çözün — tek uygulamada hepsi.",
+      "feats": [
+        "PLAY: metin → fener, ekran flaşı, bip veya titreşim, 5–40 WPM",
+        "DECODE: kamera yanıp sönen ışığı anında metne çevirir, cihaz üzerinde",
+        "LEARN: dokununca seslendiren Mors tablosu ve seri takipli testler",
+        "Hızlı Ayarlar kutucuğuyla kilit ekranından SOS — ekran kapalıyken de sürer"
+      ]
+    },
+    "homemo": {
+      "name": "Homemo: Not Widget'ı",
+      "tag": "Notlarınızı ve fotoğraflarınızı ana ekrana sabitleyin. Çevrimdışı, hesap gerekmez.",
+      "lead": "Bir not yazın, fotoğraf ekleyin ve widget olarak yerleştirin — alışveriş listeniz, bir hatırlatma ya da sevdiğiniz bir fotoğraf hep bir bakış uzağınızda.",
+      "feats": [
+        "Her not için bir widget — istediğiniz kadar ekleyin, serbestçe boyutlandırın",
+        "Her widget'ı özelleştirin: renk, opaklık, köşeler, yazı boyutu ve hizalama",
+        "Fotoğraflı notlar, renk etiketleri, sabitleme, ızgara/liste görünümü ve hızlı arama",
+        "Tamamen çevrimdışı, giriş yok; 30 günlük çöp kutusu ve ZIP yedekleme/geri yükleme"
+      ]
+    }
+  },
+  "web": {
+    "sydney": { "nm": "Sidney Gezisi", "ds": "Etkileşimli 8 günlük gezi planı · haritalar ve kontrol listesi" },
+    "tagalog": { "nm": "100 Günde Tagalogca", "ds": "100 günde Filipince (Tagalogca) öğrenin" },
+    "arcade": { "nm": "Mini Oyun Salonu", "ds": "Tarayıcınızda hızlı mini oyunlar" }
+  }
+}

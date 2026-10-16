@@ -1,0 +1,106 @@
+{
+  "ui": {
+    "docTitle": "Teemy · Apps Android de hwancole",
+    "langLabel": "Idioma",
+    "eyebrow": "Apps Android de Teemy",
+    "title": "Apps pequeñas, bien hechas",
+    "subtitle": "Apps sencillas y privadas para el día a día: sin registro, tus datos se quedan en tu teléfono.",
+    "statApps": "Apps",
+    "statDl": "Descargas",
+    "statLogin": "Registro necesario",
+    "statLoginV": "Ninguno",
+    "allOnPlay": "Ver todas en Google Play",
+    "appsTitle": "Apps",
+    "appsHint": "Toca Detalles para ver capturas",
+    "details": "Detalles",
+    "open": "Descargar en Google Play",
+    "openShort": "Abrir",
+    "highlights": "Destacados",
+    "screenshots": "Capturas",
+    "close": "Cerrar",
+    "prev": "Anterior",
+    "next": "Siguiente",
+    "downloads": "descargas",
+    "webTitle": "Proyectos web",
+    "webHint": "Funciona en tu navegador",
+    "cat": {
+      "TOOLS": "Herramientas",
+      "PRODUCTIVITY": "Productividad",
+      "LIFESTYLE": "Estilo de vida",
+      "ENTERTAINMENT": "Entretenimiento"
+    }
+  },
+  "apps": {
+    "familtory": {
+      "name": "Familtory - Árbol Genealógico",
+      "tag": "Crea tu árbol genealógico en minutos. Guárdalo, haz copia y compártelo con tu familia.",
+      "lead": "Una app de árbol genealógico flexible, fácil de usar y realmente completa. Sin inicio de sesión: los datos de tu familia nunca salen de la app.",
+      "feats": [
+        "Empieza en un minuto con un tutorial rápido; un botón ordena un árbol enredado",
+        "Fotos con recorte, cumpleaños, aniversarios de fallecimiento, notas y temas",
+        "Guardado solo en tu dispositivo, con archivo de copia para pasar a un móvil nuevo",
+        "Comparte en PNG de alta resolución; bloqueo con PIN, huella o rostro"
+      ]
+    },
+    "blinker": {
+      "name": "Blinker - Linterna y Flash",
+      "tag": "Estroboscopio de 0,1 a 60 Hz, graba tus propios patrones, widget y ajuste rápido.",
+      "lead": "La linterna de tu móvil se enciende. Y ya está. Blinker te deja decidir cómo parpadea.",
+      "feats": [
+        "0,1–60 destellos por segundo, más fijo, pulso, estroboscopio y SOS Morse real",
+        "Mantén REC para marcar un ritmo, recórtalo como un vídeo y guárdalo como preset",
+        "Widget de inicio (desde 1×1) y botón en Ajustes rápidos",
+        "Apagado automático de 1 minuto a 1 hora; sigue con la pantalla bloqueada"
+      ]
+    },
+    "candle": {
+      "name": "Vela Romántica",
+      "tag": "Enciende una vela HD realista con un toque, cuando y donde quieras.",
+      "lead": "Una vela real en alta definición, sin fuego del que preocuparse: para vigilias, noches románticas, oración, cumpleaños o relajarte.",
+      "feats": [
+        "Más de 20 vídeos de velas HD con colores personalizables",
+        "Encendida hasta que cierres la app: sin cera, sin humo",
+        "Música de fondo y 32 idiomas",
+        "Sin anuncios con la vela encendida. Sin cuenta ni compras en la app"
+      ]
+    },
+    "fireplace": {
+      "name": "Chimenea Nocturna - Fuego HD",
+      "tag": "Una chimenea nocturna en alta definición. Enciéndela y mírala arder sin límite.",
+      "lead": "Noches frías de invierno, Navidad, crear ambiente o simplemente mirar el fuego: calor sin humo, sin chispas, sin nada que apagar.",
+      "feats": [
+        "Fuego HD con crepitar real, ardiendo hasta que cierres la app",
+        "Varios tipos de fuego para elegir",
+        "Funciona sin conexión: no gasta datos",
+        "Sin anuncios sobre el fuego. Sin registro ni permisos"
+      ]
+    },
+    "morserun": {
+      "name": "MorseRun Código Morse",
+      "tag": "Habla en Morse con tu linterna y léelo con la cámara. SOS incluido.",
+      "lead": "Apunta la cámara a cualquier luz que parpadee y MorseRun la lee por ti. Aprende, envía y descifra: una sola app para todo el camino.",
+      "feats": [
+        "PLAY: texto → linterna, destello de pantalla, pitido o vibración a 5–40 WPM",
+        "DECODE: la cámara convierte luz parpadeante en texto en tiempo real, en el dispositivo",
+        "LEARN: tabla Morse con sonido al tocar y cuestionarios con rachas",
+        "SOS desde la pantalla de bloqueo con Ajustes rápidos; sigue con la pantalla apagada"
+      ]
+    },
+    "homemo": {
+      "name": "Homemo: Widget de notas",
+      "tag": "Fija tus notas y fotos en la pantalla de inicio. Sin conexión y sin cuenta.",
+      "lead": "Escribe una nota, añade una foto y colócala como widget: tu lista de la compra, un recordatorio o tu foto favorita, siempre a la vista.",
+      "feats": [
+        "Un widget por nota: pon tantos como quieras y cambia su tamaño libremente",
+        "Personaliza cada widget: color, opacidad, esquinas, tamaño y alineación del texto",
+        "Notas con fotos, etiquetas de color, fijadas, vista cuadrícula/lista y búsqueda rápida",
+        "Totalmente sin conexión y sin login; papelera de 30 días y copia ZIP"
+      ]
+    }
+  },
+  "web": {
+    "sydney": { "nm": "Viaje a Sídney", "ds": "Itinerario interactivo de 8 días · mapas y checklist" },
+    "tagalog": { "nm": "Tagalo en 100 días", "ds": "Aprende filipino (tagalo) en 100 días" },
+    "arcade": { "nm": "Arcade de minijuegos", "ds": "Minijuegos rápidos en tu navegador" }
+  }
+}

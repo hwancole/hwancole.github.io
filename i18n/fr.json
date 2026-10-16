@@ -1,0 +1,106 @@
+{
+  "ui": {
+    "docTitle": "Teemy · Applis Android par hwancole",
+    "langLabel": "Langue",
+    "eyebrow": "Applis Android par Teemy",
+    "title": "Petites applis, bien faites",
+    "subtitle": "Des applis simples et privées pour le quotidien — sans inscription, vos données restent sur votre téléphone.",
+    "statApps": "Applis",
+    "statDl": "Téléchargements",
+    "statLogin": "Inscription requise",
+    "statLoginV": "Aucune",
+    "allOnPlay": "Tout voir sur Google Play",
+    "appsTitle": "Applis",
+    "appsHint": "Touchez Détails pour les captures",
+    "details": "Détails",
+    "open": "Disponible sur Google Play",
+    "openShort": "Ouvrir",
+    "highlights": "Points forts",
+    "screenshots": "Captures d'écran",
+    "close": "Fermer",
+    "prev": "Précédent",
+    "next": "Suivant",
+    "downloads": "téléchargements",
+    "webTitle": "Projets web",
+    "webHint": "Fonctionne dans le navigateur",
+    "cat": {
+      "TOOLS": "Outils",
+      "PRODUCTIVITY": "Productivité",
+      "LIFESTYLE": "Style de vie",
+      "ENTERTAINMENT": "Divertissement"
+    }
+  },
+  "apps": {
+    "familtory": {
+      "name": "Familtory - Arbre Généalogique",
+      "tag": "Créez votre arbre généalogique en quelques minutes. Enregistrez, sauvegardez et partagez-le en famille.",
+      "lead": "Une appli d'arbre généalogique flexible, simple et vraiment aboutie. Sans connexion — les données de votre famille ne quittent jamais l'appli.",
+      "feats": [
+        "Prise en main en une minute grâce au tutoriel ; un bouton remet de l'ordre dans l'arbre",
+        "Photos recadrables, anniversaires, dates commémoratives, notes et thèmes",
+        "Stocké uniquement sur votre appareil — fichier de sauvegarde pour changer de téléphone",
+        "Partage en PNG haute résolution ; verrouillage par PIN, empreinte ou visage"
+      ]
+    },
+    "blinker": {
+      "name": "Blinker - Lampe torche",
+      "tag": "Stroboscope de 0,1 à 60 Hz, vos propres motifs de flash, widget et vignette Réglages rapides.",
+      "lead": "La lampe de votre téléphone s'allume. C'est tout. Avec Blinker, c'est vous qui décidez comment elle clignote.",
+      "feats": [
+        "0,1–60 flashs par seconde, plus mode fixe, pulsation, stroboscope et vrai SOS en Morse",
+        "Maintenez REC pour taper un rythme, coupez-le comme une vidéo, enregistrez-le en préréglage",
+        "Widget d'écran d'accueil (jusqu'à 1×1) et vignette Réglages rapides",
+        "Arrêt auto de 1 minute à 1 heure ; continue même écran verrouillé"
+      ]
+    },
+    "candle": {
+      "name": "Bougie Romantique",
+      "tag": "Allumez une bougie HD plus vraie que nature d'un simple geste — partout, à tout moment.",
+      "lead": "Une vraie bougie en haute définition, sans risque d'incendie — pour un recueillement, une soirée romantique, une prière, un anniversaire ou pour se détendre.",
+      "feats": [
+        "Plus de 20 vidéos de bougies HD aux couleurs personnalisables",
+        "Reste allumée jusqu'à la fermeture de l'appli — ni cire, ni fumée",
+        "Musique de fond et 32 langues",
+        "Aucune pub une fois la bougie allumée. Ni compte, ni achats intégrés"
+      ]
+    },
+    "fireplace": {
+      "name": "Cheminée Nocturne - Feu HD",
+      "tag": "Une cheminée nocturne en haute définition. Allumez-la et regardez-la brûler sans limite.",
+      "lead": "Froides nuits d'hiver, Noël, ambiance ou simple contemplation des flammes — la chaleur sans fumée, sans étincelles, rien à éteindre.",
+      "feats": [
+        "Feu HD au vrai crépitement, qui brûle jusqu'à la fermeture de l'appli",
+        "Plusieurs feux différents au choix",
+        "Fonctionne hors ligne — aucune donnée consommée",
+        "Aucune pub sur le feu. Ni inscription, ni autorisations"
+      ]
+    },
+    "morserun": {
+      "name": "MorseRun Code Morse",
+      "tag": "Parlez en Morse avec votre lampe, lisez-le avec votre caméra. SOS intégré.",
+      "lead": "Pointez la caméra vers une lumière qui clignote et MorseRun la déchiffre pour vous. Apprendre, émettre, décoder — une seule appli pour tout.",
+      "feats": [
+        "PLAY : texte → lampe, flash d'écran, bip ou vibration de 5 à 40 WPM",
+        "DECODE : la caméra transforme la lumière en texte en temps réel, sur l'appareil",
+        "LEARN : table Morse à écouter d'un toucher et quiz d'entraînement avec séries",
+        "SOS depuis l'écran verrouillé via Réglages rapides — continue écran éteint"
+      ]
+    },
+    "homemo": {
+      "name": "Homemo: Widget de notes",
+      "tag": "Épinglez notes et photos sur l'écran d'accueil. Hors ligne, sans compte.",
+      "lead": "Écrivez une note, ajoutez une photo et placez-la en widget — liste de courses, rappel ou photo préférée, toujours d'un coup d'œil.",
+      "feats": [
+        "Un widget par note — placez-en autant que vous voulez, taille libre",
+        "Personnalisez chaque widget : couleur, opacité, coins, taille et alignement du texte",
+        "Notes avec photos, étiquettes de couleur, épingles, vue grille/liste et recherche rapide",
+        "Entièrement hors ligne, sans connexion ; corbeille 30 jours et sauvegarde/restauration ZIP"
+      ]
+    }
+  },
+  "web": {
+    "sydney": { "nm": "Voyage à Sydney", "ds": "Itinéraire interactif de 8 jours · cartes & checklist" },
+    "tagalog": { "nm": "Le tagalog en 100 jours", "ds": "Apprenez le filipino (tagalog) en 100 jours" },
+    "arcade": { "nm": "Mini arcade", "ds": "Mini-jeux rapides dans votre navigateur" }
+  }
+}

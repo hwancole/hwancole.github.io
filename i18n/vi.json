@@ -1,0 +1,106 @@
+{
+  "ui": {
+    "docTitle": "Teemy · Ứng dụng Android của hwancole",
+    "langLabel": "Ngôn ngữ",
+    "eyebrow": "Ứng dụng Android của Teemy",
+    "title": "Ứng dụng nhỏ, làm chỉn chu",
+    "subtitle": "Ứng dụng đơn giản, riêng tư cho mọi khoảnh khắc thường ngày — không cần đăng ký, dữ liệu chỉ nằm trên điện thoại của bạn.",
+    "statApps": "Ứng dụng",
+    "statDl": "Lượt tải",
+    "statLogin": "Cần đăng ký",
+    "statLoginV": "Không",
+    "allOnPlay": "Xem tất cả trên Google Play",
+    "appsTitle": "Ứng dụng",
+    "appsHint": "Nhấn Chi tiết để xem ảnh chụp màn hình",
+    "details": "Chi tiết",
+    "open": "Tải trên Google Play",
+    "openShort": "Mở",
+    "highlights": "Điểm nổi bật",
+    "screenshots": "Ảnh chụp màn hình",
+    "close": "Đóng",
+    "prev": "Trước",
+    "next": "Tiếp",
+    "downloads": "lượt tải",
+    "webTitle": "Dự án web",
+    "webHint": "Chạy ngay trên trình duyệt",
+    "cat": {
+      "TOOLS": "Công cụ",
+      "PRODUCTIVITY": "Năng suất",
+      "LIFESTYLE": "Phong cách sống",
+      "ENTERTAINMENT": "Giải trí"
+    }
+  },
+  "apps": {
+    "familtory": {
+      "name": "Familtory - Cây Gia Phả",
+      "tag": "Tạo cây gia phả chỉ trong vài phút. Lưu, sao lưu và chia sẻ với gia đình.",
+      "lead": "Ứng dụng cây gia phả linh hoạt, dễ dùng và hoàn thiện thực sự. Không cần đăng nhập — dữ liệu gia đình không bao giờ rời khỏi ứng dụng.",
+      "feats": [
+        "Bắt đầu trong một phút với hướng dẫn nhanh; một nút sắp xếp gọn cây rối",
+        "Ảnh có cắt xén, ngày sinh, ngày giỗ, ghi chú và giao diện",
+        "Chỉ lưu trên thiết bị — tệp sao lưu để chuyển sang điện thoại mới",
+        "Chia sẻ dạng PNG độ phân giải cao; khóa ứng dụng bằng PIN, vân tay hoặc khuôn mặt"
+      ]
+    },
+    "blinker": {
+      "name": "Blinker - Đèn Pin & Strobe",
+      "tag": "Nhấp nháy 0,1–60 Hz, tự ghi kiểu nháy riêng, có widget và ô Cài đặt nhanh.",
+      "lead": "Đèn pin điện thoại chỉ biết bật. Vậy thôi. Với Blinker, bạn quyết định cách nó nhấp nháy.",
+      "feats": [
+        "0,1–60 lần nháy mỗi giây, cùng chế độ sáng liên tục, nhịp, strobe và SOS Morse thật",
+        "Giữ REC để gõ nhịp, cắt như video, lưu thành mẫu cài sẵn",
+        "Widget màn hình chính (nhỏ tới 1×1) và ô Cài đặt nhanh",
+        "Hẹn giờ tắt từ 1 phút đến 1 giờ; vẫn chạy khi khóa màn hình"
+      ]
+    },
+    "candle": {
+      "name": "Nến Lãng Mạn",
+      "tag": "Thắp ngọn nến HD như thật chỉ với một chạm — mọi lúc, mọi nơi.",
+      "lead": "Ngọn nến thật với độ nét cao, không lo cháy nổ — cho buổi tưởng niệm, tối lãng mạn, cầu nguyện, sinh nhật hay thư giãn.",
+      "feats": [
+        "Hơn 20 video nến HD, tùy chỉnh màu sắc",
+        "Cháy mãi đến khi bạn đóng ứng dụng — không sáp, không khói",
+        "Nhạc nền và 32 ngôn ngữ",
+        "Không quảng cáo khi nến đã thắp. Không tài khoản, không mua trong ứng dụng"
+      ]
+    },
+    "fireplace": {
+      "name": "Lò Sưởi Đêm - Lửa Ấm HD",
+      "tag": "Lò sưởi đêm độ nét cao. Nhóm lửa và ngắm lửa cháy không giới hạn.",
+      "lead": "Đêm đông lạnh giá, Giáng sinh, tạo không khí hay chỉ ngắm lửa — ấm áp mà không khói, không tàn lửa, không phải dập.",
+      "feats": [
+        "Lửa HD với tiếng lách tách chân thực, cháy đến khi bạn đóng ứng dụng",
+        "Nhiều kiểu lửa khác nhau để lựa chọn",
+        "Phát ngoại tuyến — không tốn dữ liệu",
+        "Không quảng cáo che lửa. Không đăng ký, không cần quyền"
+      ]
+    },
+    "morserun": {
+      "name": "MorseRun Mã Morse",
+      "tag": "Nói chuyện bằng mã Morse qua đèn pin, đọc bằng camera. Có sẵn SOS.",
+      "lead": "Hướng camera vào bất kỳ ánh sáng nhấp nháy nào, MorseRun sẽ đọc giúp bạn. Học, gửi, giải mã — một ứng dụng cho tất cả.",
+      "feats": [
+        "PLAY: chữ → đèn pin, nháy màn hình, tiếng bíp hoặc rung ở 5–40 WPM",
+        "DECODE: camera chuyển ánh sáng nhấp nháy thành chữ theo thời gian thực, ngay trên máy",
+        "LEARN: bảng Morse chạm để nghe và câu đố luyện tập có chuỗi ngày",
+        "SOS từ màn hình khóa qua ô Cài đặt nhanh — vẫn chạy khi tắt màn hình"
+      ]
+    },
+    "homemo": {
+      "name": "Homemo: Widget Ghi Chú",
+      "tag": "Ghim ghi chú và ảnh lên màn hình chính. Ngoại tuyến, không cần tài khoản.",
+      "lead": "Viết ghi chú, thêm ảnh và đặt thành widget — danh sách mua sắm, lời nhắc hay bức ảnh yêu thích, luôn trong tầm mắt.",
+      "feats": [
+        "Mỗi ghi chú một widget — đặt bao nhiêu tùy thích, đổi kích thước tự do",
+        "Tùy chỉnh từng widget: màu, độ trong suốt, bo góc, cỡ chữ và căn lề",
+        "Ghi chú có ảnh, thẻ màu, ghim, dạng lưới/danh sách và tìm kiếm nhanh",
+        "Hoàn toàn ngoại tuyến, không đăng nhập; thùng rác 30 ngày, sao lưu/khôi phục ZIP"
+      ]
+    }
+  },
+  "web": {
+    "sydney": { "nm": "Du lịch Sydney", "ds": "Lịch trình 8 ngày tương tác · bản đồ & danh sách kiểm tra" },
+    "tagalog": { "nm": "Tagalog trong 100 ngày", "ds": "Học tiếng Philippines (Tagalog) trong 100 ngày" },
+    "arcade": { "nm": "Khu trò chơi mini", "ds": "Trò chơi nhỏ chơi ngay trên trình duyệt" }
+  }
+}

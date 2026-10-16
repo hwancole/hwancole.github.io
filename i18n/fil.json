@@ -1,0 +1,106 @@
+{
+  "ui": {
+    "docTitle": "Teemy · Mga Android App ni hwancole",
+    "langLabel": "Wika",
+    "eyebrow": "Mga Android app ng Teemy",
+    "title": "Maliliit na app, maayos ang gawa",
+    "subtitle": "Simple at pribadong app para sa araw-araw — walang sign-up, nasa phone mo lang ang data mo.",
+    "statApps": "Mga App",
+    "statDl": "Downloads",
+    "statLogin": "Kailangang mag-sign up",
+    "statLoginV": "Hindi",
+    "allOnPlay": "Tingnan lahat sa Google Play",
+    "appsTitle": "Mga App",
+    "appsHint": "I-tap ang Detalye para sa screenshots",
+    "details": "Detalye",
+    "open": "Kunin sa Google Play",
+    "openShort": "Buksan",
+    "highlights": "Mga Tampok",
+    "screenshots": "Screenshots",
+    "close": "Isara",
+    "prev": "Nakaraan",
+    "next": "Susunod",
+    "downloads": "downloads",
+    "webTitle": "Mga web project",
+    "webHint": "Gumagana sa browser mo",
+    "cat": {
+      "TOOLS": "Tools",
+      "PRODUCTIVITY": "Productivity",
+      "LIFESTYLE": "Lifestyle",
+      "ENTERTAINMENT": "Libangan"
+    }
+  },
+  "apps": {
+    "familtory": {
+      "name": "Familtory - Puno ng Pamilya",
+      "tag": "Gawin ang family tree mo sa ilang minuto. I-save, i-back up, at i-share sa pamilya.",
+      "lead": "Family tree app na flexible, madaling gamitin, at talagang kumpleto. Walang sign-in — hindi lumalabas sa app ang data ng pamilya mo.",
+      "feats": [
+        "Magsimula sa isang minuto gamit ang mabilis na tutorial; isang button para ayusin ang magulong tree",
+        "Mga larawang nako-crop, kaarawan, araw ng paggunita, notes at themes",
+        "Sa device mo lang naka-save — may backup file para ilipat sa bagong phone",
+        "I-share bilang high-res PNG; i-lock ang app gamit ang PIN, fingerprint o mukha"
+      ]
+    },
+    "blinker": {
+      "name": "Blinker - Flashlight & Strobe",
+      "tag": "Strobe mula 0.1 hanggang 60 Hz, i-record ang sariling flash pattern, may widget at Quick Settings tile.",
+      "lead": "Bumubukas ang flashlight ng phone mo. Iyon lang. Sa Blinker, ikaw ang magpapasya kung paano ito kikislap.",
+      "feats": [
+        "0.1–60 kislap bawat segundo, kasama ang steady, pulse, strobe at totoong Morse SOS",
+        "Pindutin nang matagal ang REC para i-tap ang ritmo, i-trim na parang video, i-save bilang preset",
+        "Home-screen widget (hanggang 1×1) at Quick Settings tile",
+        "Auto-off timer mula 1 minuto hanggang 1 oras; tuloy kahit naka-lock ang screen"
+      ]
+    },
+    "candle": {
+      "name": "Romantikong Kandila",
+      "tag": "Magsindi ng parang totoong HD na kandila sa isang tap — kahit kailan, kahit saan.",
+      "lead": "Totoong kandila sa high definition, walang apoy na dapat ikabahala — para sa vigil, romantikong gabi, panalangin, kaarawan o pagpapahinga.",
+      "feats": [
+        "20+ HD na video ng kandila na may pagpipiliang kulay",
+        "Nakasindi hanggang isara mo ang app — walang wax, walang usok",
+        "Background music at 32 wika",
+        "Walang ads kapag nakasindi na ang kandila. Walang account, walang in-app purchase"
+      ]
+    },
+    "fireplace": {
+      "name": "Fireplace sa Gabi - Apoy HD",
+      "tag": "Fireplace sa gabi na high definition. Sindihan at panoorin nang walang limitasyon.",
+      "lead": "Malamig na gabi, Pasko, pampa-mood, o tumitig lang sa apoy — init na walang usok, walang tilamsik, walang kailangang patayin.",
+      "feats": [
+        "HD na apoy na may totoong lagitik, nagniningas hanggang isara mo ang app",
+        "Iba't ibang klase ng apoy na mapagpipilian",
+        "Gumagana offline — walang gamit na data",
+        "Walang ads na tumatakip sa apoy. Walang sign-up, walang permissions"
+      ]
+    },
+    "morserun": {
+      "name": "MorseRun Morse Code",
+      "tag": "Mag-usap sa Morse code gamit ang flashlight, basahin ito gamit ang camera. May built-in na SOS.",
+      "lead": "Itutok ang camera sa kumikislap na ilaw at babasahin ito ng MorseRun para sa iyo. Matuto, magpadala, mag-decode — isang app para sa lahat.",
+      "feats": [
+        "PLAY: text → flashlight, screen flash, beep o vibration sa 5–40 WPM",
+        "DECODE: ginagawang text ng camera ang kumikislap na ilaw nang real time, sa device",
+        "LEARN: Morse table na i-tap para marinig at practice quiz na may streak",
+        "SOS mula sa lock screen gamit ang Quick Settings tile — tuloy kahit patay ang screen"
+      ]
+    },
+    "homemo": {
+      "name": "Homemo: Widget ng Notes",
+      "tag": "Ilagay ang notes at larawan sa home screen. Offline, walang account.",
+      "lead": "Magsulat ng note, magdagdag ng larawan, at ilagay bilang widget — listahan ng bibilhin, paalala o paboritong larawan, laging isang sulyap lang.",
+      "feats": [
+        "Isang widget bawat note — maglagay ng kahit ilan, malayang i-resize",
+        "I-style ang bawat widget: kulay, opacity, kanto, laki at alignment ng text",
+        "Notes na may larawan, color tag, pin, grid/list view at mabilis na search",
+        "Ganap na offline, walang login; 30-araw na trash at ZIP backup/restore"
+      ]
+    }
+  },
+  "web": {
+    "sydney": { "nm": "Biyahe sa Sydney", "ds": "Interactive na 8-araw na itinerary · mapa at checklist" },
+    "tagalog": { "nm": "Tagalog sa 100 Araw", "ds": "Matuto ng Tagalog sa loob ng 100 araw" },
+    "arcade": { "nm": "Mini Game Arcade", "ds": "Mabilisang mini games sa browser mo" }
+  }
+}

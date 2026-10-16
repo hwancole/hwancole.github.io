@@ -1,0 +1,106 @@
+{
+  "ui": {
+    "docTitle": "Teemy · Android-Apps von hwancole",
+    "langLabel": "Sprache",
+    "eyebrow": "Android-Apps von Teemy",
+    "title": "Kleine Apps, gut gemacht",
+    "subtitle": "Einfache, private Apps für den Alltag – ohne Anmeldung, deine Daten bleiben auf deinem Handy.",
+    "statApps": "Apps",
+    "statDl": "Downloads",
+    "statLogin": "Anmeldung nötig",
+    "statLoginV": "Keine",
+    "allOnPlay": "Alle auf Google Play ansehen",
+    "appsTitle": "Apps",
+    "appsHint": "Für Screenshots auf Details tippen",
+    "details": "Details",
+    "open": "Bei Google Play laden",
+    "openShort": "Öffnen",
+    "highlights": "Highlights",
+    "screenshots": "Screenshots",
+    "close": "Schließen",
+    "prev": "Zurück",
+    "next": "Weiter",
+    "downloads": "Downloads",
+    "webTitle": "Webprojekte",
+    "webHint": "Läuft im Browser",
+    "cat": {
+      "TOOLS": "Tools",
+      "PRODUCTIVITY": "Produktivität",
+      "LIFESTYLE": "Lifestyle",
+      "ENTERTAINMENT": "Unterhaltung"
+    }
+  },
+  "apps": {
+    "familtory": {
+      "name": "Familtory - Stammbaum",
+      "tag": "Erstelle deinen Stammbaum in Minuten. Speichern, sichern und mit der Familie teilen.",
+      "lead": "Eine Stammbaum-App, die flexibel, einfach und wirklich ausgereift ist. Ohne Anmeldung – die Daten deiner Familie verlassen nie die App.",
+      "feats": [
+        "In einer Minute startklar dank Kurzanleitung; ein Tipp ordnet einen verworrenen Baum",
+        "Fotos mit Zuschnitt, Geburtstage, Gedenktage, Notizen und Designs",
+        "Nur auf deinem Gerät gespeichert – Backup-Datei für den Umzug aufs neue Handy",
+        "Als hochauflösendes PNG teilen; App-Sperre per PIN, Fingerabdruck oder Gesicht"
+      ]
+    },
+    "blinker": {
+      "name": "Blinker - Taschenlampe",
+      "tag": "Stroboskop von 0,1 bis 60 Hz, eigene Blinkmuster aufnehmen, Widget und Schnelleinstellung.",
+      "lead": "Die Taschenlampe deines Handys geht an. Mehr nicht. Mit Blinker bestimmst du, wie sie blinkt.",
+      "feats": [
+        "0,1–60 Blitze pro Sekunde, dazu Dauerlicht, Puls, Stroboskop und echtes Morse-SOS",
+        "REC halten, Rhythmus eintippen, wie ein Video zuschneiden und als Preset speichern",
+        "Startbildschirm-Widget (bis 1×1) und Kachel in den Schnelleinstellungen",
+        "Auto-Aus-Timer von 1 Minute bis 1 Stunde; läuft auch bei gesperrtem Bildschirm"
+      ]
+    },
+    "candle": {
+      "name": "Romantische Kerze",
+      "tag": "Zünde mit einem Tipp eine täuschend echte HD-Kerze an – jederzeit, überall.",
+      "lead": "Eine echte Kerze in HD, ganz ohne Brandgefahr – für Andachten, romantische Abende, Gebet, Geburtstage oder zum Abschalten.",
+      "feats": [
+        "Über 20 HD-Kerzenvideos mit anpassbaren Farben",
+        "Brennt, bis du die App schließt – kein Wachs, kein Rauch",
+        "Hintergrundmusik und 32 Sprachen",
+        "Keine Werbung, sobald die Kerze brennt. Kein Konto, keine In-App-Käufe"
+      ]
+    },
+    "fireplace": {
+      "name": "Nachtkamin - Kaminfeuer HD",
+      "tag": "Ein Kaminfeuer in HD für die Nacht. Anzünden und unbegrenzt zuschauen.",
+      "lead": "Kalte Winternächte, Weihnachten, die richtige Stimmung oder einfach ins Feuer schauen – Wärme ohne Rauch, ohne Funken, nichts zu löschen.",
+      "feats": [
+        "HD-Feuer mit echtem Knistern, das brennt, bis du die App schließt",
+        "Verschiedene Feuer zur Auswahl",
+        "Läuft offline – verbraucht keine Daten",
+        "Keine Werbung über dem Feuer. Keine Anmeldung, keine Berechtigungen"
+      ]
+    },
+    "morserun": {
+      "name": "MorseRun All-in-One Morsecode",
+      "tag": "Sende Morsecode mit der Taschenlampe, lies ihn mit der Kamera. SOS inklusive.",
+      "lead": "Richte die Kamera auf ein blinkendes Licht und MorseRun liest es für dich. Lernen, senden, entschlüsseln – eine App für alles.",
+      "feats": [
+        "PLAY: Text → Taschenlampe, Bildschirmblitz, Ton oder Vibration mit 5–40 WPM",
+        "DECODE: Die Kamera wandelt Lichtsignale in Echtzeit in Text um, direkt auf dem Gerät",
+        "LEARN: Morsetabelle zum Antippen und Anhören, Übungsquiz mit Serien",
+        "SOS vom Sperrbildschirm per Schnelleinstellung – läuft auch bei ausgeschaltetem Display"
+      ]
+    },
+    "homemo": {
+      "name": "Homemo: Notiz-Widget",
+      "tag": "Notizen und Fotos auf den Startbildschirm heften. Offline, ohne Konto.",
+      "lead": "Notiz schreiben, Foto hinzufügen und als Widget platzieren – Einkaufsliste, Erinnerung oder Lieblingsfoto, immer nur einen Blick entfernt.",
+      "feats": [
+        "Ein Widget pro Notiz – beliebig viele platzieren, Größe frei anpassen",
+        "Jedes Widget gestalten: Farbe, Transparenz, Ecken, Schriftgröße und Ausrichtung",
+        "Notizen mit Fotos, Farb-Tags, Anheften, Raster-/Listenansicht und schneller Suche",
+        "Komplett offline, ohne Login; 30-Tage-Papierkorb und ZIP-Backup/Wiederherstellung"
+      ]
+    }
+  },
+  "web": {
+    "sydney": { "nm": "Sydney-Reise", "ds": "Interaktiver 8-Tage-Reiseplan · Karten & Checkliste" },
+    "tagalog": { "nm": "Tagalog in 100 Tagen", "ds": "Filipino (Tagalog) in 100 Tagen lernen" },
+    "arcade": { "nm": "Mini-Spielhalle", "ds": "Schnelle Minispiele direkt im Browser" }
+  }
+}
