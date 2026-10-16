@@ -1,120 +1,588 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>hwancole · 프로젝트 허브</title>
-<meta name="description" content="hwancole의 웹 프로젝트 모음 — 바로 열어볼 수 있는 라이브 사이트들">
+<title>Teemy · Android Apps by hwancole</title>
+<meta name="description" content="Simple, private, ad-light Android apps by Teemy (hwancole) — Familtory, Blinker, Romantic Candle, Night Fireplace, MorseRun, Homemo.">
+<meta name="theme-color" content="#0E3A4F">
+<meta property="og:title" content="Teemy · Android Apps">
+<meta property="og:description" content="Simple, private Android apps — available on Google Play.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://hwancole.github.io/">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='16' fill='%230E4D64'/><text x='32' y='44' font-size='34' font-family='Arial' font-weight='700' text-anchor='middle' fill='white'>T</text></svg>">
+<link rel="preconnect" href="https://play-lh.googleusercontent.com">
 <style>
 :root{
   --navy:#0E3A4F; --navy2:#0E4D64; --teal:#0E7C86; --tealb:#19A0A8;
-  --paper:#F4F7F8; --card:#fff; --ink:#16252B; --muted:#5E7681; --line:#DCE6E9;
+  --paper:#F4F7F8; --card:#FFFFFF; --ink:#16252B; --muted:#5E7681; --line:#DCE6E9;
+  --chip:#EAF3F4; --chip-ink:#0E6670; --shadow:0 1px 3px rgba(14,58,79,.06);
+  --shadow-lg:0 10px 30px rgba(14,58,79,.14); --scrim:rgba(8,24,32,.55);
+  --btn2:#EEF4F5; --btn2-ink:#0E4D64;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --paper:#0B161B; --card:#13232A; --ink:#E6EFF1; --muted:#93AAB3; --line:#21363F;
+    --chip:#173039; --chip-ink:#7FD3DA; --shadow:0 1px 3px rgba(0,0,0,.3);
+    --shadow-lg:0 10px 30px rgba(0,0,0,.45); --scrim:rgba(0,0,0,.65);
+    --btn2:#1B323B; --btn2-ink:#BFE3E7; --teal:#4FC3CB;
+  }
 }
 *{box-sizing:border-box}
+html{scroll-behavior:smooth}
 html,body{margin:0}
 body{
-  font-family:-apple-system,"Apple SD Gothic Neo","Pretendard","Malgun Gothic","Noto Sans KR",system-ui,sans-serif;
+  overflow-x:hidden;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Apple SD Gothic Neo","Pretendard","Malgun Gothic","Noto Sans KR",system-ui,sans-serif;
   background:var(--paper); color:var(--ink); line-height:1.5; -webkit-text-size-adjust:100%;
   min-height:100vh;
 }
-a{text-decoration:none;color:inherit}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit}
+img{display:block}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
-/* hero */
+/* ---------- top bar ---------- */
+.top{
+  position:absolute;top:0;left:0;right:0;z-index:5;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:calc(12px + env(safe-area-inset-top)) 16px 0;max-width:960px;margin:0 auto;color:#fff;
+}
+.brand{display:flex;align-items:center;gap:8px;font-weight:800;font-size:15px;letter-spacing:.01em}
+.brand .logo{width:28px;height:28px;border-radius:8px;background:rgba(255,255,255,.16);display:grid;place-items:center;font-size:15px}
+.lang{position:relative;display:flex;align-items:center}
+.lang svg{position:absolute;left:10px;pointer-events:none;opacity:.9}
+.lang select{
+  appearance:none;-webkit-appearance:none;cursor:pointer;
+  background:rgba(255,255,255,.14) url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6'><path d='M1 1l4 4 4-4' stroke='white' stroke-width='1.6' fill='none' stroke-linecap='round'/></svg>") no-repeat right 11px center;
+  border:1px solid rgba(255,255,255,.28);color:#fff;border-radius:999px;
+  padding:7px 30px 7px 32px;font-size:13px;font-weight:700;min-height:36px;
+}
+.lang select:hover{background-color:rgba(255,255,255,.22)}
+.lang select option{color:#16252B;background:#fff}
+
+/* ---------- hero ---------- */
 .hero{
   background:linear-gradient(160deg,#0E3A4F 0%,#0E4D64 55%,#0E7C86 140%);
-  color:#fff;padding:46px 20px 38px;border-radius:0 0 22px 22px;position:relative;overflow:hidden;
-  text-align:center;
+  color:#fff;padding:calc(78px + env(safe-area-inset-top)) 20px 34px;border-radius:0 0 26px 26px;
+  position:relative;overflow:hidden;text-align:center;
 }
-.hero:after{content:"";position:absolute;right:-50px;top:-50px;width:200px;height:200px;
-  border:2px solid rgba(255,255,255,.12);border-radius:50%}
-.hero:before{content:"";position:absolute;left:-40px;bottom:-70px;width:160px;height:160px;
-  border:2px solid rgba(255,255,255,.10);border-radius:50%}
+.hero:after{content:"";position:absolute;right:-60px;top:-60px;width:220px;height:220px;border:2px solid rgba(255,255,255,.12);border-radius:50%}
+.hero:before{content:"";position:absolute;left:-40px;bottom:-80px;width:170px;height:170px;border:2px solid rgba(255,255,255,.10);border-radius:50%}
 .hero .eyebrow{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:#BFE3E7;margin:0 0 8px}
-.hero h1{margin:0;font-size:27px;font-weight:800;letter-spacing:-.01em}
-.hero p{margin:10px 0 0;font-size:13px;color:#D7EAEC}
+.hero h1{margin:0;font-size:clamp(26px,6vw,34px);font-weight:800;letter-spacing:-.01em;line-height:1.2}
+.hero .sub{margin:10px auto 0;font-size:14px;color:#D7EAEC;max-width:440px}
+.stats{display:flex;justify-content:center;gap:10px;margin:20px 0 0;padding:0;list-style:none;flex-wrap:wrap}
+.stats li{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:8px 14px;min-width:92px}
+.stats b{display:block;font-size:18px;line-height:1.2}
+.stats span{font-size:11px;color:#CFE6E9}
+.hero .cta{
+  position:relative;z-index:1;display:inline-flex;align-items:center;gap:7px;margin-top:20px;
+  background:#fff;color:#0E4D64;font-weight:800;font-size:13.5px;border-radius:999px;padding:10px 18px;
+  box-shadow:0 4px 14px rgba(0,0,0,.18);
+}
+.hero .cta:hover{background:#EAF7F8}
 
-.wrap{max-width:680px;margin:0 auto;padding:22px 16px 50px}
-.lead{font-size:12.5px;color:var(--muted);text-align:center;margin:4px 0 20px}
+/* ---------- layout ---------- */
+.wrap{max-width:960px;margin:0 auto;padding:26px 16px 40px}
+.sec-h{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:6px 2px 14px}
+.sec-h h2{margin:0;font-size:19px;font-weight:800;letter-spacing:-.01em}
+.sec-h p{margin:0;font-size:12.5px;color:var(--muted)}
 
-/* project cards */
-.grid{display:flex;flex-direction:column;gap:14px}
-.proj{
-  display:flex;align-items:center;gap:15px;background:var(--card);border:1px solid var(--line);
-  border-radius:18px;padding:16px 16px;box-shadow:0 1px 3px rgba(14,58,79,.05);
+/* ---------- app cards ---------- */
+.apps{display:grid;grid-template-columns:minmax(0,1fr);gap:14px}
+@media(min-width:720px){.apps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.app{
+  background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px;
+  box-shadow:var(--shadow);display:flex;flex-direction:column;gap:14px;min-width:0;
   transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
 }
-.proj:active{transform:scale(.985)}
-.icon{flex:0 0 auto;width:54px;height:54px;border-radius:14px;display:grid;place-items:center;
-  font-size:27px;color:#fff}
-.pc{flex:1;min-width:0}
-.pc .nm{font-size:16px;font-weight:800;line-height:1.25}
-.pc .ds{font-size:12px;color:var(--muted);margin-top:3px}
-.pc .url{font-size:11px;color:var(--teal);margin-top:5px;word-break:break-all}
-.go{flex:0 0 auto;display:inline-flex;align-items:center;gap:5px;font-size:12.5px;font-weight:700;
-  color:#fff;background:var(--navy2);border-radius:999px;padding:8px 13px;white-space:nowrap}
-@media(min-width:620px){
-  .proj:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(14,58,79,.10);border-color:var(--tealb)}
+@media(hover:hover){.app:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg);border-color:var(--tealb)}}
+.app-top{display:flex;gap:14px;align-items:flex-start;cursor:pointer}
+.app-icon{flex:0 0 auto;width:64px;height:64px;border-radius:16px;background:var(--chip);object-fit:cover;box-shadow:0 2px 6px rgba(0,0,0,.12)}
+.app-meta{flex:1;min-width:0}
+.app-name{margin:0;font-size:16.5px;font-weight:800;line-height:1.25}
+.app-tag{margin:4px 0 0;font-size:13px;color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chip{font-size:11px;font-weight:700;color:var(--chip-ink);background:var(--chip);border-radius:999px;padding:3px 9px;white-space:nowrap}
+.peek{display:flex;gap:8px;overflow:hidden;height:118px;border-radius:12px;cursor:pointer;position:relative}
+.peek img{height:100%;width:auto;border-radius:10px;background:var(--chip);flex:0 0 auto}
+.peek:after{content:"";position:absolute;inset:0 0 0 auto;width:60px;background:linear-gradient(90deg,transparent,var(--card))}
+.actions{display:flex;gap:10px}
+.btn{
+  flex:1;display:inline-flex;align-items:center;justify-content:center;gap:7px;cursor:pointer;
+  border-radius:12px;padding:11px 12px;font-size:14px;font-weight:800;border:0;min-height:44px;
+  transition:filter .15s ease, transform .1s ease;
 }
-@media (prefers-reduced-motion: reduce){ .proj{transition:none} .proj:active{transform:none} }
-.proj:focus-visible{outline:3px solid var(--tealb);outline-offset:2px}
+.btn:active{transform:scale(.98)}
+.btn-2{background:var(--btn2);color:var(--btn2-ink)}
+.btn-1{background:var(--navy2);color:#fff}
+@media (prefers-color-scheme: dark){.btn-1{background:var(--tealb);color:#04252B}}
+.btn:hover{filter:brightness(1.06)}
+.btn svg{flex:0 0 auto}
+:focus-visible{outline:3px solid var(--tealb);outline-offset:2px;border-radius:10px}
 
-.foot{text-align:center;font-size:11.5px;color:var(--muted);margin-top:26px}
+/* ---------- web projects ---------- */
+.web{margin-top:44px;padding-top:26px;border-top:1px dashed var(--line)}
+.webs{display:grid;grid-template-columns:minmax(0,1fr);gap:10px}
+@media(min-width:720px){.webs{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.proj{
+  display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);
+  border-radius:16px;padding:12px 14px;box-shadow:var(--shadow);transition:border-color .18s ease, transform .18s ease;
+}
+@media(hover:hover){.proj:hover{border-color:var(--tealb);transform:translateY(-1px)}}
+.proj .ic{flex:0 0 auto;width:42px;height:42px;border-radius:12px;display:grid;place-items:center;font-size:21px}
+.proj .pc{flex:1;min-width:0}
+.proj .nm{display:block;font-size:14px;font-weight:800;line-height:1.3}
+.proj .ds{display:block;font-size:12px;color:var(--muted);margin-top:2px}
+.proj .arr{color:var(--teal);font-weight:800}
+
+.foot{text-align:center;font-size:12px;color:var(--muted);margin:40px 0 0;line-height:1.8}
 .foot a{color:var(--teal);font-weight:700}
+
+/* ---------- detail sheet ---------- */
+dialog{border:0;padding:0;color:var(--ink);background:transparent;max-width:none;max-height:none}
+dialog::backdrop{background:var(--scrim);backdrop-filter:blur(2px)}
+.sheet{
+  width:min(100vw,640px);max-width:100vw;margin:auto auto 0;height:auto;overflow-x:hidden;
+  background:var(--card);border-radius:24px 24px 0 0;box-shadow:var(--shadow-lg);
+  max-height:92dvh;overflow:auto;overscroll-behavior:contain;
+}
+.sheet[open]{animation:up .26s cubic-bezier(.2,.8,.2,1)}
+@media(min-width:720px){
+  .sheet{margin:auto;border-radius:24px;max-height:88dvh}
+  .sheet[open]{animation:pop .2s ease}
+}
+@keyframes up{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
+@keyframes pop{from{transform:scale(.97);opacity:0}to{transform:none;opacity:1}}
+.sh-grip{width:40px;height:5px;border-radius:9px;background:var(--line);margin:9px auto 0}
+@media(min-width:720px){.sh-grip{display:none}}
+.sh-head{position:sticky;top:0;z-index:2;background:var(--card);display:flex;gap:14px;align-items:center;padding:14px 18px 12px;border-bottom:1px solid transparent}
+.sh-head.stuck{border-bottom-color:var(--line)}
+.sh-head .app-icon{width:56px;height:56px;border-radius:14px}
+.sh-head h3{margin:0;font-size:18px;font-weight:800;line-height:1.25}
+.sh-head .dev{font-size:12px;color:var(--teal);font-weight:700;margin-top:2px}
+.x{
+  margin-left:auto;flex:0 0 auto;width:38px;height:38px;border-radius:50%;border:0;cursor:pointer;
+  background:var(--btn2);color:var(--btn2-ink);display:grid;place-items:center;
+}
+.sh-body{min-width:0;padding:4px 18px calc(18px + env(safe-area-inset-bottom))}
+.sh-body .lead{font-size:15px;margin:0 0 14px}
+.shots{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;padding:2px 2px 10px;margin:0 -18px;padding-left:18px;padding-right:18px;scrollbar-width:thin}
+.shots button{flex:0 0 auto;padding:0;border:0;background:none;cursor:zoom-in;scroll-snap-align:start;border-radius:12px}
+.shots img{height:min(52dvh,380px);width:auto;border-radius:12px;background:var(--chip);border:1px solid var(--line)}
+.sh-body h4{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:18px 0 8px}
+.feats{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.feats li{display:flex;gap:10px;align-items:flex-start;font-size:14px;background:var(--paper);border-radius:12px;padding:10px 12px}
+.feats li .em{flex:0 0 auto;font-size:17px;line-height:1.3}
+.sh-foot{position:sticky;bottom:0;background:var(--card);padding:12px 18px calc(12px + env(safe-area-inset-bottom));border-top:1px solid var(--line);display:flex;gap:10px}
+.sh-foot .btn{font-size:15px}
+
+/* ---------- lightbox ---------- */
+.lb{width:100vw;height:100dvh;margin:0;background:rgba(0,0,0,.92)}
+.lb::backdrop{background:rgba(0,0,0,.92)}
+.lb-track{display:flex;height:100%;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+.lb-track::-webkit-scrollbar{display:none}
+.lb-track figure{flex:0 0 100%;margin:0;scroll-snap-align:center;display:grid;place-items:center;padding:56px 12px 40px}
+.lb-track img{max-width:100%;max-height:100%;border-radius:12px;object-fit:contain}
+.lb .x{position:fixed;top:calc(12px + env(safe-area-inset-top));right:12px;background:rgba(255,255,255,.14);color:#fff;z-index:2}
+.lb-nav{position:fixed;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;border:0;background:rgba(255,255,255,.14);color:#fff;cursor:pointer;display:none;place-items:center;z-index:2}
+@media(hover:hover){.lb-nav{display:grid}}
+.lb-prev{left:14px}.lb-next{right:14px}
+.lb-count{position:fixed;bottom:calc(12px + env(safe-area-inset-bottom));left:0;right:0;text-align:center;color:#ddd;font-size:13px}
+
+@media (prefers-reduced-motion: reduce){
+  *,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}
 </style>
 </head>
 <body>
+
+<div class="top">
+  <div class="brand"><span class="logo">T</span><span>Teemy</span></div>
+  <label class="lang">
+    <span class="sr" data-i="langLabel">Language</span>
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.6 2.8 3.9 6 3.9 9.5s-1.3 6.7-3.9 9.5c-2.6-2.8-3.9-6-3.9-9.5S9.4 5.3 12 2.5z"/></svg>
+    <select id="lang"></select>
+  </label>
+</div>
+
 <header class="hero">
-  <p class="eyebrow">my web projects</p>
-  <h1>hwancole</h1>
-  <p>바로 열어볼 수 있는 프로젝트 모음 · tap to open</p>
+  <p class="eyebrow" data-i="eyebrow"></p>
+  <h1 data-i="title"></h1>
+  <p class="sub" data-i="subtitle"></p>
+  <ul class="stats" id="stats"></ul>
+  <a class="cta" id="devLink" target="_blank" rel="noopener">
+    <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M5 3.5v17c0 .8.9 1.3 1.6.9l14-8.5c.6-.4.6-1.4 0-1.8l-14-8.5C5.9 2.2 5 2.7 5 3.5z"/></svg>
+    <span data-i="allOnPlay"></span>
+  </a>
 </header>
 
 <main class="wrap">
-  <p class="lead">아래 카드를 누르면 해당 사이트가 열려요.</p>
-  <nav class="grid" id="grid"></nav>
+  <section aria-labelledby="h-apps">
+    <div class="sec-h"><h2 id="h-apps" data-i="appsTitle"></h2><p data-i="appsHint"></p></div>
+    <div class="apps" id="apps"></div>
+  </section>
+
+  <section class="web" aria-labelledby="h-web">
+    <div class="sec-h"><h2 id="h-web" data-i="webTitle"></h2><p data-i="webHint"></p></div>
+    <nav class="webs" id="webs"></nav>
+  </section>
+
   <p class="foot">
-    더 많은 코드는 <a href="https://github.com/hwancole" target="_blank" rel="noopener">github.com/hwancole ↗</a>
+    © <span id="yr"></span> Teemy · hwancole<br>
+    <a href="https://github.com/hwancole" target="_blank" rel="noopener">GitHub ↗</a>
   </p>
 </main>
 
+<dialog class="sheet" id="sheet" aria-labelledby="sh-title"></dialog>
+<dialog class="lb" id="lb" aria-label="Screenshots">
+  <button class="x" id="lbClose"></button>
+  <button class="lb-nav lb-prev" id="lbPrev"></button>
+  <button class="lb-nav lb-next" id="lbNext"></button>
+  <div class="lb-track" id="lbTrack"></div>
+  <div class="lb-count" id="lbCount"></div>
+</dialog>
+
 <script>
-/* ---- projects (edit this list to add/remove cards) ---- */
-var PROJECTS=[
+/* =====================================================================
+   i18n
+   - To add a language: add an entry to LANGS + UI, and add that key to
+     each app's / project's text objects. Missing keys fall back to English.
+   ===================================================================== */
+var LANGS = { en: "English", ko: "한국어" };
+var DEFAULT_LANG = "en";
+
+var UI = {
+  en: {
+    langLabel:"Language", eyebrow:"Android apps by Teemy", title:"Small apps, done well",
+    subtitle:"Simple, private apps for everyday moments — no sign-up, your data stays on your phone.",
+    statApps:"Apps", statDl:"Downloads", statLogin:"Sign-up needed", statLoginV:"None",
+    allOnPlay:"See all on Google Play",
+    appsTitle:"Apps", appsHint:"Tap Details for screenshots",
+    details:"Details", open:"Get on Google Play", openShort:"Open",
+    highlights:"Highlights", close:"Close", prev:"Previous", next:"Next",
+    downloads:"downloads",
+    webTitle:"Web projects", webHint:"Runs in your browser",
+    cat:{TOOLS:"Tools",PRODUCTIVITY:"Productivity",LIFESTYLE:"Lifestyle",ENTERTAINMENT:"Entertainment"}
+  },
+  ko: {
+    langLabel:"언어", eyebrow:"Teemy의 안드로이드 앱", title:"작지만 제대로 만든 앱",
+    subtitle:"일상에서 바로 쓰는 간단하고 안전한 앱 — 가입 없이, 데이터는 내 폰에만.",
+    statApps:"앱", statDl:"다운로드", statLogin:"회원가입", statLoginV:"불필요",
+    allOnPlay:"Google Play에서 전체 보기",
+    appsTitle:"앱", appsHint:"자세히를 누르면 스크린샷을 볼 수 있어요",
+    details:"자세히", open:"Google Play에서 받기", openShort:"열기",
+    highlights:"주요 기능", close:"닫기", prev:"이전", next:"다음",
+    downloads:"다운로드",
+    webTitle:"웹 프로젝트", webHint:"브라우저에서 바로 실행",
+    cat:{TOOLS:"도구",PRODUCTIVITY:"생산성",LIFESTYLE:"라이프스타일",ENTERTAINMENT:"엔터테인먼트"}
+  }
+};
+
+var DEV_URL = "https://play.google.com/store/apps/dev?id=8688340407961088017";
+var IMG = "https://play-lh.googleusercontent.com/";
+
+/* =====================================================================
+   Apps (order = display order). Screenshots/icons are Google Play image ids.
+   ===================================================================== */
+var APPS = [
   {
-    nm:"Sydney Trip · 시드니 여행",
-    ds:"시드니 7박 8일 인터랙티브 여행 일정 · 지도·체크리스트",
-    href:"https://hwancole.github.io/sydney-trip/",
-    icon:"🇦🇺", color:"#0E7C86"
+    key:"familtory", id:"com.teemy.familtory", cat:"TOOLS",
+    icon:"5Rs2bJIwki8YLWyhdNtxU09fISRcdhfSBnuZRNywl94axyRSYo1ooWcJdqwsxeQX-KK5YClW2stJGc4W6cxR-A",
+    shots:["G-V5cIg5ePSQM__uN6rdraCeJ63ISnQUFaVELg08VrTbtQunzse8DiMvWu7Pt2-rNOa0YSX3wY0sHVPhfpEo4cg","vwMBaHMcvvAh2Q_Wil0c39FUrFjlbNzk4adT_AJGxWlsW4MyWShSJ5cHZaW91y7z1VaP3FjQnLflvFfimp2gcA","nVzF0eKYOsQxCcfzZ0kpIrTOEDGIfnF1WOlFs0ojRsqjCEbg0ij-le7Rp58EOWE1kgfJ6d-if1mBghH0AWmEkq0","a2wf9zySHZ1NCGFT4NoAYewfTtOJQfAy1Cp0W-ktd7JiiR78RVR91d9mFF0JO_k8qealvkkcANDPF1r_HUgoBg","QL3rK6VcWRZJntdxWs3ae6UqV29dmeyPXrYMH2iMOK4XMD29RLRcAluHycKY_1pQCQq7hKIXe2KKcaMP61oyEA","lwV14PAGoUVvrm0kMLBq5r9pLH3Tsiv-Os7GF6tjGvliVIaFhxZXOIwykev3SyHrmTQBRYzLuF4XKqlIjmBLHQ","-8lg9SiGfk8lKbOykzORBf0xMdacasiLu54j8ymelFEjMfO8WA85rFrEstdH5gJzN6XQxJYMFq_wV6GLC5iwUA"],
+    name:{en:"Familtory - Family Tree", ko:"Familtory - 가족 관계도"},
+    tag:{en:"Build your family tree in minutes. Save it, back it up, and share it with family.", ko:"누구나 간단히 가족 관계도 제작, 저장, 백업, 가족과 공유"},
+    lead:{en:"A family tree app that's flexible, easy to use, and actually finished. No sign-in — your family's data never leaves the app.", ko:"자유도, 편의성, 완성도를 한번에 잡은 가족 관계도 앱. 로그인 필요 없고, 가족 데이터는 모두 앱에서만 관리해요."},
+    feats:[
+      ["⏱️",{en:"Start in a minute with a quick tutorial; one button tidies a tangled tree",ko:"1분 튜토리얼로 바로 시작, 버튼 하나로 복잡한 관계도 자동 정리"}],
+      ["🖼️",{en:"Photos with cropping, birthdays, memorial dates, notes and themes",ko:"사진(자르기 지원), 생년월일·기일·메모 입력과 다양한 배경 테마"}],
+      ["💾",{en:"Stored only on your device — backup file to move to a new phone",ko:"모든 데이터는 내 기기에만 저장, 백업 파일로 새 폰에 옮기기"}],
+      ["🔒",{en:"Share as a high-res PNG; app lock with PIN, fingerprint or face",ko:"고화질 PNG로 저장·공유, PIN·지문·얼굴 앱 잠금"}]
+    ]
   },
   {
-    nm:"타갈로그어 100일 마스터",
-    ds:"필리핀어(타갈로그) 100일 학습 웹앱",
-    href:"https://hwancole.github.io/tagalog-100/",
-    icon:"🗣️", color:"#2F6DB0"
+    key:"blinker", id:"com.teemy.autoflashlight", cat:"TOOLS", dl:"1K+",
+    icon:"X1F4Dq4C1gEL_BUL73zHqLaiTvdnUX5hH5sMwI8oKMzwoea5fOpkBlegzzkBw7KEiYdxPm_aMKwDfZXBGgpmqA",
+    shots:["S6wIPkjEwJDzqMAW8PdHQTrsl2wZgTDahF1Fh5EVpbrOC6C91HFuda20rbRLpB389bZafQiFUvNYB-qxTFRl7-o","kIzLuIgSQSGqn1sXKDsnqZvAmI913MZhP761w7ps9BJZ3Kd_Z8ZcQgf3eaB09CMbIAS65ojZEaNPJqbxMQqnEA","qPasccV8ONkAsaXTt75IgImJ4SCfA5Z62fZqNofxFGR2uazDzsH8PnjGHY0hQ6dYwplzQL9-PEIiITcBvl3dIg","kLioL3y85RlzRLGmBXmpCpte-h3A3-H-ZW7Isix2hCgXQaG9V37QYcLkysKurt_QOo_osZFRgMDdayFMmPPZTA","vVTVezr-zvCQAwNV6UVPfY29xiP--e-zpTHQeeD1YvCTYdUEf6vlendzujYxUJVqM6xw6VdKvDIAGKpP0KwxMA","3mLwlEQyYRDE5UAyj4ioS-2EtMh4QdtsXe3Cu0Mz4bFfyBPcXnjARW3peDS4vRYdM7MKNBYyPk9H6xy8FyN6nkM"],
+    name:{en:"Blinker - Torch & Strobe", ko:"Blinker - 자동 깜빡이 플래시"},
+    tag:{en:"Strobe from 0.1 to 60 Hz, record your own flash patterns, widget and Quick Settings tile.", ko:"초당 0.1~60회 깜빡임, 나만의 패턴 녹음, 위젯과 빠른 설정 타일까지"},
+    lead:{en:"Your phone's torch turns on. That's it. Blinker lets you decide how it flashes.", ko:"그냥 켜지는 손전등이 아니에요. 원하는 속도로 깜빡이고, 직접 두드려 만든 패턴을 언제든 다시 재생해요."},
+    feats:[
+      ["⚡",{en:"0.1–60 flashes per second, plus steady, pulse, strobe and real Morse SOS",ko:"초당 0.1~60회 속도 조절, 상시·펄스·스트로브·모스 SOS 기본 패턴"}],
+      ["⏺️",{en:"Hold REC to tap out a rhythm, trim it like a video, save it as a preset",ko:"REC를 눌러 리듬을 녹음하고, 영상처럼 앞뒤를 잘라 프리셋으로 저장"}],
+      ["📲",{en:"Home-screen widget (down to 1×1) and a Quick Settings tile",ko:"1×1까지 줄어드는 홈 화면 위젯과 빠른 설정 타일"}],
+      ["⏲️",{en:"Auto-off timer from 1 minute to 1 hour; keeps going with the screen locked",ko:"1분~1시간 자동 꺼짐 타이머, 화면을 잠가도 계속 점멸"}]
+    ]
   },
   {
-    nm:"미니 게임 아케이드",
-    ds:"브라우저에서 바로 즐기는 미니 게임 모음",
-    href:"https://hwancole.github.io/mini-game-arcade/",
-    icon:"🎮", color:"#8E5BA6"
+    key:"candle", id:"com.video.firecandle", cat:"LIFESTYLE", dl:"10K+",
+    icon:"wWui3BWmpaIoRKD0zkt_MRcXwh1VmSNV0egMpJxRvkI4_nF4R7FFcN_35pl8LS9FgsawMMaEeknYFFyHcs3vMA",
+    shots:["tv4ueUdPpGptFx_UmXXQ_BhFHn6_y3FnEg7hkB-0SrBTfJzM81wc499vX1QdhkAVypzGGUml9ok0_SbeKsMN","VBXyUsOoB889m_jULPTWoYrVx3mjPsttmbdkkIv7Red4KvnaXi_-9K7J4EY4W0C4sJk88uGTkwV3nV4Y7h0PHw","0vjoCW3qDi06UvlCWNCJvLbffXpbpNkohziUu5bRm-JM1mmrYIXijF6MbjF84Wdc-TobHgnrcaCXKHSnJTsD","C5tR_NI317oHiPp44H0CvZdYIJBPnzKWJ2kvGhJpsro6Dc76fPjSQipZBLE-Uj9FEwRzaTNXnC8x27bmNgNstao","wbeHeZTjE9yWw2b0EBi6CeAM6hPvVFLklv5tR7K_hURpvvS4bE9oo08iTw5r_Xi57P0g7XU-sHElnTTbvNtTTQ","CKbHcWpZZuj4Ha5KYTjOTBAv1-3FYHB-khrt7pllbwpnQX4mk-e274FPocvBwnzlsI3m8xL5XpomMgTZJa4F"],
+    name:{en:"Romantic Candle", ko:"희망의 촛불"},
+    tag:{en:"Light a real-looking HD candle with one tap — anytime, anywhere.", ko:"화재 걱정 없이 언제 어디서나 고화질 진짜 같은 촛불을 켜세요."},
+    lead:{en:"A real candle in high definition, with no fire to worry about — for vigils, romantic evenings, prayer, birthdays or winding down.", ko:"화재 걱정 없는 진짜 같은 촛불 — 촛불 집회, 로맨틱한 분위기, 기도, 생일, 잠들기 전에 좋아요."},
+    feats:[
+      ["🕯️",{en:"20+ HD candle videos with color customization",ko:"20종 넘는 고화질 촛불 영상과 색상 커스터마이징"}],
+      ["🔥",{en:"Stays lit until you close the app — no wax, no smoke",ko:"앱을 끄기 전까지 계속 켜짐 — 촛농도 연기도 없음"}],
+      ["🎵",{en:"Background music and 32 languages",ko:"배경음악과 32개 언어 지원"}],
+      ["🚫",{en:"No ads once the candle is lit. No account, no in-app purchases",ko:"촛불이 켜진 뒤엔 광고 없음. 계정·인앱 결제 없음"}]
+    ]
+  },
+  {
+    key:"fireplace", id:"com.video.firevideo2", cat:"ENTERTAINMENT", dl:"10K+",
+    icon:"BMdo02pFJI-tORLAY1v0BDu4OOo2LMAnymiNUvaFku53nAji3k624KQr1jHdS1TXBcFAfoQ4pEIyAg1l-Ngf",
+    shots:["O7oGbKfQxwlnM4F1aXeB8NiCpfeghE3NS1FYWFVaBoTKyC_19Sodj617hUTjylDDdpNFBHD06UajteCqTz8o2A","aL-PM7KnxCJ6a0a7tnu9r0fkR57Z0F-yaUJL9dgY2-epppABl5vm_Kf0jdMiJKiMoXKqqdsRPHDIyEVZ3QUIDw","xPz2GnM-NBvEs0wENuFxiHDqg6yyy2ddl6OwRyr_7LZSoTQinOFc9KlvO5HmVXaMLK5N8Q5HnuKJ2X6fmff2bg","2sL-cipuuqind1gzSzLYQ7-xm_bQ14EIo3QWWi_kh_upZdqXQJ1f4zUirwaX4_vboA4sNhzoMRlw8EoHwwTdVOI","X2g5rESrVDIde6J2vRKUCM1GkYJSjpUBHRy3ky7_QK2LhUD0Z9hMeB33BMXKygRgaYatJiMLhk-vINZ4q4eWMsM","J2l3Td0DIzho6taQ8P5ZBaUSoHhYQSV5lum2dAW1JLbFhE2j4V64gvTKq33b0CcX4hJwyQYGnGjbfw2SpssqVg"],
+    name:{en:"Night Fireplace - Cozy Fire HD", ko:"밤의 벽난로 - 모닥불 HD"},
+    tag:{en:"A night fireplace in high definition. Light it up and watch it burn, unlimited.", ko:"벽난로의 생생한 고화질 영상을 무제한으로 즐기세요."},
+    lead:{en:"Cold winter nights, Christmas, setting the mood, or just staring into the fire — warmth with no smoke, no sparks, nothing to put out.", ko:"추운 겨울, 크리스마스, 분위기 잡고 싶을 때, 불멍 — 화재 걱정 없는 진짜 같은 벽난로로 따뜻한 시간을 보내세요."},
+    feats:[
+      ["🔥",{en:"HD fire with real crackling sound, burning until you close the app",ko:"앱을 끌 때까지 꺼지지 않는 고화질 벽난로와 생생한 장작 소리"}],
+      ["🪵",{en:"A range of different fires to choose from",ko:"다양한 벽난로 영상 지원"}],
+      ["📴",{en:"Plays offline — uses no data",ko:"인터넷 없이 재생, 데이터 소모 없음"}],
+      ["🚫",{en:"No ads covering the fire. No sign-up, no permissions",ko:"재생 중 화면 가리는 광고 없음. 가입·권한 요청 없음"}]
+    ]
+  },
+  {
+    key:"morserun", id:"com.teemy.morse_code", cat:"TOOLS",
+    icon:"IW-MiMaQjSRbTfBa51Ix8L-mrFDDu62hHeDGvXK0zpLmW05cOr_JpiHW0WFBDR7CCvDiXIZ63pu3Jj4PsR5h8Q",
+    shots:["S2LK7uKl_DUhKZ-8kP8MpGcQNPRKcZsAacTyIRFoRtjbqsnoR2Ad9vingNBBDDIZpBseabip9fEmzj85D8dE0w","KvQt1irfa1Zf1AjT_Eioh6YP1SBiumKSBPk1vNRJIVkupZxymOAj-sh7NYFV-SB3LOOAGcCLlhOnx7Rvfuw0BEM","taX2NtLfFfqtI4vEfA64TzD_Sid8HSJJvW5fqKjjBjNwynD7cIWjTqul21aaXk6vgUml0sQEkwaNBLzhkwEHueI","N5zbHk1_e-C1o9lPoFncpROQXAozdZMUMikCph_gAmVQqNQkjPnkFOk3Wb03d9AWTM2TyurFHwL-A6VEulbsFQ","AlrSVJ7L9SuCF8GqmSe8r9c2trLRWD0NnH3D-AQSTVKf6yOYGJYBg2lAhmhrHRei9j34cQ6uVqnMCta91ETY"],
+    name:{en:"MorseRun - All-in-One Morse", ko:"MorseRun 모스부호"},
+    tag:{en:"Talk in Morse code with your flashlight, read it with your camera. SOS built in.", ko:"손전등으로 모스부호를 보내고, 카메라로 읽어내세요. SOS 기본 탑재."},
+    lead:{en:"Point your camera at any blinking light and MorseRun reads it for you. Learn it, send it, decode it — one app covers the whole journey.", ko:"깜빡이는 불빛에 카메라를 비추면 MorseRun이 대신 읽어줘요. 배우고, 보내고, 해독하는 모든 과정을 앱 하나로."},
+    feats:[
+      ["🔦",{en:"Play: text → flashlight, screen flash, beep or vibration at 5–40 WPM",ko:"PLAY: 입력한 글자를 손전등·화면·비프음·진동으로 (5~40 WPM)"}],
+      ["📷",{en:"Decode: camera turns blinking light into text in real time, on-device",ko:"DECODE: 카메라로 불빛을 실시간 해독, 100% 기기 내 처리"}],
+      ["🎓",{en:"Learn: tap-to-hear Morse table and practice quizzes with streaks",ko:"LEARN: 소리 나는 모스부호 표와 기록이 남는 연습 퀴즈"}],
+      ["🆘",{en:"SOS from the lock screen via Quick Settings tile — keeps going screen-off",ko:"잠금화면 빠른 설정 타일로 SOS, 화면을 꺼도 계속 점멸"}]
+    ]
+  },
+  {
+    key:"homemo", id:"com.teemy.homemo", cat:"PRODUCTIVITY",
+    icon:"lotYsocb1TRsZ3CYkvgvdafiUwJ7_OOaW4g4d3q38PnsM5y2RTNMWvLBSAAbEvzlJgPOU-FVD6AqKKZgQh49LA",
+    shots:["duvQKFPvFR_angnIfYfZM7AsG58aEbNnht27wGpD72I1ZJhRnyF8dq3vDMFNBx19f1bj0GStYnuNt1a0brtf6A","58d2uRxAloQlxDwnFBhy5--x_NJXrUPJs2zfddcJgWQKYbolkWbx_kQIFR6ZTaMwmUfY1rel289YMZL01lCTQw","KzkGFF7Pgw6ECdXHTtuOE0qPba_AHzHbDQpAbczf1IJCrCa2Bc33VzwjiMyCsyF8J-uoEsfZwh94V4Wf9Ars","ZA49d2RbXPrfdywHdfFfTwCVi84Ox9E8L43wJNKhh515425Egc5UT4Udqzdzf0qq9xKCNQbG3lo70MJwFNC49CQ"],
+    name:{en:"Homemo: Notes Widget", ko:"Homemo: 메모 위젯"},
+    tag:{en:"Pin your notes and photos to the home screen. Offline, no account needed.", ko:"메모와 사진을 홈 화면에 고정하세요. 오프라인, 계정 필요 없음."},
+    lead:{en:"Write a note, add a photo, and place it as a widget — your shopping list, a reminder or a favorite photo, always one glance away.", ko:"메모를 쓰고 사진을 더해 위젯으로 배치하세요. 장보기 목록, 알림, 좋아하는 사진을 언제든 한눈에."},
+    feats:[
+      ["🧩",{en:"One widget per note — place as many as you like, resize freely",ko:"메모마다 위젯 1개, 원하는 만큼 배치하고 자유롭게 크기 조절"}],
+      ["🎨",{en:"Style each widget: color, opacity, corners, text size and alignment",ko:"위젯별 배경색·투명도·모서리·글자 크기·정렬 설정"}],
+      ["📝",{en:"Notes with photos, color tags, pins, grid/list view and fast search",ko:"사진 메모, 색상 구분, 고정, 그리드/목록 보기, 빠른 검색"}],
+      ["🔐",{en:"Fully offline, no login; 30-day trash and ZIP backup/restore",ko:"완전 오프라인, 로그인 없음, 휴지통 30일 보관과 ZIP 백업·복원"}]
+    ]
   }
 ];
 
-var grid=document.getElementById('grid');
-PROJECTS.forEach(function(p){
-  var a=document.createElement('a');
-  a.className='proj'; a.href=p.href; a.target='_blank'; a.rel='noopener';
-  a.setAttribute('aria-label', p.nm + ' 열기');
-  a.innerHTML=''
-    +'<span class="icon" style="background:'+p.color+'">'+p.icon+'</span>'
-    +'<span class="pc">'
-    +'  <span class="nm">'+p.nm+'</span>'
-    +'  <span class="ds">'+p.ds+'</span>'
-    +'  <span class="url">'+p.href.replace(/^https:\/\//,'')+'</span>'
-    +'</span>'
-    +'<span class="go">열기 ↗</span>';
-  grid.appendChild(a);
+/* ---- web projects (shown at the bottom) ---- */
+var PROJECTS = [
+  { href:"https://hwancole.github.io/sydney-trip/", icon:"🇦🇺", color:"#D7F0F1",
+    nm:{en:"Sydney Trip", ko:"시드니 여행"}, ds:{en:"Interactive 8-day itinerary · maps & checklist", ko:"7박 8일 인터랙티브 여행 일정 · 지도·체크리스트"} },
+  { href:"https://hwancole.github.io/tagalog-100/", icon:"🗣️", color:"#DCE8F7",
+    nm:{en:"Tagalog in 100 Days", ko:"타갈로그어 100일 마스터"}, ds:{en:"Learn Filipino (Tagalog) in 100 days", ko:"필리핀어(타갈로그) 100일 학습 웹앱"} },
+  { href:"https://hwancole.github.io/mini-game-arcade/", icon:"🎮", color:"#EDE2F3",
+    nm:{en:"Mini Game Arcade", ko:"미니 게임 아케이드"}, ds:{en:"Quick mini games right in your browser", ko:"브라우저에서 바로 즐기는 미니 게임 모음"} }
+];
+
+/* =====================================================================
+   language resolution: saved choice → browser languages → English
+   ===================================================================== */
+var LS_KEY = "teemy.lang";
+function pickLang(){
+  try { var s = localStorage.getItem(LS_KEY); if (s && LANGS[s]) return s; } catch(e){}
+  var list = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || ""];
+  for (var i=0;i<list.length;i++){
+    var full = String(list[i]).toLowerCase(), base = full.split("-")[0];
+    if (LANGS[full]) return full;
+    if (LANGS[base]) return base;
+  }
+  return DEFAULT_LANG;
+}
+var lang = pickLang();
+function t(k){ var u = UI[lang] || UI[DEFAULT_LANG]; return u[k] != null ? u[k] : UI[DEFAULT_LANG][k]; }
+function L(obj){ return obj ? (obj[lang] != null ? obj[lang] : obj[DEFAULT_LANG]) : ""; }
+function esc(s){ return String(s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];}); }
+function playUrl(app){ return "https://play.google.com/store/apps/details?id=" + app.id + "&hl=" + lang; }
+function img(id, size){ return IMG + id + "=" + size; }
+
+var ICON_PLAY = '<svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M5 3.5v17c0 .8.9 1.3 1.6.9l14-8.5c.6-.4.6-1.4 0-1.8l-14-8.5C5.9 2.2 5 2.7 5 3.5z"/></svg>';
+var ICON_INFO = '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M8 9h8M8 13h5"/></svg>';
+var ICON_X = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+var ICON_L = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>';
+var ICON_R = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>';
+
+/* =====================================================================
+   render
+   ===================================================================== */
+var $ = function(id){ return document.getElementById(id); };
+
+function renderStatic(){
+  document.documentElement.lang = lang;
+  document.querySelectorAll("[data-i]").forEach(function(el){ el.textContent = t(el.getAttribute("data-i")); });
+  $("devLink").href = DEV_URL + "&hl=" + lang;
+  $("stats").innerHTML =
+    '<li><b>' + APPS.length + '</b><span>' + esc(t("statApps")) + '</span></li>' +
+    '<li><b>20K+</b><span>' + esc(t("statDl")) + '</span></li>' +
+    '<li><b>' + esc(t("statLoginV")) + '</b><span>' + esc(t("statLogin")) + '</span></li>';
+  $("yr").textContent = new Date().getFullYear();
+  $("lbClose").innerHTML = ICON_X; $("lbClose").setAttribute("aria-label", t("close"));
+  $("lbPrev").innerHTML = ICON_L; $("lbPrev").setAttribute("aria-label", t("prev"));
+  $("lbNext").innerHTML = ICON_R; $("lbNext").setAttribute("aria-label", t("next"));
+}
+
+function chipsHtml(a){
+  var c = '<span class="chip">' + esc(t("cat")[a.cat] || a.cat) + '</span>';
+  if (a.dl) c += '<span class="chip">' + esc(a.dl + " " + t("downloads")) + '</span>';
+  return c;
+}
+
+function renderApps(){
+  $("apps").innerHTML = APPS.map(function(a, i){
+    return '<article class="app">' +
+      '<div class="app-top" data-detail="' + i + '">' +
+        '<img class="app-icon" src="' + img(a.icon,"s128") + '" alt="" width="64" height="64" loading="lazy">' +
+        '<div class="app-meta"><h3 class="app-name">' + esc(L(a.name)) + '</h3>' +
+        '<p class="app-tag">' + esc(L(a.tag)) + '</p><div class="chips">' + chipsHtml(a) + '</div></div>' +
+      '</div>' +
+      '<div class="peek" data-detail="' + i + '" aria-hidden="true">' +
+        a.shots.slice(0,4).map(function(s){ return '<img src="' + img(s,"h240") + '" alt="" loading="lazy">'; }).join("") +
+      '</div>' +
+      '<div class="actions">' +
+        '<button class="btn btn-2" type="button" data-detail="' + i + '">' + ICON_INFO + esc(t("details")) + '</button>' +
+        '<a class="btn btn-1" href="' + playUrl(a) + '" target="_blank" rel="noopener" aria-label="' + esc(L(a.name) + " — " + t("open")) + '">' + ICON_PLAY + esc(t("openShort")) + '</a>' +
+      '</div>' +
+    '</article>';
+  }).join("");
+}
+
+function renderWeb(){
+  $("webs").innerHTML = PROJECTS.map(function(p){
+    return '<a class="proj" href="' + p.href + '" target="_blank" rel="noopener">' +
+      '<span class="ic" style="background:' + p.color + '">' + p.icon + '</span>' +
+      '<span class="pc"><span class="nm">' + esc(L(p.nm)) + '</span><span class="ds">' + esc(L(p.ds)) + '</span></span>' +
+      '<span class="arr" aria-hidden="true">↗</span></a>';
+  }).join("");
+}
+
+function renderLangSelect(){
+  $("lang").innerHTML = Object.keys(LANGS).map(function(k){
+    return '<option value="' + k + '"' + (k === lang ? " selected" : "") + '>' + LANGS[k] + '</option>';
+  }).join("");
+  $("lang").setAttribute("aria-label", t("langLabel"));
+}
+
+function renderAll(){ renderStatic(); renderLangSelect(); renderApps(); renderWeb(); if (current >= 0) fillSheet(current); }
+
+/* =====================================================================
+   detail sheet
+   ===================================================================== */
+var sheet = $("sheet"), current = -1;
+
+function fillSheet(i){
+  var a = APPS[i];
+  sheet.innerHTML =
+    '<div class="sh-grip" aria-hidden="true"></div>' +
+    '<div class="sh-head" id="shHead">' +
+      '<img class="app-icon" src="' + img(a.icon,"s128") + '" alt="" width="56" height="56">' +
+      '<div><h3 id="sh-title">' + esc(L(a.name)) + '</h3><div class="dev">Teemy</div><div class="chips">' + chipsHtml(a) + '</div></div>' +
+      '<button class="x" type="button" id="shClose" aria-label="' + esc(t("close")) + '">' + ICON_X + '</button>' +
+    '</div>' +
+    '<div class="sh-body">' +
+      '<p class="lead">' + esc(L(a.lead)) + '</p>' +
+      '<div class="shots">' + a.shots.map(function(s, k){
+        return '<button type="button" data-shot="' + k + '"><img src="' + img(s,"h760") + '" alt="' + esc(L(a.name) + " " + (k+1)) + '" loading="lazy"></button>';
+      }).join("") + '</div>' +
+      '<h4>' + esc(t("highlights")) + '</h4>' +
+      '<ul class="feats">' + a.feats.map(function(f){
+        return '<li><span class="em" aria-hidden="true">' + f[0] + '</span><span>' + esc(L(f[1])) + '</span></li>';
+      }).join("") + '</ul>' +
+    '</div>' +
+    '<div class="sh-foot"><a class="btn btn-1" href="' + playUrl(a) + '" target="_blank" rel="noopener">' + ICON_PLAY + esc(t("open")) + '</a></div>';
+  $("shClose").onclick = function(){ closeSheet(); };
+  sheet.onscroll = function(){ $("shHead").classList.toggle("stuck", sheet.scrollTop > 4); };
+}
+
+function openSheet(i, fromHash){
+  current = i;
+  fillSheet(i);
+  if (!sheet.open) sheet.showModal();
+  sheet.scrollTop = 0;
+  document.body.style.overflow = "hidden";
+  if (!fromHash && location.hash !== "#" + APPS[i].key) history.pushState({sheet:1}, "", "#" + APPS[i].key);
+}
+function closeSheet(){
+  if (!sheet.open) return;
+  sheet.close();
+}
+sheet.addEventListener("close", function(){
+  current = -1;
+  document.body.style.overflow = "";
+  if (location.hash) {
+    if (history.state && history.state.sheet) history.back();
+    else history.replaceState(null, "", location.pathname + location.search);
+  }
 });
+sheet.addEventListener("click", function(e){
+  if (e.target === sheet) { closeSheet(); return; }   // backdrop tap
+  var b = e.target.closest("[data-shot]");
+  if (b) openLightbox(+b.getAttribute("data-shot"));
+});
+window.addEventListener("popstate", function(){
+  if (lb.open) lb.close();
+  var i = indexFromHash();
+  if (i < 0 && sheet.open) sheet.close();
+  else if (i >= 0 && !sheet.open) openSheet(i, true);
+});
+function indexFromHash(){
+  var k = location.hash.replace("#","");
+  for (var i=0;i<APPS.length;i++) if (APPS[i].key === k) return i;
+  return -1;
+}
+
+document.addEventListener("click", function(e){
+  var d = e.target.closest("[data-detail]");
+  if (d) openSheet(+d.getAttribute("data-detail"));
+});
+
+/* =====================================================================
+   lightbox
+   ===================================================================== */
+var lb = $("lb"), track = $("lbTrack");
+function openLightbox(k){
+  var a = APPS[current];
+  track.innerHTML = a.shots.map(function(s, n){
+    return '<figure><img src="' + img(s,"h1600") + '" alt="' + esc(L(a.name) + " " + (n+1)) + '"></figure>';
+  }).join("");
+  lb.showModal();
+  track.scrollLeft = k * track.clientWidth;
+  updateCount();
+}
+function updateCount(){
+  var n = APPS[current] ? APPS[current].shots.length : 0;
+  var k = Math.round(track.scrollLeft / Math.max(1, track.clientWidth));
+  $("lbCount").textContent = n ? (k+1) + " / " + n : "";
+}
+function step(d){ track.scrollBy({left: d * track.clientWidth, behavior:"smooth"}); }
+track.addEventListener("scroll", updateCount, {passive:true});
+$("lbClose").onclick = function(){ lb.close(); };
+$("lbPrev").onclick = function(){ step(-1); };
+$("lbNext").onclick = function(){ step(1); };
+lb.addEventListener("click", function(e){ if (e.target.tagName === "FIGURE") lb.close(); });
+lb.addEventListener("keydown", function(e){
+  if (e.key === "ArrowLeft") { e.preventDefault(); step(-1); }
+  if (e.key === "ArrowRight") { e.preventDefault(); step(1); }
+});
+
+/* =====================================================================
+   boot
+   ===================================================================== */
+$("lang").addEventListener("change", function(){
+  lang = this.value;
+  try { localStorage.setItem(LS_KEY, lang); } catch(e){}
+  renderAll();
+});
+renderAll();
+var startIdx = indexFromHash();
+if (startIdx >= 0) openSheet(startIdx, true);
 </script>
 </body>
 </html>
