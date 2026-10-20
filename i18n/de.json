@@ -75,6 +75,17 @@
         "Keine Werbung über dem Feuer. Keine Anmeldung, keine Berechtigungen"
       ]
     },
+    "sleepool": {
+      "name": "Sleepool - Sanftes Rauschen",
+      "tag": "Regen, weißes Rauschen und ASMR im eigenen Mix. Schlaf-Timer. Offline.",
+      "lead": "Füllen Sie einen zu stillen oder zu lauten Raum mit einem selbst gemischten Klang. Stellen Sie den Timer ein, und der Klang blendet nach dem Einschlafen von selbst aus.",
+      "feats": [
+        "Über 50 Klänge: Regen, weißes/rosa/braunes Rauschen, Natur, ASMR, Meditation und Alltagsgeräusche wie Ventilator oder Café",
+        "Lautstärkeregler für jeden Klang, eigene Mixe speichern oder mit fertigen Mixen beginnen",
+        "Schlaf-Timer von 15 Minuten bis 12 Stunden, mit sanftem Ausblenden am Ende",
+        "Eigene Audio- oder Videodateien als nahtlose Schleife nutzen. Offline, ohne Konto"
+      ]
+    },
     "morserun": {
       "name": "MorseRun All-in-One Morsecode",
       "tag": "Sende Morsecode mit der Taschenlampe, lies ihn mit der Kamera. SOS inklusive.",

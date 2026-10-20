@@ -75,6 +75,17 @@
         "Aucune pub sur le feu. Ni inscription, ni autorisations"
       ]
     },
+    "sleepool": {
+      "name": "Sleepool - Bruits Douillets",
+      "tag": "Pluie, bruit blanc et ASMR dans votre propre mix. Minuteur. Hors ligne.",
+      "lead": "Remplissez une pièce trop calme ou trop bruyante avec un son que vous composez vous-même. Réglez le minuteur : le son s'estompe tout seul une fois que vous dormez.",
+      "feats": [
+        "Plus de 50 sons : pluie, bruit blanc, rose et brun, nature, ASMR, méditation et sons du quotidien comme un ventilateur ou un café",
+        "Un curseur de volume par son, vos mélanges enregistrés et des mélanges prêts à l'emploi",
+        "Minuteur de sommeil de 15 minutes à 12 heures, avec un fondu en douceur à la fin",
+        "Transformez vos propres fichiers audio ou vidéo en boucles continues. Hors ligne, sans compte"
+      ]
+    },
     "morserun": {
       "name": "MorseRun Code Morse",
       "tag": "Parlez en Morse avec votre lampe, lisez-le avec votre caméra. SOS intégré.",

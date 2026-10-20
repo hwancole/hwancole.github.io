@@ -75,6 +75,17 @@
         "Sin anuncios sobre el fuego. Sin registro ni permisos"
       ]
     },
+    "sleepool": {
+      "name": "Sleepool - Ruido Acogedor",
+      "tag": "Lluvia, ruido blanco y ASMR en tu propia mezcla. Temporizador. Sin conexión.",
+      "lead": "Llena una habitación demasiado silenciosa o demasiado ruidosa con un sonido creado por usted. Ajuste el temporizador y el sonido se desvanecerá solo cuando se haya dormido.",
+      "feats": [
+        "Más de 50 sonidos: lluvia, ruido blanco, rosa y marrón, naturaleza, ASMR, meditación y sonidos cotidianos como un ventilador o una cafetería",
+        "Control de volumen para cada sonido, mezclas guardadas y mezclas listas para empezar",
+        "Temporizador de 15 minutos a 12 horas, con un desvanecimiento suave al final",
+        "Convierta sus propios archivos de audio o video en bucles continuos. Sin conexión y sin cuenta"
+      ]
+    },
     "morserun": {
       "name": "MorseRun Código Morse",
       "tag": "Habla en Morse con tu linterna y léelo con la cámara. SOS incluido.",

@@ -75,6 +75,17 @@
         "Sem anúncios cobrindo o fogo. Sem cadastro, sem permissões"
       ]
     },
+    "sleepool": {
+      "name": "Sleepool - Sons Aconchegantes",
+      "tag": "Chuva, ruído branco e ASMR no seu próprio mix. Timer de sono. Funciona offline.",
+      "lead": "Preencha um quarto silencioso ou barulhento demais com um som criado por você. Ajuste o timer, e o som diminui sozinho depois que você adormecer.",
+      "feats": [
+        "Mais de 50 sons: chuva, ruído branco, rosa e marrom, natureza, ASMR, meditação e sons do dia a dia, como ventilador ou café",
+        "Controle de volume para cada som, mixes salvos e mixes prontos para começar",
+        "Timer de sono de 15 minutos a 12 horas, com redução suave no final",
+        "Transforme seus próprios arquivos de áudio ou vídeo em loops contínuos. Funciona offline, sem conta"
+      ]
+    },
     "morserun": {
       "name": "MorseRun Código Morse",
       "tag": "Fale em Morse com a lanterna e leia com a câmera. SOS incluído.",

@@ -75,6 +75,17 @@
         "Tanpa iklan yang menutupi api. Tanpa daftar, tanpa izin"
       ]
     },
+    "sleepool": {
+      "name": "Sleepool - Suara Nyaman",
+      "tag": "Hujan, white noise, dan ASMR dalam racikanmu. Timer tidur. Bisa offline.",
+      "lead": "Isi kamar yang terlalu sunyi atau terlalu bising dengan suara racikan Anda sendiri. Atur timer, dan suara akan memudar dengan sendirinya setelah Anda tertidur.",
+      "feats": [
+        "50+ suara: hujan, white/pink/brown noise, alam, ASMR, meditasi, dan suara sehari-hari seperti kipas atau kafe",
+        "Slider volume untuk setiap suara, simpan racikan Anda, atau mulai dari racikan siap pakai",
+        "Timer tidur dari 15 menit hingga 12 jam, dengan suara yang memudar perlahan di akhir",
+        "Ubah file audio atau video Anda menjadi loop tanpa jeda. Bisa offline, tanpa akun"
+      ]
+    },
     "morserun": {
       "name": "MorseRun Kode Morse",
       "tag": "Bicara dengan kode Morse lewat senter, baca dengan kamera. Ada SOS bawaan.",

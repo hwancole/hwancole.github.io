@@ -75,6 +75,17 @@
         "Không quảng cáo che lửa. Không đăng ký, không cần quyền"
       ]
     },
+    "sleepool": {
+      "name": "Sleepool - Âm Thanh Êm Dịu",
+      "tag": "Mưa, tiếng ồn trắng và ASMR theo cách bạn phối. Hẹn giờ ngủ. Dùng offline.",
+      "lead": "Lấp đầy căn phòng quá yên tĩnh hay quá ồn bằng âm thanh do chính bạn phối. Hẹn giờ xong, âm thanh sẽ tự nhỏ dần khi bạn đã ngủ.",
+      "feats": [
+        "Hơn 50 âm thanh: mưa, tiếng ồn trắng/hồng/nâu, thiên nhiên, ASMR, thiền và âm thanh đời thường như quạt, quán cà phê",
+        "Thanh chỉnh âm lượng cho từng âm thanh, lưu bản phối, có sẵn bản phối mẫu",
+        "Hẹn giờ ngủ từ 15 phút đến 12 giờ, tắt dần nhẹ nhàng khi kết thúc",
+        "Biến tệp âm thanh hoặc video của bạn thành vòng lặp liền mạch. Dùng offline, không cần tài khoản"
+      ]
+    },
     "morserun": {
       "name": "MorseRun Mã Morse",
       "tag": "Nói chuyện bằng mã Morse qua đèn pin, đọc bằng camera. Có sẵn SOS.",

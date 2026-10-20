@@ -75,6 +75,17 @@
         "Ateşi kapatan reklam yok. Kayıt yok, izin yok"
       ]
     },
+    "sleepool": {
+      "name": "Sleepool - Huzurlu Sesler",
+      "tag": "Yağmur, beyaz gürültü, ASMR kendi karışımında. Uyku zamanlayıcı. Çevrimdışı.",
+      "lead": "Fazla sessiz ya da fazla gürültülü bir odayı kendi oluşturduğunuz sesle doldurun. Zamanlayıcıyı ayarlayın; uyuduktan sonra ses kendiliğinden yavaşça kısılır.",
+      "feats": [
+        "50'den fazla ses: yağmur, beyaz/pembe/kahverengi gürültü, doğa, ASMR, meditasyon ve vantilatör ya da kafe gibi gündelik sesler",
+        "Her ses için ayrı ses seviyesi, kayıtlı karışımlar ve hazır karışımlar",
+        "15 dakikadan 12 saate kadar uyku zamanlayıcısı, sonunda yumuşak geçişle kısılır",
+        "Kendi ses veya video dosyalarınızı kesintisiz döngüye dönüştürün. Çevrimdışı, hesap gerekmez"
+      ]
+    },
     "morserun": {
       "name": "MorseRun Mors Alfabesi",
       "tag": "Fenerinizle Mors koduyla konuşun, kameranızla okuyun. SOS dahil.",

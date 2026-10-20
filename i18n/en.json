@@ -75,6 +75,17 @@
         "No ads covering the fire. No sign-up, no permissions"
       ]
     },
+    "sleepool": {
+      "name": "Sleepool - Cozy Noise",
+      "tag": "Rain, white noise and ASMR in your own mix. Sleep timer. Works offline.",
+      "lead": "Fill a room that is too quiet or too loud with a sound you build yourself. Set the timer, and it fades out on its own once you are asleep.",
+      "feats": [
+        "50+ sounds: rain, white/pink/brown noise, nature, ASMR, meditation, and everyday sounds like a fan or a café",
+        "A volume slider for every sound, saved mixes, and ready-made mixes to start from",
+        "Sleep timer from 15 minutes up to 12 hours, with a gentle fade-out at the end",
+        "Turn your own audio or video files into seamless loops. Works offline, no account"
+      ]
+    },
     "morserun": {
       "name": "MorseRun - All-in-One Morse",
       "tag": "Talk in Morse code with your flashlight, read it with your camera. SOS built in.",

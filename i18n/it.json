@@ -75,6 +75,17 @@
         "Nessuna pubblicità sul fuoco. Nessuna registrazione, nessun permesso"
       ]
     },
+    "sleepool": {
+      "name": "Sleepool - Rumori Rilassanti",
+      "tag": "Pioggia, rumore bianco e ASMR nel tuo mix. Timer per dormire. Funziona offline.",
+      "lead": "Riempi una stanza troppo silenziosa o troppo rumorosa con un suono creato da te. Imposta il timer e il suono si attenuerà da solo quando ti sarai addormentato.",
+      "feats": [
+        "Oltre 50 suoni: pioggia, rumore bianco, rosa e marrone, natura, ASMR, meditazione e suoni quotidiani come un ventilatore o un caffè",
+        "Un cursore del volume per ogni suono, mix salvati e mix pronti da cui partire",
+        "Timer da 15 minuti a 12 ore, con dissolvenza graduale alla fine",
+        "Trasforma i tuoi file audio o video in loop continui. Funziona offline, senza account"
+      ]
+    },
     "morserun": {
       "name": "MorseRun Codice Morse",
       "tag": "Parla in Morse con la torcia e leggilo con la fotocamera. SOS integrato.",

@@ -75,6 +75,17 @@
         "Walang ads na tumatakip sa apoy. Walang sign-up, walang permissions"
       ]
     },
+    "sleepool": {
+      "name": "Sleepool - Payapang Tunog",
+      "tag": "Ulan, white noise at ASMR sa sarili mong mix. Sleep timer. Gumagana offline.",
+      "lead": "Punuin ang kuwartong masyadong tahimik o masyadong maingay ng tunog na ikaw mismo ang gumawa. I-set ang timer, at kusa itong hihina kapag tulog ka na.",
+      "feats": [
+        "Mahigit 50 tunog: ulan, white/pink/brown noise, kalikasan, ASMR, meditation, at araw-araw na tunog tulad ng bentilador o café",
+        "May volume slider ang bawat tunog, puwedeng i-save ang mix, o magsimula sa mga handang mix",
+        "Sleep timer mula 15 minuto hanggang 12 oras, na dahan-dahang humihina sa dulo",
+        "Gawing tuloy-tuloy na loop ang sarili mong audio o video file. Gumagana offline, walang account"
+      ]
+    },
     "morserun": {
       "name": "MorseRun Morse Code",
       "tag": "Mag-usap sa Morse code gamit ang flashlight, basahin ito gamit ang camera. May built-in na SOS.",
