@@ -10,7 +10,10 @@
 <meta property="og:description" content="Practical Android apps for everyday use. Free to download on Google Play.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://hwancole.github.io/">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='16' fill='%23E3803A'/><text x='32' y='44' font-size='34' font-family='Arial' font-weight='700' text-anchor='middle' fill='white'>T</text></svg>">
+<meta property="og:image" content="https://hwancole.github.io/assets/og.jpg">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="64x64" href="assets/favicon-64.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://play-lh.googleusercontent.com">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
@@ -70,9 +73,8 @@ img{display:block}
 .top-in{max-width:1080px;margin:0 auto;height:60px;padding:0 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
 .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:16px;letter-spacing:-.01em}
 .logo{
-  width:30px;height:30px;border-radius:9px;display:grid;place-items:center;flex:0 0 auto;
-  background:linear-gradient(140deg,#F5B353,#DD6A2C);color:#fff;font-size:15px;font-weight:900;
-  box-shadow:0 6px 14px -6px rgba(221,106,44,.8),inset 0 1px 0 rgba(255,255,255,.35);
+  width:32px;height:32px;border-radius:50%;flex:0 0 auto;object-fit:cover;background:#2A2D33;
+  box-shadow:0 0 0 2px rgba(242,165,65,.85),0 6px 14px -6px rgba(221,106,44,.8);
 }
 .lang{position:relative;display:flex;align-items:center}
 .lang svg{position:absolute;pointer-events:none;opacity:.85}
@@ -239,7 +241,7 @@ html:not(.i18n-wait) .hero-in > :nth-child(6){animation-delay:.30s}
 /* ---------- footer ---------- */
 .foot{margin-top:72px;padding-top:24px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:12.5px;color:var(--muted)}
 .foot .brand{font-size:14px;color:var(--ink)}
-.foot .logo{width:24px;height:24px;border-radius:7px;font-size:12px}
+.foot .logo{width:26px;height:26px}
 .foot a.gh{font-weight:700;color:var(--ink2)}
 .foot a.gh:hover{color:var(--accent)}
 
@@ -264,7 +266,8 @@ dialog::backdrop{background:var(--scrim);-webkit-backdrop-filter:blur(6px);backd
 .sh-head.stuck{border-bottom-color:var(--line)}
 .sh-head .app-icon{width:58px;height:58px;border-radius:15px}
 .sh-head h3{margin:0;font-size:18.5px;font-weight:800;line-height:1.25;letter-spacing:-.015em}
-.sh-head .dev{font-size:12px;color:var(--accent);font-weight:700;margin-top:2px}
+.sh-head .dev{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--accent);font-weight:700;margin-top:3px}
+.sh-head .dev img{width:16px;height:16px;border-radius:50%;object-fit:cover}
 .x{
   margin-inline-start:auto;flex:0 0 auto;width:38px;height:38px;border-radius:50%;border:0;cursor:pointer;
   background:var(--soft);color:var(--ink);display:grid;place-items:center;transition:transform .2s ease;
@@ -309,7 +312,7 @@ dialog::backdrop{background:var(--scrim);-webkit-backdrop-filter:blur(6px);backd
 
 <header class="top" id="top">
   <div class="top-in">
-    <div class="brand"><span class="logo" aria-hidden="true">T</span><span>Teemy</span></div>
+    <div class="brand"><img class="logo" src="assets/logo.webp" alt="" width="32" height="32"><span>Teemy</span></div>
     <label class="lang">
       <span class="sr" data-i="langLabel">Language</span>
       <svg class="globe" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.6 2.8 3.9 6 3.9 9.5s-1.3 6.7-3.9 9.5c-2.6-2.8-3.9-6-3.9-9.5S9.4 5.3 12 2.5z"/></svg>
@@ -345,7 +348,7 @@ dialog::backdrop{background:var(--scrim);-webkit-backdrop-filter:blur(6px);backd
   </section>
 
   <footer class="foot">
-    <div class="brand"><span class="logo" aria-hidden="true">T</span><span>Teemy</span></div>
+    <div class="brand"><img class="logo" src="assets/logo.webp" alt="" width="32" height="32"><span>Teemy</span></div>
     <span>© <span id="yr"></span> Teemy · hwancole</span>
     <a class="gh" href="https://github.com/hwancole" target="_blank" rel="noopener">GitHub ↗</a>
   </footer>
@@ -584,7 +587,7 @@ function fillSheet(i){
     '<div class="sh-grip" aria-hidden="true"></div>' +
     '<div class="sh-head" id="shHead">' +
       '<img class="app-icon" src="' + img(a.icon,"s128") + '" alt="" width="56" height="56">' +
-      '<div><h3 id="sh-title">' + esc(appName(a)) + '</h3><div class="dev">Teemy</div><div class="chips">' + chipsHtml(a) + '</div></div>' +
+      '<div><h3 id="sh-title">' + esc(appName(a)) + '</h3><div class="dev"><img src="assets/logo.webp" alt="" width="16" height="16">Teemy</div><div class="chips">' + chipsHtml(a) + '</div></div>' +
       '<button class="x" type="button" id="shClose" aria-label="' + esc(t("close")) + '">' + ICON_X + '</button>' +
     '</div>' +
     '<div class="sh-body">' +
